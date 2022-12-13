@@ -3,4 +3,9 @@ dash==2.7.0
 dash_bootstrap_components==0.13.1
 dash_extensions==0.1.8
 feffery_antd_components==0.1.16
-Flask==2.0.2
+gunicorn==20.0.4
+tensorflow-cpu==2.6.2
+Flask==2.0.3
+pillow==8.3.1
+requests==2.27.1
+protobuf==3.19.0

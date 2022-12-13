@@ -13,7 +13,7 @@ def serve():
                         dbc.Col(html.Img(src=f"{globals.config['img_path']}/logo.png", height="50px"))
                     ],
                 ),
-                href="https://iamskin.tk/",
+                href="/",
             ),
             # dbc.Col(style={'width': 4}),
             # html.A(

@@ -1,4 +1,9 @@
 {
-    "img_path": "./assets/img",
-    "text_path": "./text"
+    "img_path": "assets/img",
+    "text_path": "assets/text",
+    "chinese_mapping": {
+        "skin": "肌膚",
+        "nail": "指甲",
+        "acne": "痘痘"
+    }
 }

@@ -1,40 +1,17 @@
-import feffery_antd_components as fac
 from dash import html
+
+from components import card, upload
 
 def serve_layout():
     layout = html.Div(
         [
-            fac.AntdCard(
-                fac.AntdParagraph(
-                    '透過影像分析來檢測您的指甲異常風險。',
-                ),
-                title='指甲檢測工具',
-                headStyle={
-                    'fontSize': 35,
-                    'font-weight': 'bold',
-                },
-                hoverable=True,
-                bodyStyle={
-                    'fontSize': 30,
-                },
+            card.serve(
+                '指甲檢測工具',
+                '透過影像分析來檢測您的指甲異常風險。',
+                True,
+                'nail',
             ),
-            fac.AntdPictureUpload(
-                apiUrl='/upload/',
-                fileMaxSize=1,
-                buttonContent='點擊上傳圖片',
-                failedTooltipInfo='上傳失敗',
-                editable=True,
-                editConfig={
-                    'grid': True,
-                    'rotate': True,
-                    'modalTitle': '圖片編輯窗口',
-                    'modalWidth': 600
-                },
-                style={
-                    'margin-top': '2rem',
-                },
-                locale='en-us',
-            )
+            upload.serve(),
         ],
     )
     return layout
