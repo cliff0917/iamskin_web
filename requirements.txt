@@ -1,4 +1,4 @@
-pyOpenSSL
+pyOpenSSL==22.1.0
 dash==2.7.0
 dash_bootstrap_components==0.13.1
 dash_extensions==0.1.8

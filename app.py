@@ -108,7 +108,7 @@ if __name__ == '__main__':
     debug = 1
 
     if debug == 1:
-        # app.run(host='0.0.0.0', port=8080, debug=True, dev_tools_props_check=False, ssl_context='adhoc')
+        # app.run(host='0.0.0.0', port=8080, dev_tools_props_check=False, ssl_context='adhoc')
         app.run(host='0.0.0.0', port=8050, debug=True, dev_tools_props_check=False)
     else:
         pid = os.fork()
