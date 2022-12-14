@@ -31,7 +31,7 @@ GOOGLE_CLIENT_ID = client_secrets["web"]["client_id"]
 flow = Flow.from_client_secrets_file(
     client_secrets_file=client_secrets_file,
     scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-    redirect_uri="https://iamskin.tk/callback"
+    redirect_uri=client_secrets["web"]["redirect_uris"][0]
 )
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
