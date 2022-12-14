@@ -5,22 +5,40 @@ warnings.filterwarnings("ignore", category=Warning)
 import os
 import dash
 import base64
+import pathlib
 import requests
 import webbrowser
 from flask import request
 from dash import dcc, html, callback
 from dash.dependencies import Input, Output
-from flask import send_from_directory
+from flask import send_from_directory, session, abort, redirect, request
+from google.oauth2 import id_token
+from google_auth_oauthlib.flow import Flow
+from pip._vendor import cachecontrol
+import google.auth.transport.requests
 
 import globals
 from transfer import encode
 from components import navbar, sidebar
 from pages import home, about, skin, nail, acne, common_questions, non_exist
 
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, 'client_secret.json')
+client_secrets = globals.read_json(client_secrets_file)
+GOOGLE_CLIENT_ID = client_secrets["web"]["client_id"]
+
+flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    redirect_uri="https://iamskin.tk/callback"
+)
+
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 server = app.server
 app.title = "愛美膚 iamSkin"
 app._favicon = ("img/logo.png")
+server.secret_key = "iamskin.tk"
 
 # components
 url = dcc.Location(id="url")
@@ -32,7 +50,7 @@ def serve_layout():
     layout = html.Div(
         [
             url,
-            navbar.serve(),
+            navbar.serve(session),
             sidebar.serve(),
         ],
     )
@@ -67,6 +85,49 @@ def display_page(pathname):
         return common_questions.serve_layout()
 
     return non_exist.serve_layout()  # 若非以上路徑, 則 return 404 message
+
+def login_is_required(function):
+    def wrapper(*args, **kwargs):
+        if "google_id" not in session:
+            return abort(401)  # Authorization required
+        else:
+            return function()
+    return wrapper
+
+@server.route("/protected_area")
+@login_is_required
+def protected_area():
+    return f"{session}"
+
+@server.route("/login")
+def login():
+    authorization_url, state = flow.authorization_url()
+    session["state"] = state
+    return redirect(authorization_url)
+
+@server.route("/callback")
+def callback():
+    flow.fetch_token(authorization_response=request.url)
+
+    if not session["state"] == request.args["state"]:
+        abort(500)  # State does not match!
+
+    credentials = flow.credentials
+    request_session = requests.session()
+    cached_session = cachecontrol.CacheControl(request_session)
+    token_request = google.auth.transport.requests.Request(session=cached_session)
+
+    id_info = id_token.verify_oauth2_token(
+        id_token=credentials._id_token,
+        request=token_request,
+        audience=GOOGLE_CLIENT_ID
+    )
+    session["google_id"] = id_info.get("sub")
+    session["name"] = id_info.get("name")
+    session["picture"] = id_info.get("picture")
+    return redirect("/")
+
+
 
 @server.route('/upload/', methods=['POST'])
 def upload():
@@ -105,15 +166,14 @@ def upload():
     return {'filename': filename}
 
 if __name__ == '__main__':
-    debug = 1
+    debug = 0
 
     if debug == 1:
-        # app.run(host='0.0.0.0', port=8080, dev_tools_props_check=False, ssl_context='adhoc')
-        app.run(host='0.0.0.0', port=8050, debug=True, dev_tools_props_check=False)
+        app.run(host='0.0.0.0', port=8080, debug=True, dev_tools_props_check=False)
     else:
         pid = os.fork()
         if pid != 0:
-            app.run_server()
+            app.run(host='0.0.0.0', port=8080, dev_tools_props_check=False, ssl_context='adhoc')
         else:
-            url = "http://127.0.0.1:8050/"
+            url = "https://iamskin.tk/"
             webbrowser.open(url)

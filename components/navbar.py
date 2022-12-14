@@ -1,30 +1,22 @@
-from dash import html
+from dash import callback
 import dash_bootstrap_components as dbc
+from dash.dependencies import Input, Output
 
 import globals
+from components import logo, login_btn, login_modal
 
-def serve():
+def serve(session):
     navbar = dbc.Navbar(
         [
-            html.A(
-                # 利用 row, col 來控制排版
-                dbc.Row(
-                    [
-                        dbc.Col(html.Img(src=f"{globals.config['img_path']}/logo.png", height="50px"))
-                    ],
-                ),
-                href="/",
+            logo.serve(),
+            dbc.Col(
+                style={
+                    'width': 4,
+                }
             ),
-            # dbc.Col(style={'width': 4}),
-            # html.A(
-            #     # 利用 row, col 來控制排版
-            #     dbc.Row(
-            #         dbc.Col(html.Img(className="github", src=github, height="50px")),
-            #     ),
-            #     href="https://github.com/cliff0917/dashboard",
-            # ),
+            login_btn.serve(),
+            login_modal.serve(),
         ],
-        # color="#F5F5F5",
         color="#8EA0A5",
         sticky='top',
         style={
@@ -33,3 +25,11 @@ def serve():
         },
     )
     return navbar
+
+@callback(
+    Output('modal', 'visible'),
+    Input('login-btn', 'nClicks'),
+    prevent_initial_call=True
+)
+def modal_demo_callback1(nClicks):
+    return True
