@@ -1,6 +1,5 @@
 import feffery_antd_components as fac
-from dash import html, callback
-from dash.dependencies import Input, Output
+from dash import html
 
 def serve():
     sidebar = html.Div(
@@ -43,27 +42,27 @@ def serve():
                                                         {
                                                             'component': 'Item',
                                                             'props': {
-                                                                'key': '/AI-Prediction/Skin',
+                                                                'key': '/Skin-Prediction',
                                                                 'title': '膚質檢測',
-                                                                'href': '/AI-Prediction/Skin',
+                                                                'href': '/Skin-Prediction',
                                                                 'icon': 'antd-camera',
                                                             }
                                                         },
                                                         {
                                                             'component': 'Item',
                                                             'props': {
-                                                                'key': '/AI-Prediction/Nail',
+                                                                'key': '/Nail-Prediction',
                                                                 'title': '指甲檢測',
-                                                                'href': '/AI-Prediction/Nail',
+                                                                'href': '/Nail-Prediction',
                                                                 'icon': 'antd-alert',
                                                             }
                                                         },
                                                         {
                                                             'component': 'Item',
                                                             'props': {
-                                                                'key': '/AI-Prediction/Acne',
+                                                                'key': '/Acne-Prediction',
                                                                 'title': '痘痘檢測',
-                                                                'href': '/AI-Prediction/Acne',
+                                                                'href': '/Acne-Prediction',
                                                                 'icon': 'antd-aim',
                                                             }
                                                         }

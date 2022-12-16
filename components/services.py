@@ -30,7 +30,7 @@ def serve():
                         "點擊分析膚質",
                         color="primary",
                         outline=True,
-                        href='/AI-Prediction/Skin',
+                        href='/Skin-Prediction',
                         style={
                             'font-weight': 'bold',
                         },
@@ -66,7 +66,7 @@ def serve():
                         "點擊分析指甲",
                         color="primary",
                         outline=True,
-                        href='/AI-Prediction/Nail',
+                        href='/Nail-Prediction',
                         style={
                             'font-weight': 'bold',
                         },
@@ -102,7 +102,7 @@ def serve():
                         "點擊分析痘痘",
                         color="primary",
                         outline=True,
-                        href='/AI-Prediction/Acne',
+                        href='/Acne-Prediction',
                         style={
                             'font-weight': 'bold',
                         },

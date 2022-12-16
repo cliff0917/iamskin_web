@@ -3,12 +3,13 @@ import warnings
 warnings.filterwarnings("ignore", category=Warning)
 
 import os
+import time
 import dash
 import base64
 import pathlib
 import requests
 import webbrowser
-from flask import request
+from flask import make_response, Response
 from dash import dcc, html, callback
 from dash.dependencies import Input, Output
 from flask import send_from_directory, session, abort, redirect, request
@@ -62,7 +63,7 @@ app.layout = serve_layout
 # 透過 url 來決定顯示哪個 page
 @callback(
     Output('content', 'children'),
-    Input('url', 'pathname')
+    Input('url', 'pathname'),
 )
 def display_page(pathname):
     # live update layout
@@ -72,13 +73,13 @@ def display_page(pathname):
     elif pathname == '/About-us':
         return about.serve_layout()
 
-    elif pathname == '/AI-Prediction/Skin':
+    elif pathname == '/Skin-Prediction':
         return skin.serve_layout()
 
-    elif pathname == '/AI-Prediction/Nail':
+    elif pathname == '/Nail-Prediction':
         return nail.serve_layout()
 
-    elif pathname == '/AI-Prediction/Acne':
+    elif pathname == '/Acne-Prediction':
         return acne.serve_layout()
 
     elif pathname == '/Q&A':
@@ -86,24 +87,17 @@ def display_page(pathname):
 
     return non_exist.serve_layout()  # 若非以上路徑, 則 return 404 message
 
-def login_is_required(function):
-    def wrapper(*args, **kwargs):
-        if "google_id" not in session:
-            return abort(401)  # Authorization required
-        else:
-            return function()
-    return wrapper
-
-@server.route("/protected_area")
-@login_is_required
-def protected_area():
-    return f"{session}"
-
 @server.route("/login")
 def login():
     authorization_url, state = flow.authorization_url()
     session["state"] = state
     return redirect(authorization_url)
+
+# @server.route('/del')
+# def del_cookie():
+#     res = Response('delete cookies')
+#     res.set_cookie(key='state', value='', expires=0)
+#     return res
 
 @server.route("/callback")
 def callback():

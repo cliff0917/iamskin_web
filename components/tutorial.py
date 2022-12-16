@@ -31,7 +31,7 @@ def serve(is_open, types):
                     html.Br(),
                     html.Br(),
                     fac.AntdImage(
-                        src=f"../{globals.config['img_path']}/{types}-example.png",
+                        src=f"{globals.config['img_path']}/{types}-example.png",
                         preview=False,
                     ),
                 ]
