@@ -1,11 +1,10 @@
 pyOpenSSL==22.1.0
 dash==2.7.0
 dash_bootstrap_components==0.13.1
-dash_extensions==0.1.8
 feffery_antd_components==0.1.16
-gunicorn==20.0.4
 Flask==2.0.3
-pillow==8.3.1
+google_auth_oauthlib==0.4.6
+Pillow==9.3.0
+pip==22.3.1
+protobuf==4.21.12
 requests==2.27.1
-protobuf==3.19.5
-google-auth==2.14.0
