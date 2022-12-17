@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 import globals
 from components import logo, navbar_btn, modal
 
-def serve(session):
+def serve():
     navbar = dbc.Navbar(
         [
             logo.serve(),
@@ -16,7 +16,7 @@ def serve(session):
                     'width': 4,
                 }
             ),
-            navbar_btn.serve(session),
+            navbar_btn.serve(),
             modal.serve('login', '登入帳號', '使用 Google 繼續', '/login'),
             modal.serve('logout', '登出帳號', '登出', '/'),
         ],

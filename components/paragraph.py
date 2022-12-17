@@ -3,10 +3,9 @@ from dash import html
 
 import globals
 
-def serve(type):
-    with open(f"{globals.config['text_path']}/{type}.txt", 'r') as f:
+def serve(types):
+    with open(f"{globals.config['text_path']}/{types}.txt", 'r') as f:
         lines = f.readlines()
-
 
     paragraph = html.Div(
         [

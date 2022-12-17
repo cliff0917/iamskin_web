@@ -42,27 +42,27 @@ def serve():
                                                         {
                                                             'component': 'Item',
                                                             'props': {
-                                                                'key': '/Skin-Prediction',
+                                                                'key': '/Skin',
                                                                 'title': '膚質檢測',
-                                                                'href': '/Skin-Prediction',
+                                                                'href': '/Skin',
                                                                 'icon': 'antd-camera',
                                                             }
                                                         },
                                                         {
                                                             'component': 'Item',
                                                             'props': {
-                                                                'key': '/Nail-Prediction',
+                                                                'key': '/Nail',
                                                                 'title': '指甲檢測',
-                                                                'href': '/Nail-Prediction',
+                                                                'href': '/Nail',
                                                                 'icon': 'antd-alert',
                                                             }
                                                         },
                                                         {
                                                             'component': 'Item',
                                                             'props': {
-                                                                'key': '/Acne-Prediction',
+                                                                'key': '/Acne',
                                                                 'title': '痘痘檢測',
-                                                                'href': '/Acne-Prediction',
+                                                                'href': '/Acne',
                                                                 'icon': 'antd-aim',
                                                             }
                                                         }

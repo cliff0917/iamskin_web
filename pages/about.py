@@ -38,7 +38,7 @@ def serve_layout():
                     )
                 ],
                 style={
-                    'margin-left':'1.5px',
+                    'margin-left': '1.5px',
                 },
             )
         ],

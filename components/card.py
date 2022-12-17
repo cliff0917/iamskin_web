@@ -3,7 +3,7 @@ from dash import html
 
 from components import tutorial
 
-def serve(title, content, tutorial_is_open=False, types='skin'):
+def serve(title, content, tutorial_is_open=False, types='Skin'):
     card = fac.AntdCard(
         fac.AntdParagraph(
             [
