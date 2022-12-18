@@ -7,7 +7,7 @@ conda create -y -n iamskin python=3.7
 conda activate iamskin
 cd iamskin
 pip install -r requirements.txt
-python app.py
+sh run.sh
 ```
 
 ## 可能遇到的問題
@@ -15,5 +15,5 @@ python app.py
 
   使用以下指令
   ```
-  sudo lsof -t -i tcp:8080 | xargs kill -9
+  sh kill.sh
   ```

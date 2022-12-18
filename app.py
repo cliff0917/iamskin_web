@@ -9,7 +9,7 @@ from dash import dcc, html, callback
 from dash.dependencies import Input, Output
 
 import globals
-from lib import login, upload
+from utils import login, upload
 from components import navbar, sidebar
 from pages import home, about, prediction, common_questions, non_exist
 

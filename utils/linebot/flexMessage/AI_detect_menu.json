@@ -1,0 +1,104 @@
+{
+  "type": "bubble",
+  "hero": {
+    "type": "image",
+    "url": "https://i.imgur.com/6cpfFFa.jpg",
+    "size": "full",
+    "aspectRatio": "20:16",
+    "aspectMode": "cover",
+    "offsetTop": "none",
+    "position": "relative",
+    "offsetBottom": "none",
+    "offsetEnd": "none",
+    "offsetStart": "none"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "請選擇AI檢測項目",
+        "weight": "bold",
+        "size": "xl"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "xs",
+        "spacing": "none",
+        "contents": [
+          {
+            "type": "text",
+            "text": "透過上傳照片，幾秒內立即檢測",
+            "margin": "none",
+            "size": "md",
+            "offsetTop": "none",
+            "offsetBottom": "none",
+            "contents": []
+          },
+          {
+            "type": "text",
+            "text": "皮膚健康狀況！",
+            "size": "md",
+            "margin": "none"
+          }
+        ],
+        "cornerRadius": "none"
+      }
+    ],
+    "margin": "none",
+    "borderWidth": "normal",
+    "paddingBottom": "10px"
+  },
+  "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "spacing": "sm",
+    "contents": [
+      {
+        "type": "button",
+        "height": "sm",
+        "action": {
+          "type": "message",
+          "label": "我要檢測 膚質",
+          "text": "我要檢測 膚質"
+        },
+        "offsetTop": "none",
+        "style": "primary"
+      },
+      {
+        "type": "button",
+        "height": "sm",
+        "action": {
+          "type": "message",
+          "label": "我要檢測 指甲",
+          "text": "我要檢測 指甲"
+        },
+        "style": "primary"
+      },
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "我要檢測 痘痘",
+          "text": "我要檢測 痘痘"
+        },
+        "height": "sm",
+        "style": "primary"
+      },
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "查看使用教學",
+          "text": "如何使用"
+        },
+        "height": "sm",
+        "style": "secondary"
+      }
+    ],
+    "flex": 0,
+    "margin": "none"
+  }
+}

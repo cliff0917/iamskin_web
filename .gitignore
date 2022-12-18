@@ -1,4 +1,7 @@
 __pycache__/
-iamskin*/
-*server/
+Image/
+Prediction/
+*.h5
+*.pt
 test.py
+test.jpg

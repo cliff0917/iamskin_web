@@ -1,0 +1,40 @@
+{
+  "type": "bubble",
+  "hero": {
+    "type": "image",
+    "size": "full",
+    "aspectRatio": "25:15",
+    "aspectMode": "cover",
+    "url": "https://i.imgur.com/eHOx2Nz.png"
+  },
+  "footer": {
+    "type": "box",
+    "layout": "horizontal",
+    "spacing": "sm",
+    "contents": [
+      {
+        "type": "button",
+        "height": "sm",
+        "action": {
+          "type": "message",
+          "label": "查看相關資料",
+          "text": "痘痘資料"
+        },
+        "position": "relative",
+        "style": "secondary"
+      },
+      {
+        "type": "button",
+        "style": "secondary",
+        "height": "sm",
+        "action": {
+          "type": "message",
+          "label": "做其他AI檢測",
+          "text": "AI檢測"
+        },
+        "position": "relative"
+      }
+    ],
+    "flex": 0
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "您好！"
+      },
+      {
+        "type": "text",
+        "text": "歡迎加入愛美膚，我們提供免費的AI"
+      },
+      {
+        "type": "text",
+        "text": "檢測服務幫助您自我檢測膚質、指甲"
+      },
+      {
+        "type": "text",
+        "text": "及痘痘的健康狀況。",
+        "contents": []
+      },
+      {
+        "type": "text",
+        "text": "*注意事項：此服務僅作為風險之初"
+      },
+      {
+        "type": "text",
+        "text": "步判斷，以達到適時時預防之功能，"
+      },
+      {
+        "type": "text",
+        "text": "如需更詳細的檢查，請務必尋求專業"
+      },
+      {
+        "type": "text",
+        "text": "醫療單位。"
+      }
+    ]
+  },
+  "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "spacing": "sm",
+    "contents": [
+      {
+        "type": "button",
+        "style": "primary",
+        "height": "sm",
+        "action": {
+          "type": "message",
+          "label": "開始使用愛美膚",
+          "text": "AI檢測"
+        }
+      }
+    ],
+    "flex": 0
+  }
+}
