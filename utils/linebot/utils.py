@@ -16,6 +16,7 @@ matplotlib.use('Agg')
 
 globals.initialize()
 
+ip_address = requests.get('https://api.ipify.org').text
 channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", globals.config["LINE_CHANNEL_ACCESS_TOKEN"])
 
 if channel_access_token is None:
@@ -46,7 +47,7 @@ def upload_img_to_imgur(client_id, imgpath):
 
 # skin type
 def get_skin_result(url):
-    skin_model_url = f"http://140.116.82.34:{globals.config['port']['skin']}/skin-classifier"
+    skin_model_url = f"http://{ip_address}:{globals.config['port']['skin']}/skin-classifier"
     r = requests.post(
         skin_model_url,
         data=json.dumps({
@@ -91,7 +92,7 @@ def skin_plot(likelihood, path):
 
 # nail type
 def get_nail_result(url):
-    nail_model_url = f"http://140.116.82.34:{globals.config['port']['nail']}/nail-classifier"
+    nail_model_url = f"http://{ip_address}:{globals.config['port']['nail']}/nail-classifier"
     r = requests.post(
         nail_model_url,
         data=json.dumps({
@@ -105,7 +106,7 @@ def get_nail_result(url):
 
 def get_acne_result(url):
     r = requests.post(
-        f"http://140.116.82.34:{globals.config['port']['acne']}/acne-classifier",
+        f"http://{ip_address}:{globals.config['port']['acne']}/acne-classifier",
         data=json.dumps({
             'image': url, 'format': "url"}),
         timeout=(2, 15),
