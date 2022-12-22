@@ -80,10 +80,10 @@ def serve():
                                                 {
                                                     'component': 'Item',
                                                     'props': {
-                                                        'key':  '/Q&A',
+                                                        'key':  '/FAQ',
                                                         'title': '常見問題',
                                                         'icon': 'antd-question-circle',
-                                                        'href': '/Q&A',
+                                                        'href': '/FAQ',
                                                     },
                                                 },
                                             ],

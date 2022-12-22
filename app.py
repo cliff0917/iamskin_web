@@ -11,7 +11,7 @@ from dash.dependencies import Input, Output
 import globals
 from utils import login, upload
 from components import navbar, sidebar
-from pages import home, about, prediction, common_questions, non_exist
+from pages import home, about, prediction, faq, non_exist
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
@@ -60,8 +60,8 @@ def display_page(pathname):
             True,
         )
 
-    elif pathname == '/Q&A':
-        return common_questions.serve_layout()
+    elif pathname == '/FAQ':
+        return faq.serve_layout()
 
     return non_exist.serve_layout()  # 若非以上路徑, 則 return 404 message
 
