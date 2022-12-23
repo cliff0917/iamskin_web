@@ -49,19 +49,11 @@ def describe():
     return "<b>Acne Server 運作中！</b>"
 
 
-@app.route("/acne-classifier", methods=["POST"])
+@app.route("/Acne-classifier", methods=["POST"])
 def acne_classfier():
     # Receive request.
     data = flask.request.get_json(silent=True)
     # print(data)
-
-    if(data['format'] == 'django'):
-        image_uri = 'data:%s;base64,%s' % ('image/jpeg', data['image'])
-        img = base2picture(image_uri)
-        image = PIL.Image.open(img)
-        image_path = image
-        image_prediction = model(image_path).pandas().xyxy[0]
-        pass
 
     if(data['format'] == 'url'):
         response = requests.get(data['image'])
@@ -72,13 +64,10 @@ def acne_classfier():
         image = PIL.Image.open(img)
         image_path = image
         image_prediction = model(image_path).pandas().xyxy[0]
-        pass
 
     if(data['format'] == 'path'):
         image_path = data['image']
         image_prediction = model(image_path).pandas().xyxy[0]
-
-        pass
 
     # Prediction summary.
     count = len(image_prediction)
@@ -94,7 +83,7 @@ def acne_classfier():
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',
-        port=globals.config["port"]["acne"],
+        port=globals.config["port"]["Acne"],
         debug=False,
         threaded=False
     )

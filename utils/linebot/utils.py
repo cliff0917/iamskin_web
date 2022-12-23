@@ -47,7 +47,7 @@ def upload_img_to_imgur(client_id, imgpath):
 
 # skin type
 def get_skin_result(url):
-    skin_model_url = f"http://{ip_address}:{globals.config['port']['skin']}/skin-classifier"
+    skin_model_url = f"http://{ip_address}:{globals.config['port']['Skin']}/Skin-classifier"
     r = requests.post(
         skin_model_url,
         data=json.dumps({
@@ -92,7 +92,7 @@ def skin_plot(likelihood, path):
 
 # nail type
 def get_nail_result(url):
-    nail_model_url = f"http://{ip_address}:{globals.config['port']['nail']}/nail-classifier"
+    nail_model_url = f"http://{ip_address}:{globals.config['port']['Nail']}/Nail-classifier"
     r = requests.post(
         nail_model_url,
         data=json.dumps({
@@ -106,7 +106,7 @@ def get_nail_result(url):
 
 def get_acne_result(url):
     r = requests.post(
-        f"http://{ip_address}:{globals.config['port']['acne']}/acne-classifier",
+        f"http://{ip_address}:{globals.config['port']['Acne']}/Acne-classifier",
         data=json.dumps({
             'image': url, 'format': "url"}),
         timeout=(2, 15),

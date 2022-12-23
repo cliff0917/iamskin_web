@@ -3,6 +3,7 @@ import numpy
 import os
 import io
 import sys
+import cv2
 import requests
 import base64
 import tensorflow
@@ -21,6 +22,10 @@ app = Flask(__name__)
 
 skin_model = dict()
 skin_model['path'] = "skinFineTune[DenseNet121]Classifier.h5"
+
+if not os.path.exists(skin_model['path']):
+    os.system("gdown https://drive.google.com/uc\?id\=1uIg6B514G-XsH8Dv5W90uf1fwjTpKZYm")
+
 skin_model['function'] = tensorflow.keras.models.load_model(skin_model['path'])
 
 def decode(code=None):
@@ -42,19 +47,11 @@ def base2picture(resbase64):
 def describe():
     return "<b>Skin Server 運作中！</b>"
 
-@app.route("/skin-classifier", methods=["POST"])
+@app.route("/Skin-classifier", methods=["POST"])
 def skin_classfier():
     # Receive request.
     data = flask.request.get_json(silent=True)
     size = (224, 224)
-    # print(data)
-
-    if(data['format'] == 'flask'):
-        image_uri = 'data:%s;base64,%s' % ('image/jpeg', data['image'])
-        img = base2picture(image_uri)
-        image = PIL.Image.open(img)
-        image = image.resize(size)
-        image = numpy.expand_dims(numpy.array(image), axis=0)  # / 255
 
     if(data['format'] == 'url'):
         response = requests.get(data['image'])
@@ -67,9 +64,8 @@ def skin_classfier():
         image = numpy.expand_dims(numpy.array(image), axis=0)  # / 255
 
     if(data['format'] == 'path'):
-        image = PIL.Image.open(data['image'])
-        print(image)
-        image = image.resize(size)
+        image = cv2.imread(data['image'])
+        image = cv2.resize(image, size)
         image = numpy.expand_dims(numpy.array(image), axis=0)  # / 255
 
     if(data['format'] == 'base64'):
@@ -93,7 +89,7 @@ def skin_classfier():
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',
-        port=globals.config["port"]["skin"],
+        port=globals.config["port"]["Skin"],
         debug=False,
         threaded=False
     )

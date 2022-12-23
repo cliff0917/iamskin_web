@@ -12,6 +12,7 @@ def serve():
             },
             size='large',
             id='login-btn',
+            nClicks=0,
         )
     
     # 如果 session 中存在 google_id, 則 navbar 右上角顯示使用者的照片

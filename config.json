@@ -6,6 +6,12 @@
         "Nail": "指甲",
         "Acne": "痘痘"
     },
+    "port": {
+        "Skin": 8081,
+        "Nail": 8082,
+        "Acne": 8083,
+        "linebot": 9487
+    },
     "service_intro": {
         "Skin": {
             "title": "膚質檢測工具",
@@ -19,5 +25,10 @@
             "title": "痘痘檢測工具",
             "content": "透過影像分析來檢測您的痘痘的嚴重程度。"
         }
+    },
+    "Skin-mapping":{
+        "dry": "乾性肌",
+        "oily": "油肌",
+        "sensitive": "敏感肌"
     }
 }

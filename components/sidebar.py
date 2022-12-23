@@ -34,7 +34,7 @@ def serve():
                                                 {
                                                     'component': 'SubMenu',
                                                     'props': {
-                                                        'key':  '/AI-Prediction',
+                                                        'key':  'AI-Prediction',
                                                         'title': '服務項目',
                                                         'icon': 'antd-bar-chart',
                                                     },
@@ -88,6 +88,7 @@ def serve():
                                                 },
                                             ],
                                             mode='inline',
+                                            defaultOpenKeys=['AI-Prediction'], # 自動展開
                                         )
                                     ],
                                     style={
@@ -100,7 +101,7 @@ def serve():
                             collapsible=True,
                             style={
                                 'backgroundColor': 'rgb(240, 242, 245)',
-                            }
+                            },
                         ),
                         offsetTop=80,
                     ),
@@ -113,7 +114,7 @@ def serve():
                         style={
                             'backgroundColor': '#F7F7F8',
                             'padding': '2rem 1rem',
-                            'height': '1300px',
+                            'height': '1500px',
                         }
                     ),
                 ],

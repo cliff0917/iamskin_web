@@ -47,6 +47,6 @@ def serve(server):
         session["google_id"] = id_info.get("sub")
         session["name"] = id_info.get("name")
         session["picture"] = id_info.get("picture")
-        return redirect("/")
+        return redirect(session["redirect"])
     
     return server

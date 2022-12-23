@@ -237,10 +237,10 @@ def handle_img(event):
                                             ]
                                         ))
         line_bot_api.reply_message(event.reply_token, img_message)
-        
         os.remove(file_path) # 將照片刪除
         os.remove(result_path)
         user_state[uid] = 0
+        
     elif user_state.get(uid) == 2: # 指甲
         message_content = line_bot_api.get_message_content(message_id)
         file_path = f"./Image/nail/{reply_token}.jpg"
@@ -257,9 +257,9 @@ def handle_img(event):
             line_bot_api.reply_message(event.reply_token, FlexSendMessage('指甲異常風險-高', FlexMessage))
 
         # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=str(res)))
-
         os.remove(file_path)
         user_state[uid] = 0
+
     elif user_state.get(uid) == 3: # 痘痘
         message_content = line_bot_api.get_message_content(message_id)
         file_path = f"./Image/acne/{reply_token}.jpg"
@@ -284,6 +284,9 @@ def handle_img(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="請選擇檢測項目再上傳圖片"))
 
 if __name__ == "__main__":
-    port = globals.config["port"]["linebot"]
     create_folder()
-    app.run(host="0.0.0.0", port=port, ssl_context='adhoc')
+    app.run(
+        host="0.0.0.0", 
+        port=globals.config["port"]["Linebot"], 
+        ssl_context='adhoc'
+    )
