@@ -80,7 +80,7 @@ def show_upload_status(isCompleted, fileNames):
             globals.build_dir(save_path)
 
             filepath = os.path.join(save_path, fileNames[0])
-            session['filepath'] = filepath
+            session['output_path'] = filepath
 
             fig=plot.pie(col_name, col_val)
             fig.write_image(filepath)

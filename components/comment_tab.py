@@ -23,7 +23,7 @@ def serve(types):
             ),
             html.Div(
                 [
-                    bold_text.serve('分享結果圖：'),
+                    bold_text.serve('結果圖：'),
                     fac.AntdSwitch(
                         checkedChildren='分享',
                         unCheckedChildren='不分享',
