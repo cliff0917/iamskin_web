@@ -60,7 +60,7 @@ app.layout = serve_layout
     prevent_initial_call=True
 )
 def display_page(pathname):
-    session["redirect"] = pathname
+    session["cur_path"] = pathname
 
     # live update layout
     if pathname in ['/', '/Home']:
@@ -69,10 +69,10 @@ def display_page(pathname):
     elif pathname == '/About-us':
         return [about.serve_layout(), False]
 
-    elif pathname in ['/Skin', '/Nail', '/Acne']:
+    elif pathname in globals.services:
         # 如果未登入帳號, 則跳出 login first modal
         # if session.get("google_id", None) == None:
-        #     return [home.serve_layout(), True]
+        #     return [dash.no_update, True]
 
         return [
             prediction.serve_layout(
@@ -86,6 +86,20 @@ def display_page(pathname):
         return [faq.serve_layout(), False]
 
     return [non_exist.serve_layout(), False]  # 若非以上路徑, 則 return 404 message
+
+
+# @callback(
+#     Output('url', 'pathname'),
+#     Input('login-first-modal', 'visible'),
+#     prevent_initial_call=True
+# )
+# def close_modal(visible):
+#     pathname = session.get('redirect', None)
+#     user_id = session.get("google_id", None)
+
+#     if visible == False and user_id == None and pathname in globals.services:
+#         return '/'
+#     return dash.no_update
 
 if __name__ == '__main__':
     debug = 0

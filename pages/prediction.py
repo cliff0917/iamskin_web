@@ -9,20 +9,12 @@ from dash.dependencies import Input, Output, State, MATCH
 from datetime import datetime
 
 import globals, plot
-from components import card, uploader, result
+from components import card, uploader, result, share_modal
 
 def serve_layout(types, tutorial_isOpen):
     layout = html.Div(
         [
-            # fac.AntdModal(
-            #     visible=False,
-            #     title=f'{globals.config["service_intro"][types]["title"][:-2]}結果',
-            #     renderFooter=False,
-            #     id={
-            #         'type': 'output-modal',
-            #         'index': types
-            #     },
-            # ),
+            share_modal.serve(types),
             card.serve(
                 globals.config["service_intro"][types]["title"],
                 globals.config["service_intro"][types]["content"],
@@ -44,7 +36,7 @@ def serve_layout(types, tutorial_isOpen):
         Output({'type': 'horizon-line', 'index': MATCH}, 'is_open'),
         Output({'type': 'predict-class', 'index': MATCH}, 'children'),
         Output({'type': 'advice', 'index': MATCH}, 'children'),
-        Output({'type': 'share-btn', 'index': MATCH}, 'is_open'),
+        Output({'type': 'share-btn-collapse', 'index': MATCH}, 'is_open'),
     ],
     Input({'type': 'upload', 'index': MATCH}, 'isCompleted'),
     State({'type': 'upload', 'index': MATCH}, 'fileNames'),
@@ -52,10 +44,7 @@ def serve_layout(types, tutorial_isOpen):
 )
 def show_upload_status(isCompleted, fileNames):
     if isCompleted:
-        ctx = dash.callback_context
-        triggered_id = ctx.triggered[0]["prop_id"].split(".")[0]
-        types = triggered_id.split(',')[0].split('"')[-2]
-
+        types = session["cur_path"][1:]
         relative_path = os.path.join('assets/upload', types, fileNames[0])
         absolute_path = os.path.join(os.getcwd(), relative_path)
         # print(absolute_path)
@@ -84,19 +73,20 @@ def show_upload_status(isCompleted, fileNames):
                 },
             )
 
-            now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
             # 建立儲存預測結果的資料夾
             type_path = os.path.join('assets/prediction', types)
             globals.build_dir(type_path)
-            save_path = os.path.join(type_path, now)
+            save_path = os.path.join(type_path, globals.now())
             globals.build_dir(save_path)
 
+            filepath = os.path.join(save_path, fileNames[0])
+            session['filepath'] = filepath
+
             fig=plot.pie(col_name, col_val)
-            fig.write_image(os.path.join(save_path, fileNames[0]))
+            fig.write_image(filepath)
             output_img = dcc.Graph(
                 figure=fig,
-                config= {'displaylogo': False}
+                config={'displaylogo': False}
             )
 
             with open(f'assets/text/{predict_class}.txt', 'r') as f:
@@ -124,12 +114,12 @@ def show_upload_status(isCompleted, fileNames):
     return dash.no_update
 
 
-# @callback(
-#     [
-#         Output({'type': 'modal', 'index': MATCH}, 'visible'),
-#         Output({'type': 'modal', 'index': MATCH}, 'children'),
-#     ],
-#     Input({'type': 'output', 'index': MATCH}, 'children'),
-# )
-# def display_output(output):
-#     return [True, output]
+@callback(
+    Output({'type': 'share-modal', 'index': MATCH}, 'visible'),
+    Input({'type': 'share-btn', 'index': MATCH}, 'nClicks'),
+    prevent_initial_call=True
+)
+def display_output(n_clicks):
+    if n_clicks:
+        return True
+    return dash.no_update

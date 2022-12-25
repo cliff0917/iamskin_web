@@ -73,20 +73,23 @@ def serve(types):
                             html.P(
                                 '分享預測結果至討論區',
                                 style={
-                                    # 'fontSize': 20,
                                     'font-weight': 'bold',
                                 }
                             ),
                             type='primary',
                             size='large',
                             nClicks=0,
+                            id={
+                                'type': 'share-btn',
+                                'index': types
+                            }
                         ),
                     ),
                     justify='center',
                 ),
                 is_open=False,
                 id={
-                    'type': 'share-btn',
+                    'type': 'share-btn-collapse',
                     'index': types
                 }
             ),
