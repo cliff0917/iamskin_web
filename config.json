@@ -26,9 +26,22 @@
             "content": "透過影像分析來檢測您的痘痘的嚴重程度。"
         }
     },
-    "Skin-mapping":{
-        "dry": "乾性肌",
-        "oily": "油肌",
-        "sensitive": "敏感肌"
-    }
+    "Classify": {
+        "Skin": {
+            "dry": "乾性肌",
+            "oily": "油肌",
+            "sensitive": "敏感肌"
+        },
+        "Nail": {
+            "low": "低",
+            "high": "高"
+        },
+        "Acne": {
+            "low": "低",
+            "middle": "中",
+            "m_high": "中高",
+            "high": "高"
+        }
+    },
+    "db": "iamskin.db"
 }

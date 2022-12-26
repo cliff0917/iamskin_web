@@ -10,7 +10,7 @@ def serve(chinese, types, last):
     return dbc.Col(
         [
             fac.AntdImage(
-                src=f"{globals.config['img_path']}/{types}.png",
+                src=f"{globals.config['img_path']}/{types}/icon.png",
                 preview=False,
                 style={
                     'height': '130px',

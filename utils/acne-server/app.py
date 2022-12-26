@@ -34,13 +34,13 @@ def base2picture(resbase64):
 
 def get_severity(num):
     if num in range(0, 5):
-        severity = 'Mild'
+        severity = 'low' # Mild
     elif num in range(5, 21):
-        severity = 'Moderate'
+        severity = 'middle' # Moderate
     elif num in range(21, 41):
-        severity = 'Severe'
+        severity = 'm_high' # Severe
     else:
-        severity = 'Very-Severe'
+        severity = 'high' # Very-Severe
     return severity
 
 

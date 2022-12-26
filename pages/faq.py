@@ -4,12 +4,13 @@ from dash import html
 def serve_layout():
     layout = html.Div(
         [
-            html.H1(
-                '常見問題',
-                style={
-                    'font-weight': 'bold',
-                },
-            ),
+            fac.AntdTitle('常見問題', level=1),
+            # html.H1(
+            #     '常見問題',
+            #     style={
+            #         'font-weight': 'bold',
+            #     },
+            # ),
             html.Hr(),
             fac.AntdCollapse(
                 [

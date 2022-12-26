@@ -7,12 +7,7 @@ import globals
 def serve_layout():
     layout = html.Div(
         [
-            html.H1(
-                '關於我們',
-                style={
-                    'font-weight': 'bold',
-                },
-            ),
+            fac.AntdTitle('關於我們', level=1),
             html.Hr(),
             html.H3('▪ Line 官方帳號：'),
             fac.AntdImage(

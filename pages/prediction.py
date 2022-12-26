@@ -18,6 +18,7 @@ def serve_layout(types, tutorial_isOpen):
             card.serve(
                 globals.config["service_intro"][types]["title"],
                 globals.config["service_intro"][types]["content"],
+                None,
                 tutorial_isOpen,
                 types,
             ),
@@ -45,6 +46,7 @@ def serve_layout(types, tutorial_isOpen):
 def show_upload_status(isCompleted, fileNames):
     if isCompleted:
         types = session["cur_path"][1:]
+        session["type"] = types
         relative_path = os.path.join('assets/upload', types, fileNames[0])
         absolute_path = os.path.join(os.getcwd(), relative_path)
         # print(absolute_path)
@@ -58,13 +60,14 @@ def show_upload_status(isCompleted, fileNames):
             }
         )
         response = json.loads(r.text)
+        # print(response)
 
         if types == 'Skin':
             col_name = [col for col in response['likelihood'].keys()]
             col_val = [float(value) for value in response['likelihood'].values()]
 
             predict_class = [c for c in response['prediction'].keys()][0]
-            predict_class_chinese = globals.config["Skin-mapping"][predict_class]
+            predict_class_chinese = globals.config["Classify"][types][predict_class]
 
             output_text = html.H3(
                 f'預測您的膚質為「{predict_class_chinese}」',
@@ -106,12 +109,51 @@ def show_upload_status(isCompleted, fileNames):
                     style={'fontSize': 25}
                 )
 
-        return [
-            '上傳的圖片：', relative_path, [output_text, output_img],
-            True, predict_class_chinese, [feature, maintain], True
-        ]
+            return [
+                '上傳的圖片：', relative_path, [output_text, output_img],
+                False, predict_class_chinese, [feature, maintain], True
+            ]
+        
+        elif types == 'Nail':
+            if list(response['prediction'].keys())[0] == 'normalnail':
+                session['output_path'] = f'assets/img/{types}/low.png'
+                predict_class_chinese = '低'
+            else:
+                session['output_path'] = f'assets/img/{types}/high.png'
+                predict_class_chinese = '高'
 
-    return dash.no_update
+            output_text = html.H3(
+                f'預測您的指甲之異常風險為「{predict_class_chinese}」',
+                style={
+                    'font-weight': 'bold'
+                },
+            )
+            output_img = fac.AntdImage(
+                src=session['output_path'],
+                preview=False,
+            )
+
+        elif types == 'Acne':
+            predict_class = response['prediction']
+            predict_class_chinese = globals.config["Classify"][types][predict_class]
+
+            output_text = html.H3(
+                f'預測您的痘痘嚴重程度為「{predict_class_chinese}」',
+                style={
+                    'font-weight': 'bold'
+                },
+            )
+
+            session['output_path'] = f'assets/img/{types}/{predict_class}.png'
+            output_img = fac.AntdImage(
+                src=session['output_path'],
+                preview=False,
+            )
+
+    return [
+        '上傳的圖片：', relative_path, [output_text, output_img],
+        True, dash.no_update, dash.no_update, True
+    ]
 
 
 @callback(

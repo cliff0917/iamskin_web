@@ -13,11 +13,11 @@ from dash.dependencies import Input, Output, State
 import globals
 from utils import login, upload
 from components import navbar, sidebar, modal
-from pages import home, about, prediction, faq, non_exist
+from pages import home, about, prediction, faq, discuss, non_exist
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
-du.configure_upload(app, folder='assets/upload')
+du.configure_upload(app, folder='assets/upload') # uploader 的儲存路徑
 
 app.title = "愛美膚 iamSkin"
 app._favicon = ("img/logo.png")
@@ -72,7 +72,7 @@ def display_page(pathname):
     elif pathname in globals.services:
         # 如果未登入帳號, 則跳出 login first modal
         # if session.get("google_id", None) == None:
-        #     return [dash.no_update, True]
+        #     return [dash.no_update, True, dash.no_update]
 
         return [
             prediction.serve_layout(
@@ -85,7 +85,10 @@ def display_page(pathname):
     elif pathname == '/FAQ':
         return [faq.serve_layout(), False]
 
-    return [non_exist.serve_layout(), False]  # 若非以上路徑, 則 return 404 message
+    elif pathname == '/Discuss':
+        return [discuss.serve_layout(), False]
+
+    return [non_exist.serve_layout(), False]  # 若非以上路徑, 則回到首頁
 
 
 # @callback(

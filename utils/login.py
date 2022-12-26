@@ -45,6 +45,8 @@ def serve(server):
             audience=GOOGLE_CLIENT_ID
         )
         session["google_id"] = id_info.get("sub")
+        session["email"] = id_info.get("email")
+        session["locale"] = id_info.get("locale")
         session["name"] = id_info.get("name")
         session["picture"] = id_info.get("picture")
         return redirect(session["cur_path"])

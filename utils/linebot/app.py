@@ -266,13 +266,13 @@ def handle_img(event):
         save_img(message_content, file_path)
         img_url = upload_img_to_imgur(imgur_client_id, file_path)
         res = get_acne_result(img_url)
-        if res['prediction'] == 'Mild': # low
+        if res['prediction'] == 'low': # low
             FlexMessage = json.load(open('./flexMessage/acne_result_low.json','r',encoding='utf-8'))
             line_bot_api.reply_message(event.reply_token, FlexSendMessage('痘痘異常風險-低', FlexMessage))
-        elif res['prediction'] == 'Moderate': # middle
+        elif res['prediction'] == 'middle': # middle
             FlexMessage = json.load(open('./flexMessage/acne_result_middle.json','r',encoding='utf-8'))
             line_bot_api.reply_message(event.reply_token, FlexSendMessage('痘痘異常風險-中', FlexMessage))
-        elif res['prediction'] == "Severe": # m_high
+        elif res['prediction'] == "middle": # middle
             FlexMessage = json.load(open('./flexMessage/acne_result_m_high.json','r',encoding='utf-8'))
             line_bot_api.reply_message(event.reply_token, FlexSendMessage('痘痘異常風險-中高', FlexMessage))
         else: # high

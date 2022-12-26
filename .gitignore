@@ -3,5 +3,6 @@ Image/
 Prediction/
 *.h5
 *.pt
+*.db
 test.py
 test.jpg

@@ -11,7 +11,7 @@ def serve_layout():
     layout = html.Div(
         [
             cover.serve(),
-            card.serve('主旨', subject),
+            card.serve('主旨', subject, "2rem"),
             services.serve(),
         ]
     )

@@ -54,7 +54,6 @@ def get_skin_result(url):
             'image': url, 'format': "url"}),
         timeout=(2, 15),
         headers={'Content-Type': 'application/json', 'Accept': 'text/plain'})
-
     response = r.json()
     return response
 

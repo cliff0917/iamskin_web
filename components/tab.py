@@ -6,7 +6,7 @@ from dash import callback
 from dash.dependencies import Input, Output, MATCH
 
 import globals
-from components import comment_tab, preview_tab
+from components import comment_tab, preview_tab, comment_img
 
 def serve(types):
     return fac.AntdTabs(
@@ -29,7 +29,7 @@ def serve(types):
     [
         Input({'type': 'rate', 'index': MATCH}, 'value'),
         Input({'type': 'comment', 'index': MATCH}, 'value'),
-        Input({'type': 'img-switch', 'index': MATCH}, 'checked')
+        Input({'type': 'img-switch', 'index': MATCH}, 'checked'),
     ],
     prevent_initial_call=True
 )
@@ -57,25 +57,17 @@ def update_comment(value, comment, checked):
 
         return [
             dash.no_update, globals.now(), dash.no_update, 
-            '評論：',comment, dash.no_update, dash.no_update
+            '評論：', comment, dash.no_update, dash.no_update
         ]
 
     # 變動的是 img-switch
     else:
         if checked:
-            img = fac.AntdImage(
-                src=session['output_path'],
-                locale='en-us',
-                style={
-                    'width': '100%',
-                    'padding': '1rem 1rem',
-                }
-            )
+            img = comment_img.serve(session["output_path"], '100%')
             return [
                 dash.no_update, globals.now(), dash.no_update, 
                 dash.no_update, dash.no_update, True, img
             ]
-
         return [
             dash.no_update, globals.now(), dash.no_update, 
             dash.no_update, dash.no_update, False, dash.no_update

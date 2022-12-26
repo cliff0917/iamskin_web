@@ -3,7 +3,7 @@ from dash import html
 
 from components import tutorial
 
-def serve(title, content, tutorial_is_open=False, types='Skin'):
+def serve(title, content, margin_top=None, tutorial_is_open=False, types='Skin'):
     card = fac.AntdCard(
         fac.AntdParagraph(
             [
@@ -22,7 +22,7 @@ def serve(title, content, tutorial_is_open=False, types='Skin'):
             'fontSize': 30,
         },
         style={
-            "margin-top": "2rem",
+            "margin-top": margin_top,
         },
     )
     return card
