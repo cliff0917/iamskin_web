@@ -38,6 +38,6 @@ def insert(types, google_id, email, locale, name, time, rate, comment, img_path)
 def read_data(types):
     conn = sqlite3.connect(globals.config["db"])
     cursor = conn.cursor()
-    cursor.execute("SELECT GOOGLE_ID, TIME, RATE, COMMENT, IMG_PATH FROM DISCUSS WHERE TYPE=?", (types,))
+    cursor.execute("SELECT Name, TIME, RATE, COMMENT, IMG_PATH FROM DISCUSS WHERE TYPE=?", (types,))
     rows = cursor.fetchall()
     return rows

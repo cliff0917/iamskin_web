@@ -5,12 +5,6 @@ def serve_layout():
     layout = html.Div(
         [
             fac.AntdTitle('常見問題', level=1),
-            # html.H1(
-            #     '常見問題',
-            #     style={
-            #         'font-weight': 'bold',
-            #     },
-            # ),
             html.Hr(),
             fac.AntdCollapse(
                 [

@@ -1,6 +1,8 @@
 import dash_uploader as du
 from flask import session
 
+import globals
+
 def serve(types):
     uploader = du.Upload(
         text='點擊或拖曳圖片',
@@ -18,7 +20,7 @@ def serve(types):
             'type': 'upload',
             'index': types
         },
-        upload_id=types,
-        # upload_id=f'{types}/{session["google_id"]}',
+        # upload_id=types,
+        upload_id=f'{types}/{session["google_id"]}/{globals.now()}',
     )
     return uploader

@@ -12,7 +12,7 @@ def serve(types):
     # 新的 comment 會顯示在較上面
     for type_comment in type_comments[::-1]:
         comment_section, img = None, None
-        google_id, time, rate, comment, img_path = type_comment
+        name, time, rate, comment, img_path = type_comment
 
         if comment != '':
             comment_section = html.Div(
@@ -44,7 +44,7 @@ def serve(types):
                     }
                 ),
                 fac.AntdText(
-                    f'使用者 {google_id}',
+                    f'{name[0]}{"*" * 5}{name[-1]}',
                     style={
                         'margin-left': '5px',
                     }

@@ -40,14 +40,17 @@ def serve_layout(types, tutorial_isOpen):
         Output({'type': 'share-btn-collapse', 'index': MATCH}, 'is_open'),
     ],
     Input({'type': 'upload', 'index': MATCH}, 'isCompleted'),
-    State({'type': 'upload', 'index': MATCH}, 'fileNames'),
+    [
+        State({'type': 'upload', 'index': MATCH}, 'fileNames'),
+        State({'type': 'upload', 'index': MATCH}, 'upload_id'),
+    ],
     prevent_initial_call=True
 )
-def show_upload_status(isCompleted, fileNames):
+def show_upload_status(isCompleted, fileNames, upload_id):
     if isCompleted:
         types = session["cur_path"][1:]
         session["type"] = types
-        relative_path = os.path.join('assets/upload', types, fileNames[0])
+        relative_path = os.path.join('assets/upload', upload_id, fileNames[0])
         absolute_path = os.path.join(os.getcwd(), relative_path)
         # print(absolute_path)
 
@@ -77,10 +80,10 @@ def show_upload_status(isCompleted, fileNames):
             )
 
             # 建立儲存預測結果的資料夾
-            type_path = os.path.join('assets/prediction', types)
-            globals.build_dir(type_path)
-            save_path = os.path.join(type_path, globals.now())
-            globals.build_dir(save_path)
+            save_path = 'assets/prediction'
+            for dir_name in upload_id.split('/'):
+                save_path = os.path.join(save_path, dir_name)
+                globals.mkdir(save_path)
 
             filepath = os.path.join(save_path, fileNames[0])
             session['output_path'] = filepath

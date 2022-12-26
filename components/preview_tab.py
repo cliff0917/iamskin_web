@@ -1,6 +1,7 @@
-from dash import html
 import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
+from dash import html
+from flask import session
 
 import globals
 from components import bold_text
@@ -17,7 +18,7 @@ def serve(types):
                     }
                 ),
                 fac.AntdText(
-                    f'123',
+                    f'{session["name"][0]}{"*" * 5}{session["name"][-1]}',
                     style={
                         'margin-left': '5px',
                     }

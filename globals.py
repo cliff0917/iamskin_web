@@ -16,7 +16,7 @@ def read_json(path):
         data = json.load(json_file)
     return data
 
-def build_dir(path):
+def mkdir(path):
     if not os.path.exists(path):
         os.mkdir(path)
 
