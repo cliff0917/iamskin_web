@@ -37,7 +37,30 @@ def serve(id, title, context, href=None):
                     justify='center',
                 ),
                 href=href,
-            )
+            ),
+            html.Br(),
+            fac.AntdRow(
+                fac.AntdCol(
+                    [
+                        fac.AntdText(
+                            [
+                                '繼續代表您同意愛美膚',
+                                html.A(
+                                    '「服務條款」',
+                                    href='/terms',
+                                ),
+                                '與',
+                                html.A(
+                                    '「隱私權政策」',
+                                    href='/privacy-policy',
+                                ),
+                            ],
+                            type='secondary',
+                        ),
+                    ],
+                ),
+                justify='center',
+            ),
         ],
         id=f'{id}-modal',
         visible=False,

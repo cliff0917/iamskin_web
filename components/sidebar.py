@@ -77,15 +77,6 @@ def serve():
                                                         'href': '/Discuss',
                                                     },
                                                 },
-                                                {
-                                                    'component': 'Item',
-                                                    'props': {
-                                                        'key':  '/FAQ',
-                                                        'title': '常見問題',
-                                                        'icon': 'antd-question-circle',
-                                                        'href': '/FAQ',
-                                                    },
-                                                },
                                             ],
                                             mode='inline',
                                             defaultOpenKeys=['AI-Prediction'], # 自動展開

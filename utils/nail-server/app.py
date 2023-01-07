@@ -62,8 +62,10 @@ def nail_classifier():
         decoded_img = encoded_img.decode()
         image_uri = 'data:%s;base64,%s' % ('image/jpeg', decoded_img)
         img = base2picture(image_uri)
-        image = PIL.Image.open(img)
-        image = image.resize(size)
+        # image = PIL.Image.open(img)
+        # image = image.resize(size)
+        image = cv2.imread('test.jpg')
+        image = cv2.resize(image, size)
         image = numpy.expand_dims(numpy.array(image), axis=0)  # / 255
 
     if(data['format'] == 'path'):
@@ -84,6 +86,7 @@ def nail_classifier():
     likelihood = {k: str(v) for k, v in zip(classification, score)}
     key = max(likelihood, key=likelihood.get)
     prediction = {key: str(likelihood[key])}
+    print(prediction)
 
     # Json response format.
     response = json.jsonify(
