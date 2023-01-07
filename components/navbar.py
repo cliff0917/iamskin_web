@@ -18,7 +18,7 @@ def serve():
             ),
             navbar_btn.serve(),
             modal.serve('login', '登入帳號', '使用 Google 繼續', '/login'),
-            modal.serve('logout', '登出帳號', '登出', '/'),
+            modal.serve('logout', '登出帳號', '登出', '/', False),
         ],
         color="#8EA0A5",
         sticky='top',

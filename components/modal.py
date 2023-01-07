@@ -1,9 +1,10 @@
+import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
 from dash import html
 
 import globals
 
-def serve(id, title, context, href=None):
+def serve(id, title, context, href=None, is_open=True):
     return fac.AntdModal(
         [
             html.A(
@@ -39,28 +40,31 @@ def serve(id, title, context, href=None):
                 href=href,
             ),
             html.Br(),
-            fac.AntdRow(
-                fac.AntdCol(
-                    [
-                        fac.AntdText(
-                            [
-                                '繼續代表您同意愛美膚',
-                                html.A(
-                                    '「服務條款」',
-                                    href='/terms',
-                                ),
-                                '與',
-                                html.A(
-                                    '「隱私權政策」',
-                                    href='/privacy-policy',
-                                ),
-                            ],
-                            type='secondary',
-                        ),
-                    ],
+            dbc.Collapse(
+                fac.AntdRow(
+                    fac.AntdCol(
+                        [
+                            fac.AntdText(
+                                [
+                                    '繼續代表您同意愛美膚',
+                                    html.A(
+                                        '「服務條款」',
+                                        href='/terms',
+                                    ),
+                                    '與',
+                                    html.A(
+                                        '「隱私權政策」',
+                                        href='/privacy-policy',
+                                    ),
+                                ],
+                                type='secondary',
+                            ),
+                        ],
+                    ),
+                    justify='center',
                 ),
-                justify='center',
-            ),
+                is_open=is_open,
+            )
         ],
         id=f'{id}-modal',
         visible=False,
