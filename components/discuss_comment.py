@@ -3,12 +3,19 @@ import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
 
 import globals, database
-from components import comment_img
+from components import comment_img, bold_text
 
 def serve(types):
     comments = []
     type_comments = database.read_data(types)
 
+    if len(type_comments) == 0:
+        return html.Div(
+            fac.AntdEmpty(
+                description=bold_text.serve('暫無評論'),
+            )
+        )
+    
     # 新的 comment 會顯示在較上面
     for type_comment in type_comments[::-1]:
         comment_section, img = None, None

@@ -41,6 +41,8 @@ def serve(types):
             fac.AntdInput(
                 mode='text-area',
                 placeholder='使用感想',
+                maxLength=100,
+                showCount=True,
                 style={
                     'margin-top': '10px',
                     'height': '80px'

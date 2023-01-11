@@ -1,12 +1,15 @@
 from dash import html
-import dash_bootstrap_components as dbc
+import feffery_antd_components as fac
 
 def serve_layout():
-    layout = dbc.Jumbotron(
+    return html.Div(
         [
-            html.H1("404: Not found", className="text-danger"),
-            html.Hr(),
-            html.P(f"此網頁不存在..."),
+            fac.AntdResult(
+                status='404',
+                title=fac.AntdTitle(
+                    '404 錯誤：此網頁不存在',
+                    level=4,
+                ),
+            )
         ]
     )
-    return layout

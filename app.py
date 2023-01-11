@@ -13,7 +13,7 @@ from dash.dependencies import Input, Output, State
 import globals
 from utils import login, upload
 from components import navbar, sidebar, modal
-from pages import home, about, prediction, discuss, terms, non_exist
+from pages import home, about, prediction, discuss, policy, non_exist
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
@@ -86,12 +86,12 @@ def display_page(pathname):
         return [discuss.serve_layout(), False]
 
     elif pathname == '/terms':
-        return [terms.serve_layout(), False]
+        return [policy.serve_layout('服務條款'), False]
 
     elif pathname == '/privacy-policy':
-        return [terms.serve_layout('隱私權政策'), False]
+        return [policy.serve_layout('隱私權政策'), False]
 
-    return [non_exist.serve_layout(), False]  # 若非以上路徑, 則回到首頁
+    return [non_exist.serve_layout(), False]  # 若非以上路徑, 則顯示 404
 
 
 if __name__ == '__main__':

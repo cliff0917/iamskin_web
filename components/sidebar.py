@@ -105,7 +105,7 @@ def serve():
                         style={
                             'backgroundColor': '#F7F7F8',
                             'padding': '2rem 1rem',
-                            # 'height': '1500px',
+                            'height': '700vh',
                         }
                     ),
                 ],

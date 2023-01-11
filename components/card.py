@@ -9,7 +9,7 @@ def serve(title, content, margin_top=None, tutorial_is_open=False, types='Skin')
             [
                 fac.AntdText(content),
                 html.Br(),
-                tutorial.serve(tutorial_is_open, types),
+                tutorial.serve(tutorial_is_open, types), # 是否顯示使用教學
             ]
         ),
         title=title,
