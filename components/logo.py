@@ -15,7 +15,10 @@ def serve():
                     )
                 ),
             ],
+            align="center",
+            className="g-0",
         ),
         href="/",
+        style={"textDecoration": "none"},
     )
     return logo

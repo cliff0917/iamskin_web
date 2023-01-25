@@ -28,6 +28,13 @@ server = login.serve(server)
 # components
 url = dcc.Location(id="url")
 
+content = html.Div(
+    id='content', 
+    style={
+        'padding': '2rem 2rem', 
+    }
+)
+
 def serve_layout():
     # 得到最新狀態的 db
     globals.initialize()
@@ -36,7 +43,7 @@ def serve_layout():
         [
             url,
             navbar.serve(),
-            sidebar.serve(),
+            content,
             modal.serve(
                 'login-first',
                 '請先登入帳號',
@@ -44,6 +51,7 @@ def serve_layout():
                 '/login'
             ),
         ],
+        style={'font-family': 'Microsoft YaHei UI', 'color': 'black'}
     )
     return layout
 

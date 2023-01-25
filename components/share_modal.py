@@ -28,9 +28,7 @@ def serve(types):
 
 @callback(
     Output({'type': 'share-modal', 'index': MATCH}, 'renderFooter'),
-    [
-        Input({'type': 'share-modal', 'index': MATCH}, 'okCounts'),
-    ],
+    Input({'type': 'share-modal', 'index': MATCH}, 'okCounts'),
     [
         State({'type': 'preview-rate', 'index': MATCH}, 'value'),
         State({'type': 'preview-comment', 'index': MATCH}, 'children'),

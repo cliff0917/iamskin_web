@@ -23,6 +23,7 @@ def serve(title, content, margin_top=None, tutorial_is_open=False, types='Skin')
         },
         style={
             "margin-top": margin_top,
+            "background-color": '#F7F7F8',
         },
     )
     return card

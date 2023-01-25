@@ -24,14 +24,12 @@ def serve(types):
                                     'index': types
                                 },
                             ),
-                            html.Img(
+                            fac.AntdImage(
                                 id={
                                     'type': 'upload-img',
                                     'index': types
                                 },
-                                style={
-                                    'width': '60%'
-                                }
+                                locale='en-us'
                             ),
                         ],
                         style=col_style,
@@ -58,7 +56,7 @@ def serve(types):
                     'type': 'predict-class',
                     'index': types
                 },
-                style={'font-weight': 'bold'},
+                style={'font-weight': 'bold', 'margin-top': '2rem'},
             ),
             html.Ul(
                 id={

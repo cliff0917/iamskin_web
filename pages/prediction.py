@@ -88,11 +88,11 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             filepath = os.path.join(save_path, fileNames[0])
             session['output_path'] = filepath
 
-            fig=plot.pie(col_name, col_val)
+            fig = plot.pie(col_name, col_val)
             fig.write_image(filepath)
-            output_img = dcc.Graph(
-                figure=fig,
-                config={'displaylogo': False}
+            output_img = fac.AntdImage(
+                src=filepath,
+                locale='en-us'
             )
 
             with open(f'assets/text/{predict_class}.txt', 'r') as f:
@@ -114,7 +114,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
 
             return [
                 '上傳的圖片：', relative_path, [output_text, output_img],
-                False, predict_class_chinese, [feature, maintain], True
+                False, f'【{predict_class_chinese}】', [feature, html.Br(), maintain], True
             ]
         
         elif types == 'Nail':
@@ -127,31 +127,20 @@ def show_upload_status(isCompleted, fileNames, upload_id):
 
             output_text = html.H3(
                 f'預測您的指甲之異常風險為「{predict_class_chinese}」',
-                style={
-                    'font-weight': 'bold'
-                },
+                style={'font-weight': 'bold'},
             )
-            output_img = fac.AntdImage(
-                src=session['output_path'],
-                preview=False,
-            )
+            
 
         elif types == 'Acne':
             predict_class = response['prediction']
             predict_class_chinese = globals.config["Classify"][types][predict_class]
-
             output_text = html.H3(
                 f'預測您的痘痘嚴重程度為「{predict_class_chinese}」',
-                style={
-                    'font-weight': 'bold'
-                },
+                style={'font-weight': 'bold'},
             )
-
             session['output_path'] = f'assets/img/{types}/{predict_class}.png'
-            output_img = fac.AntdImage(
-                src=session['output_path'],
-                preview=False,
-            )
+        
+        output_img = fac.AntdImage(src=session['output_path'])
 
     return [
         '上傳的圖片：', relative_path, [output_text, output_img],

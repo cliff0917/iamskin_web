@@ -1,9 +1,10 @@
 import dash_bootstrap_components as dbc
+from dash import html
 
 from components import single_service
 
 def serve():
-    services = dbc.Row(
+    services = html.Div(
         [
             single_service.serve(
                 '膚質',
@@ -21,8 +22,5 @@ def serve():
                 True,
             ),
         ],
-        style={
-            "padding": "2rem 1rem",
-        },
     )
     return services

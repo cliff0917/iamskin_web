@@ -80,5 +80,6 @@ def serve(id, title, context, href=None, is_open=True):
             ),
             justify='center',
         ),
+        centered=True,
         renderFooter=False,
     )

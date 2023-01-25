@@ -9,12 +9,29 @@ def serve_layout():
         [
             fac.AntdTitle('關於我們', level=1),
             html.Hr(),
-            html.H3('▪ Line 官方帳號：'),
+            html.H3('▪ Line 官方帳號'),
+            dbc.Row(
+                [
+                    html.H4('▪ 網址：'),
+                    html.A(
+                        html.H4(
+                            'https://line.me/R/ti/p/@627kkxpf',
+                            style={
+                                'color': "#00B0F0", 
+                                'text-decoration': 'underline',
+                            }
+                        ),
+                        href='https://line.me/R/ti/p/@627kkxpf'
+                    ),
+                ],
+                style={'margin-left': '2rem'},
+            ),
+            html.H4('▪ QR Code：', style={'margin-left': '2rem'}),
             fac.AntdImage(
                 src=f"{globals.config['img_path']}/qrcode.png",
                 style={
                     'height': "40%",
-                    'padding': '1rem 1rem',
+                    'padding': '0rem 1rem',
                 },
                 locale='en-us'
             ),

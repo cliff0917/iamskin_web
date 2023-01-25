@@ -23,7 +23,7 @@ def serve(chinese, types, last):
                     'font-weight': 'bold',
                 },
             ),
-            html.Hr(),
+            html.Hr(style={'margin-left': '2rem', 'margin-right': '2rem'}),
             paragraph.serve(types),
             dbc.Button(
                 f"點擊分析{chinese}",
@@ -35,11 +35,11 @@ def serve(chinese, types, last):
                 },
                 size='lg',
             ),
-            html.P(''),
         ],
         style={
-            'background-color': '#FFFFFF',
+            'background-color': '#F7F7F8',
             'textAlign': 'center',
-            'margin-right': '2rem' if last != True else None,
+            'padding': '1rem 0rem',
+            'margin-bottom': '2rem' if last != True else None,
         },
     )

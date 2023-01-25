@@ -90,7 +90,7 @@ def serve(types):
                 html.Hr()
             ],
             style={
-                'background-color': 'white'
+                'background-color': '#F7F7F8'
             }
         )
         comments.append(single_comment)
