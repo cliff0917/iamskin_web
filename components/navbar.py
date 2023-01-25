@@ -1,5 +1,5 @@
 import dash_bootstrap_components as dbc
-from dash import callback
+from dash import html, callback
 from flask import session
 from dash.dependencies import Input, Output, State
 
@@ -35,7 +35,7 @@ def serve():
                             navItem.serve("討論區", '/Discuss'),
                             logout.serve(),
                         ],
-                        className="ms-auto",
+                        className='ml-auto', # navlink 向右對齊
                         navbar=True,
                     ),
                     id="navbar-collapse",
