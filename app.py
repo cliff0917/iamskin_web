@@ -64,6 +64,7 @@ app.layout = serve_layout
     [
         Output('content', 'children'),
         Output('login-first-modal', 'visible'),
+        Output('nav-dropdown-title', 'toggle_style'), # 服務項目的顏色 
     ],
     Input('url', 'pathname'),
     prevent_initial_call=True
@@ -72,35 +73,36 @@ def display_page(pathname):
     session["cur_path"] = pathname
 
     # live update layout
-    if pathname in ['/']:
-        return [home.serve_layout(), False]
+    if pathname == '/':
+        return [home.serve_layout(), False, {'color': 'black'}]
 
     elif pathname == '/About':
-        return [about.serve_layout(), False]
+        return [about.serve_layout(), False, {'color': 'black'}]
 
     elif pathname in globals.services:
         # 如果未登入帳號, 則跳出 login first modal
         if session.get("google_id", None) == None:
-            return [dash.no_update, True]
+            return [dash.no_update, True, {'color': 'blue'}]
 
         return [
             prediction.serve_layout(
                 pathname[1:], # 哪種 type
                 True,
             ),
-            False
+            False,
+            {'color': 'blue'}
         ]
 
     elif pathname == '/Discuss':
-        return [discuss.serve_layout(), False]
+        return [discuss.serve_layout(), False, {'color': 'black'}]
 
     elif pathname == '/terms':
-        return [policy.serve_layout('服務條款'), False]
+        return [policy.serve_layout('服務條款'), False, {'color': 'black'}]
 
     elif pathname == '/privacy-policy':
-        return [policy.serve_layout('隱私權政策'), False]
+        return [policy.serve_layout('隱私權政策'), False, {'color': 'black'}]
 
-    return [non_exist.serve_layout(), False]  # 若非以上路徑, 則顯示 404
+    return [non_exist.serve_layout(), False, {'color': 'black'}]  # 若非以上路徑, 則顯示 404
 
 
 if __name__ == '__main__':

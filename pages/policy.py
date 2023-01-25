@@ -1,9 +1,7 @@
 import dash
-import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
-from dash import dcc, html, callback
+from dash import callback
 from dash.dependencies import Input, Output
-from flask import redirect
 
 from components.tab import terms, privacy_policy
 

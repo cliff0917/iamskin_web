@@ -15,7 +15,7 @@ def serve_layout():
     layout = html.Div(
         [
             cover.serve(),
-            html.H3('【iamSkin 愛美膚】', style={'textAlign': 'center', 'margin-top': '2rem', 'font-weight': 'bold'}),
+            html.H3('【愛美膚 iamSkin】', style={'textAlign': 'center', 'margin-top': '2rem', 'font-weight': 'bold'}),
             html.H5(subject, style={'textAlign': 'center'}),
             html.H6(note, style={'textAlign': 'center', 'color': 'red'}),
             html.Hr(),

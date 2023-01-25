@@ -31,6 +31,7 @@ def serve():
                                 in_navbar=True,
                                 label="服務項目",
                                 toggle_style={"color": "black"},
+                                id='nav-dropdown-title',
                                 style={'textAlign': 'center'}
                             ),
                             navItem.serve("討論區", '/Discuss'),
@@ -42,7 +43,7 @@ def serve():
                     id="navbar-collapse",
                     is_open=False,
                     navbar=True,
-                    style={"color": "black", "fontSize": 18}
+                    style={"fontSize": 18}
                 ),
             ],
             fluid=True,

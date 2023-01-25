@@ -1,16 +1,30 @@
-from dash import callback
-from dash.dependencies import Input, Output, MATCH
+import dash
+from dash import dcc, callback
+from dash.dependencies import Input, Output, MATCH, ALL
 import dash_bootstrap_components as dbc
+
+import globals
 
 def serve(text, link):
     return dbc.NavItem(
         dbc.NavLink(
-            text, external_link=True, href=link, n_clicks=0,
+            text, external_link=True, href=link,
             id={
                 'type': 'nav-link',
-                'index': text
+                'index': link
             },
             style={"color": "black"},
-        ), 
+        ),
         style={'textAlign': 'center'}
     )
+
+@callback(
+    Output({'type': 'nav-link', 'index': ALL}, 'style'),
+    [
+        Input("url", "pathname"),
+        Input({'type': 'nav-link', 'index': ALL}, 'id'),
+    ],
+    prevent_initial_call=True
+)
+def selected(pathname, links):
+    return [{"color": "blue"} if link["index"] == pathname else {"color": "black"} for link in links]
