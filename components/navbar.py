@@ -1,12 +1,10 @@
-import dash
 import dash_bootstrap_components as dbc
 from dash import callback
 from flask import session
 from dash.dependencies import Input, Output, State
-import feffery_antd_components as fac
 
 import globals
-from components import logo, modal, logout
+from components import logo, modal, navItem, logout
 
 def serve():
     navbar = dbc.Navbar(
@@ -20,13 +18,13 @@ def serve():
                 dbc.Collapse(
                     dbc.Nav(
                         [
-                            dbc.NavItem(dbc.NavLink("首頁", href="/Home", style={"color": "black"}), style={'textAlign': 'center'}),
-                            dbc.NavItem(dbc.NavLink("關於我們", href="/About-us", style={"color": "black"}), style={'textAlign': 'center'}),
+                            navItem.serve("首頁", '/Home'),
+                            navItem.serve("關於我們", '/About-us'),
                             dbc.DropdownMenu(
                                 children=[
-                                    dbc.DropdownMenuItem("膚質檢測", href="/Skin", style={'textAlign': 'center'}),
-                                    dbc.DropdownMenuItem("指甲檢測", href="/Nail", style={'textAlign': 'center'}),
-                                    dbc.DropdownMenuItem("痘痘檢測", href="/Acne", style={'textAlign': 'center'}),
+                                    dbc.DropdownMenuItem("膚質檢測", external_link=True, href="/Skin", style={'textAlign': 'center'}),
+                                    dbc.DropdownMenuItem("指甲檢測", external_link=True, href="/Nail", style={'textAlign': 'center'}),
+                                    dbc.DropdownMenuItem("痘痘檢測", external_link=True, href="/Acne", style={'textAlign': 'center'}),
                                 ],
                                 nav=True,
                                 in_navbar=True,
@@ -34,7 +32,7 @@ def serve():
                                 toggle_style={"color": "black"},
                                 style={'textAlign': 'center'}
                             ),
-                            dbc.NavItem(dbc.NavLink("討論區", href="/Discuss", style={"color": "black"}), style={'textAlign': 'center'}),
+                            navItem.serve("討論區", '/Discuss'),
                             logout.serve(),
                         ],
                         className="ms-auto",
@@ -44,7 +42,6 @@ def serve():
                     is_open=False,
                     navbar=True,
                 ),
-                modal.serve('login', '登入帳號', '使用 Google 繼續', '/login'),
             ],
             fluid=True,
         ),
