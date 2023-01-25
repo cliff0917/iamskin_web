@@ -12,7 +12,7 @@ from dash.dependencies import Input, Output, State
 
 import globals
 from utils import login, upload
-from components import navbar, sidebar, modal
+from components import navbar, modal
 from pages import home, about, prediction, discuss, policy, non_exist
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
