@@ -6,12 +6,12 @@ from dash.dependencies import Input, Output, State, MATCH
 
 import globals
 import database
-from components import tab
+from components.tab import share
 
 def serve(types):
     return fac.AntdModal(
         visible=False,
-        title=tab.serve(types),
+        title=share.serve(types),
         renderFooter=True,
         okText='送出',
         okCounts=0,

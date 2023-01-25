@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 from dash import html
 
 import globals
-from components import paragraph
+from components.service import paragraph
 
 # last 代表是否為該列最後一個元素
 def serve(chinese, types, last):

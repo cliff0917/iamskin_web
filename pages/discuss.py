@@ -5,7 +5,7 @@ from flask import session
 from dash.dependencies import Input, Output, MATCH
 
 import globals
-from components import discuss_comment
+from components import comments
 
 def serve_layout():
     if session.get("type", None) == None:
@@ -13,24 +13,24 @@ def serve_layout():
     else:
         default_tab = session["type"]
 
-    return dcc.Loading(
-        html.Div(
-            [
-                fac.AntdTitle('討論區', level=1),
+    return html.Div(
+        [
+            fac.AntdTitle('討論區', level=1),
+            dcc.Loading(
                 fac.AntdTabs(
                     [
                         fac.AntdTabPane(
-                            discuss_comment.serve('Skin'),
+                            comments.serve('Skin'),
                             tab='膚質 Skin',
                             key='Skin'
                         ),
                         fac.AntdTabPane(    
-                            discuss_comment.serve('Nail'),
+                            comments.serve('Nail'),
                             tab='指甲 Nail',
                             key='Nail'
                         ),
                         fac.AntdTabPane(    
-                            discuss_comment.serve('Acne'),
+                            comments.serve('Acne'),
                             tab='痘痘 Acne',
                             key='Acne'
                         ),
@@ -38,8 +38,7 @@ def serve_layout():
                     type='card',
                     tabPaneAnimated=True,
                     defaultActiveKey=default_tab
-                )
-            ]
-        )
+                ),
+            ),
+        ]
     )
-    

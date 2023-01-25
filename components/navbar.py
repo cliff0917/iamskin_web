@@ -1,10 +1,11 @@
 import dash_bootstrap_components as dbc
-from dash import html, callback
+from dash import callback
 from flask import session
 from dash.dependencies import Input, Output, State
 
 import globals
-from components import logo, modal, navItem, logout
+from components.navlink import navItem, logout, dropdownLink
+from components.img import logo
 
 def serve():
     navbar = dbc.Navbar(
@@ -18,13 +19,13 @@ def serve():
                 dbc.Collapse(
                     dbc.Nav(
                         [
-                            navItem.serve("首頁", '/Home'),
-                            navItem.serve("關於我們", '/About-us'),
+                            navItem.serve("首頁", '/'),
+                            navItem.serve("關於我們", '/About'),
                             dbc.DropdownMenu(
                                 children=[
-                                    dbc.DropdownMenuItem("膚質檢測", external_link=True, href="/Skin", style={'textAlign': 'center'}),
-                                    dbc.DropdownMenuItem("指甲檢測", external_link=True, href="/Nail", style={'textAlign': 'center'}),
-                                    dbc.DropdownMenuItem("痘痘檢測", external_link=True, href="/Acne", style={'textAlign': 'center'}),
+                                    dropdownLink.serve("膚質檢測", "/Skin"),
+                                    dropdownLink.serve("指甲檢測", "/Nail"),
+                                    dropdownLink.serve("痘痘檢測", "/Acne"),
                                 ],
                                 nav=True,
                                 in_navbar=True,
@@ -41,12 +42,15 @@ def serve():
                     id="navbar-collapse",
                     is_open=False,
                     navbar=True,
+                    style={"color": "black", "fontSize": 18}
                 ),
             ],
             fluid=True,
         ),
-        color="#8EA0A5",
+        # color="#8EA0A5",
+        color='white',
         sticky='top',
+        style={'border-bottom': '1px #E3E3E4 solid'}
     )
     return navbar
 

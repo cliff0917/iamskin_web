@@ -13,6 +13,7 @@ from dash.dependencies import Input, Output, State
 import globals
 from utils import login, upload
 from components import navbar, modal
+from components.modal import social_login
 from pages import home, about, prediction, discuss, policy, non_exist
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
@@ -44,7 +45,7 @@ def serve_layout():
             url,
             navbar.serve(),
             content,
-            modal.serve(
+            social_login.serve(
                 'login-first',
                 '請先登入帳號',
                 '使用 Google 繼續',
@@ -71,10 +72,10 @@ def display_page(pathname):
     session["cur_path"] = pathname
 
     # live update layout
-    if pathname in ['/', '/Home']:
+    if pathname in ['/']:
         return [home.serve_layout(), False]
 
-    elif pathname == '/About-us':
+    elif pathname == '/About':
         return [about.serve_layout(), False]
 
     elif pathname in globals.services:

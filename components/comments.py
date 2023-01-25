@@ -3,7 +3,8 @@ import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
 
 import globals, database
-from components import comment_img, bold_text
+from components import bold_text
+from components.img import comment_attach
 
 def serve(types):
     comments = []
@@ -39,7 +40,7 @@ def serve(types):
             )
 
         if img_path != '':
-            img = comment_img.serve(img_path, '306px')
+            img = comment_attach.serve(img_path, '306px')
 
         single_comment = html.Div(
             [

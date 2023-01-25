@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from components import single_service
+from components.service import single_service
 
 def serve():
     services = html.Div(

@@ -9,12 +9,14 @@ from dash.dependencies import Input, Output, State, MATCH
 from datetime import datetime
 
 import globals, plot
-from components import card, uploader, result, share_modal
+from components.modal import share
+from components.service import card, result
+from components import uploader
 
 def serve_layout(types, tutorial_isOpen):
     layout = html.Div(
         [
-            share_modal.serve(types),
+            share.serve(types),
             card.serve(
                 globals.config["service_intro"][types]["title"],
                 globals.config["service_intro"][types]["content"],

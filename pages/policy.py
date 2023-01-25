@@ -5,13 +5,13 @@ from dash import dcc, html, callback
 from dash.dependencies import Input, Output
 from flask import redirect
 
-from components import terms_tab, privacy_policy_tab
+from components.tab import terms, privacy_policy
 
 def serve_layout(defaultActiveKey='服務條款'):
     return fac.AntdTabs(
         [
-            terms_tab.serve(),
-            privacy_policy_tab.serve(),
+            terms.serve(),
+            privacy_policy.serve(),
         ],
         defaultActiveKey=defaultActiveKey,
         id='policy'

@@ -6,13 +6,14 @@ from dash import callback
 from dash.dependencies import Input, Output, MATCH
 
 import globals
-from components import comment_tab, preview_tab, comment_img
+from components.tab import comment, preview
+from components.img import comment_attach
 
 def serve(types):
     return fac.AntdTabs(
         [
-            comment_tab.serve(types),
-            preview_tab.serve(types),
+            comment.serve(types),
+            preview.serve(types),
         ]
     )
 
@@ -63,7 +64,7 @@ def update_comment(value, comment, checked):
     # 變動的是 img-switch
     else:
         if checked:
-            img = comment_img.serve(session["output_path"], '100%')
+            img = comment_attach.serve(session["output_path"], '100%')
             return [
                 dash.no_update, globals.now(), dash.no_update, 
                 dash.no_update, dash.no_update, True, img
