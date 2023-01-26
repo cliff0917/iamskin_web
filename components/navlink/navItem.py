@@ -1,9 +1,6 @@
-import dash
-from dash import dcc, callback
-from dash.dependencies import Input, Output, MATCH, ALL
+from dash import callback
+from dash.dependencies import Input, Output, ALL, State
 import dash_bootstrap_components as dbc
-
-import globals
 
 def serve(text, link):
     return dbc.NavItem(
