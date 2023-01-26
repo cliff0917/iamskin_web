@@ -3,13 +3,13 @@ from dash import html
 
 from components.services import tutorial
 
-def serve(title, content, margin_top=None, tutorial_is_open=False, types='Skin'):
+def serve(title, content, types):
     card = fac.AntdCard(
         fac.AntdParagraph(
             [
                 fac.AntdText(content),
                 html.Br(),
-                tutorial.serve(tutorial_is_open, types), # 是否顯示使用教學
+                tutorial.serve(types),
             ]
         ),
         title=title,
@@ -22,7 +22,6 @@ def serve(title, content, margin_top=None, tutorial_is_open=False, types='Skin')
             'fontSize': 30,
         },
         style={
-            "margin-top": margin_top,
             "background-color": 'white',
         },
     )

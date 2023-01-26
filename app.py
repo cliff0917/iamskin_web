@@ -14,7 +14,7 @@ import globals
 from utils import login, upload
 from components import navbar, modal
 from components.modal import social_login
-from pages import home, about, prediction, discuss, policy, non_exist
+from pages import home, about, services, discuss, policy, non_exist
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
@@ -85,7 +85,7 @@ def display_page(pathname):
             return [dash.no_update, True, {'color': 'blue'}]
 
         return [
-            prediction.serve_layout(
+            services.serve_layout(
                 pathname[1:], # 哪種 type
                 True,
             ),

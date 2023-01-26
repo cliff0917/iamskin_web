@@ -6,7 +6,7 @@ import globals
 from components.services import paragraph
 
 # last 代表是否為該列最後一個元素
-def serve(chinese, types):
+def serve(types, chinese):
     return dbc.Col(
         [
             fac.AntdImage(

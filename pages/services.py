@@ -23,8 +23,6 @@ def serve_layout(types, tutorial_isOpen):
             card.serve(
                 lines[0],
                 lines[1],
-                None,
-                tutorial_isOpen,
                 types,
             ),
             uploader.serve(types),
@@ -145,7 +143,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             )
             session['output_path'] = f'assets/img/{types}/{predict_class}.png'
         
-        output_img = fac.AntdImage(src=session['output_path'])
+        output_img = fac.AntdImage(src=session['output_path'], locale='en-us')
 
     return [
         '上傳的圖片：', relative_path, [output_text, output_img],
