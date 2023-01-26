@@ -1,7 +1,7 @@
 import feffery_antd_components as fac
 from dash import html
 
-from components.service import tutorial
+from components.services import tutorial
 
 def serve(title, content, margin_top=None, tutorial_is_open=False, types='Skin'):
     card = fac.AntdCard(
@@ -23,7 +23,7 @@ def serve(title, content, margin_top=None, tutorial_is_open=False, types='Skin')
         },
         style={
             "margin-top": margin_top,
-            "background-color": '#F7F7F8',
+            "background-color": 'white',
         },
     )
     return card

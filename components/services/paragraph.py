@@ -4,7 +4,7 @@ from dash import html
 import globals
 
 def serve(types):
-    with open(f"{globals.config['text_path']}/{types}.txt", 'r') as f:
+    with open(f"{globals.config['text_path']}/{types}/home_intro.txt", 'r') as f:
         lines = f.readlines()
 
     paragraph = html.Div(

@@ -3,10 +3,10 @@ import dash_bootstrap_components as dbc
 from dash import html
 
 import globals
-from components.service import paragraph
+from components.services import paragraph
 
 # last 代表是否為該列最後一個元素
-def serve(chinese, types, last):
+def serve(chinese, types):
     return dbc.Col(
         [
             fac.AntdImage(
@@ -39,7 +39,9 @@ def serve(chinese, types, last):
         style={
             'background-color': '#F7F7F8',
             'textAlign': 'center',
-            'padding': '1rem 0rem',
-            'margin-bottom': '2rem' if last != True else None,
+            'padding': '2rem',
+            'margin-left': '1rem',
+            'margin-right': '1rem',
+            'margin-bottom': '1rem',
         },
     )

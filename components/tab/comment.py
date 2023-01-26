@@ -8,7 +8,7 @@ def serve(types):
     return fac.AntdTabPane(
         [
             bold_text.serve(
-                f'檢測類別：{globals.config["service_intro"][types]["title"][:2]}',
+                f'檢測類別：{globals.config["chinese_mapping"][types]["normal"]}',
             ),
             html.Br(),
             bold_text.serve('評分：'),

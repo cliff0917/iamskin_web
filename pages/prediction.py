@@ -10,16 +10,19 @@ from datetime import datetime
 
 import globals, plot
 from components.modal import share
-from components.service import card, result
+from components.services import card, result
 from components import uploader
 
 def serve_layout(types, tutorial_isOpen):
+    with open(f'{globals.config["text_path"]}/{types}/card.txt', 'r') as f:
+        lines = f.readlines()
+
     layout = html.Div(
         [
             share.serve(types),
             card.serve(
-                globals.config["service_intro"][types]["title"],
-                globals.config["service_intro"][types]["content"],
+                lines[0],
+                lines[1],
                 None,
                 tutorial_isOpen,
                 types,
@@ -97,7 +100,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 locale='en-us'
             )
 
-            with open(f'assets/text/{predict_class}.txt', 'r') as f:
+            with open(f'assets/text/{types}/{predict_class}.txt', 'r') as f:
                 lines = f.readlines()
                 feature = html.Li(
                     [
@@ -128,7 +131,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 predict_class_chinese = '高'
 
             output_text = html.H3(
-                f'預測您的指甲之異常風險為「{predict_class_chinese}」',
+                f'預測您的指甲異常風險為「{predict_class_chinese}」',
                 style={'font-weight': 'bold'},
             )
             

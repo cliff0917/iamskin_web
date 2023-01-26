@@ -36,7 +36,7 @@ def serve(types):
                 ),
                 html.Br(),
                 fac.AntdText(
-                    f'檢測類別：{globals.config["service_intro"][types]["title"][:2]}',
+                    f'檢測類別：{globals.config["chinese_mapping"][types]["normal"]}',
                     style={
                         'margin-left': '1rem',
                         'font-weight': 'bold',

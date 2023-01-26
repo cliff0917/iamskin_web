@@ -2,7 +2,7 @@ import dash_bootstrap_components as dbc
 from dash import html
 
 import globals
-from components.service import all_services
+from components.services import all_services
 from components.img import cover
 
 def serve_layout():

@@ -2,29 +2,15 @@
     "img_path": "assets/img",
     "text_path": "assets/text",
     "chinese_mapping": {
-        "Skin": "肌膚",
-        "Nail": "指甲",
-        "Acne": "痘痘"
+        "Skin": {"tutorial": "肌膚", "normal": "膚質"},
+        "Nail": {"tutorial": "指甲", "normal": "指甲"},
+        "Acne": {"tutorial": "痘痘", "normal": "指甲"}
     },
     "port": {
         "Skin": 8081,
         "Nail": 8082,
         "Acne": 8083,
         "linebot": 9487
-    },
-    "service_intro": {
-        "Skin": {
-            "title": "膚質檢測工具",
-            "content": "透過影像分析來檢測您的膚質為乾性肌、油肌、敏感肌。"
-        },
-        "Nail": {
-            "title": "指甲檢測工具",
-            "content": "透過影像分析來檢測您的指甲異常風險。"
-        },
-        "Acne": {
-            "title": "痘痘檢測工具",
-            "content": "透過影像分析來檢測您的痘痘的嚴重程度。"
-        }
     },
     "Classify": {
         "Skin": {

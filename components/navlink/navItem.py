@@ -1,5 +1,5 @@
 from dash import callback
-from dash.dependencies import Input, Output, ALL, State
+from dash.dependencies import Input, Output, ALL
 import dash_bootstrap_components as dbc
 
 def serve(text, link):
