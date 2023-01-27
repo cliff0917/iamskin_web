@@ -13,6 +13,7 @@ from dash.dependencies import Input, Output, State
 import globals
 from utils import login, upload
 from components import navbar, modal
+from components.common_style import navlink_active, navlink_not_active
 from components.modal import social_login
 from pages import home, about, services, discuss, policy, non_exist
 
@@ -74,15 +75,15 @@ def display_page(pathname):
 
     # live update layout
     if pathname == '/':
-        return [home.serve_layout(), False, {'color': 'black'}]
+        return [home.serve_layout(), False, navlink_not_active]
 
     elif pathname == '/About':
-        return [about.serve_layout(), False, {'color': 'black'}]
+        return [about.serve_layout(), False, navlink_not_active]
 
     elif pathname in globals.services:
         # 如果未登入帳號, 則跳出 login first modal
         if session.get("google_id", None) == None:
-            return [dash.no_update, True, {'color': 'blue'}]
+            return [dash.no_update, True, navlink_active]
 
         return [
             services.serve_layout(
@@ -90,19 +91,19 @@ def display_page(pathname):
                 True,
             ),
             False,
-            {'color': 'blue'}
+            navlink_active
         ]
 
     elif pathname == '/Discuss':
-        return [discuss.serve_layout(), False, {'color': 'black'}]
+        return [discuss.serve_layout(), False, navlink_not_active]
 
     elif pathname == '/terms':
-        return [policy.serve_layout('服務條款'), False, {'color': 'black'}]
+        return [policy.serve_layout('服務條款'), False, navlink_not_active]
 
     elif pathname == '/privacy-policy':
-        return [policy.serve_layout('隱私權政策'), False, {'color': 'black'}]
+        return [policy.serve_layout('隱私權政策'), False, navlink_not_active]
 
-    return [non_exist.serve_layout(), False, {'color': 'black'}]  # 若非以上路徑, 則顯示 404
+    return [non_exist.serve_layout(), False, navlink_not_active]  # 若非以上路徑, 則顯示 404
 
 
 if __name__ == '__main__':

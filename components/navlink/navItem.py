@@ -2,6 +2,8 @@ from dash import callback
 from dash.dependencies import Input, Output, ALL
 import dash_bootstrap_components as dbc
 
+from components.common_style import navlink_active, navlink_not_active
+
 def serve(text, link):
     return dbc.NavItem(
         dbc.NavLink(
@@ -24,4 +26,4 @@ def serve(text, link):
     prevent_initial_call=True
 )
 def selected(pathname, links):
-    return [{"color": "blue"} if link["index"] == pathname else {"color": "black"} for link in links]
+    return [navlink_active if link["index"] == pathname else navlink_not_active for link in links]
