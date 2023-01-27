@@ -9,7 +9,7 @@ def serve_layout():
         [
             fac.AntdTitle('關於我們', level=1),
             html.Hr(),
-            html.H3('▪ Line 官方帳號'),
+            dbc.Row(html.H3('▪ Line 官方帳號'), style={'margin-left': '1.5px'}),
             dbc.Row(
                 [
                     html.H4('▪ 網址：'),
@@ -49,9 +49,7 @@ def serve_layout():
                         href='mailto:iamskin.uscc@gmail.com?subject=Feedback&body=愛美膚使用回饋'
                     )
                 ],
-                style={
-                    'margin-left': '1.5px',
-                },
+                style={'margin-left': '1.5px'},
             )
         ],
     )
