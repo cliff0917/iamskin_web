@@ -30,7 +30,7 @@ def serve(types):
                 html.Br(),
                 html.Br(),
                 fac.AntdImage(
-                    src=f"{globals.config['img_path']}/{types}/example.png",
+                    src=f"{globals.config['assets_path']}/{types}/img/example.png",
                     preview=False,
                 ),
             ]

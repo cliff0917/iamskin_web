@@ -21,7 +21,7 @@ app = dash.Dash(__name__, suppress_callback_exceptions=True)
 du.configure_upload(app, folder='assets/upload') # uploader 的儲存路徑
 
 app.title = "愛美膚 iamSkin"
-app._favicon = ("img/logo.png")
+app._favicon = ("common/img/logo.png")
 server = app.server
 server.secret_key = "iamskin.tk"
 server = login.serve(server)

@@ -4,7 +4,7 @@ import globals
 
 def serve():
     cover = fac.AntdImage(
-        src=f"{globals.config['img_path']}/cover.png",
+        src=f"{globals.config['assets_path']}/common/img/cover.png",
         preview=False,
     )
     return cover

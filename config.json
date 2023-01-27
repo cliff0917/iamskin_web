@@ -1,33 +1,15 @@
 {
-    "img_path": "assets/img",
-    "text_path": "assets/text",
+    "assets_path": "./assets",
     "chinese_mapping": {
         "Skin": {"tutorial": "肌膚", "normal": "膚質"},
         "Nail": {"tutorial": "指甲", "normal": "指甲"},
-        "Acne": {"tutorial": "痘痘", "normal": "指甲"}
+        "Acne": {"tutorial": "痘痘", "normal": "痘痘"}
     },
     "port": {
         "Skin": 8081,
         "Nail": 8082,
         "Acne": 8083,
         "linebot": 9487
-    },
-    "Classify": {
-        "Skin": {
-            "dry": "乾性肌",
-            "oily": "油肌",
-            "sensitive": "敏感肌"
-        },
-        "Nail": {
-            "low": "低",
-            "high": "高"
-        },
-        "Acne": {
-            "low": "低",
-            "middle": "中",
-            "m_high": "中高",
-            "high": "高"
-        }
     },
     "db": "iamskin.db"
 }

@@ -14,17 +14,13 @@ from components.services import card, result
 from components import uploader
 
 def serve_layout(types, tutorial_isOpen):
-    with open(f'{globals.config["text_path"]}/{types}/card.txt', 'r') as f:
+    with open(f"{globals.config['assets_path']}/{types}/text/card.txt", 'r') as f:
         lines = f.readlines()
 
     layout = html.Div(
         [
             share.serve(types),
-            card.serve(
-                lines[0],
-                lines[1],
-                types,
-            ),
+            card.serve(lines[0], lines[1], types),
             uploader.serve(types),
             result.serve(types),
         ],
@@ -73,7 +69,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             col_val = [float(value) for value in response['likelihood'].values()]
 
             predict_class = [c for c in response['prediction'].keys()][0]
-            predict_class_chinese = globals.config["Classify"][types][predict_class]
+            predict_class_chinese = globals.read_json(f'{globals.config["assets_path"]}/{types}/json/classes.json')[predict_class]
 
             output_text = html.H3(
                 f'預測您的膚質為「{predict_class_chinese}」',
@@ -98,7 +94,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 locale='en-us'
             )
 
-            with open(f'assets/text/{types}/{predict_class}.txt', 'r') as f:
+            with open(f'assets/{types}/text/{predict_class}.txt', 'r') as f:
                 lines = f.readlines()
                 feature = html.Li(
                     [
@@ -122,10 +118,10 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         
         elif types == 'Nail':
             if list(response['prediction'].keys())[0] == 'normalnail':
-                session['output_path'] = f'assets/img/{types}/low.png'
+                session['output_path'] = f'assets/{types}/img/low.png'
                 predict_class_chinese = '低'
             else:
-                session['output_path'] = f'assets/img/{types}/high.png'
+                session['output_path'] = f'assets/{types}/img/high.png'
                 predict_class_chinese = '高'
 
             output_text = html.H3(
@@ -136,12 +132,12 @@ def show_upload_status(isCompleted, fileNames, upload_id):
 
         elif types == 'Acne':
             predict_class = response['prediction']
-            predict_class_chinese = globals.config["Classify"][types][predict_class]
+            predict_class_chinese = globals.read_json(f'{globals.config["assets_path"]}/{types}/json/classes.json')[predict_class]
             output_text = html.H3(
                 f'預測您的痘痘嚴重程度為「{predict_class_chinese}」',
                 style={'font-weight': 'bold'},
             )
-            session['output_path'] = f'assets/img/{types}/{predict_class}.png'
+            session['output_path'] = f'assets/{types}/img/{predict_class}.png'
         
         output_img = fac.AntdImage(src=session['output_path'], locale='en-us')
 

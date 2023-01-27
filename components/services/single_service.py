@@ -5,12 +5,12 @@ from dash import html
 import globals
 from components.services import paragraph
 
-# last 代表是否為該列最後一個元素
+
 def serve(types, chinese):
     return dbc.Col(
         [
             fac.AntdImage(
-                src=f"{globals.config['img_path']}/{types}/icon.png",
+                src=f"{globals.config['assets_path']}/{types}/img/icon.png",
                 preview=False,
                 style={
                     'height': '130px',

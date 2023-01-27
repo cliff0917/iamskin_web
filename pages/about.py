@@ -28,7 +28,7 @@ def serve_layout():
             ),
             html.H4('▪ QR Code：', style={'margin-left': '2rem'}),
             fac.AntdImage(
-                src=f"{globals.config['img_path']}/qrcode.png",
+                src=f"{globals.config['assets_path']}/common/img/qrcode.png",
                 style={
                     'height': "40%",
                     'padding': '0rem 1rem',

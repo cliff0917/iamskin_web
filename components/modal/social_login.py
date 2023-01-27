@@ -13,7 +13,7 @@ def serve(id, title, context, href=None, is_open=True):
                         fac.AntdButton(
                             [
                                 html.Img(
-                                    src=f"{globals.config['img_path']}/google-login.svg",
+                                    src=f"{globals.config['assets_path']}/common/img/google-login.svg",
                                     height="27px",
                                     style={
                                         'margin-bottom': '3px',

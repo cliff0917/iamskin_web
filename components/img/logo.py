@@ -10,7 +10,7 @@ def serve():
             [
                 dbc.Col(
                     html.Img(
-                        src=f"{globals.config['img_path']}/logo.png", 
+                        src=f"{globals.config['assets_path']}/common/img/logo.png", 
                         height="50px",
                     )
                 ),

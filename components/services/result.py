@@ -7,7 +7,6 @@ def serve(types):
         'width': 6,
         'margin-top': '2rem',
         'margin-left': '1rem',
-        # 'border': '1px black solid',
     }
     return dcc.Loading(
         [
