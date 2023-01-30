@@ -5,7 +5,6 @@ from dash import html
 import globals
 from components.services import paragraph
 
-
 def serve(types, chinese):
     return dbc.Col(
         [
@@ -29,6 +28,7 @@ def serve(types, chinese):
                 f"點擊分析{chinese}",
                 color="primary",
                 outline=True,
+                external_link=True,
                 href=f'/{types}',
                 style={
                     'font-weight': 'bold',
