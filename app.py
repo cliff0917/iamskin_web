@@ -72,18 +72,22 @@ app.layout = serve_layout
 )
 def display_page(pathname):
     session["cur_path"] = pathname
+    dropdown_navlink = navlink_not_active
 
     # live update layout
     if pathname == '/':
-        return [home.serve_layout(), False, navlink_not_active]
+        return [home.serve_layout(), False, dropdown_navlink]
 
     elif pathname == '/About':
-        return [about.serve_layout(), False, navlink_not_active]
+        return [about.serve_layout(), False, dropdown_navlink]
 
     elif pathname in globals.services:
+        dropdown_navlink = navlink_active
+
         # 如果未登入帳號, 則跳出 login first modal
         if session.get("google_id", None) == None:
-            return [dash.no_update, True, navlink_active]
+            
+            return [dash.no_update, True, dropdown_navlink]
 
         return [
             services.serve_layout(
@@ -91,19 +95,19 @@ def display_page(pathname):
                 True,
             ),
             False,
-            navlink_active
+            dropdown_navlink
         ]
 
     elif pathname == '/Discuss':
-        return [discuss.serve_layout(), False, navlink_not_active]
+        return [discuss.serve_layout(), False, dropdown_navlink]
 
     elif pathname == '/terms':
-        return [policy.serve_layout('服務條款'), False, navlink_not_active]
+        return [policy.serve_layout('服務條款'), False, dropdown_navlink]
 
     elif pathname == '/privacy-policy':
-        return [policy.serve_layout('隱私權政策'), False, navlink_not_active]
+        return [policy.serve_layout('隱私權政策'), False, dropdown_navlink]
 
-    return [non_exist.serve_layout(), False, navlink_not_active]  # 若非以上路徑, 則顯示 404
+    return [non_exist.serve_layout(), False, dropdown_navlink]  # 若非以上路徑, 則顯示 404
 
 
 if __name__ == '__main__':

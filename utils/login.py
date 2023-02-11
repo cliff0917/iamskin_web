@@ -7,7 +7,7 @@ from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 
-import globals
+import globals, database
 
 def serve(server):
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
@@ -45,10 +45,11 @@ def serve(server):
             audience=GOOGLE_CLIENT_ID
         )
         session["google_id"] = id_info.get("sub")
-        session["email"] = id_info.get("email")
-        session["locale"] = id_info.get("locale")
         session["name"] = id_info.get("name")
         session["picture"] = id_info.get("picture")
+        
+        info = (session["google_id"], session["name"])
+        database.add_user(info)
         return redirect(session["cur_path"])
     
     return server

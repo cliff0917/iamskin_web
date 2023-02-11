@@ -8,7 +8,7 @@ from components.img import comment_attach
 
 def serve(types):
     comments = []
-    type_comments = database.read_data(types)
+    type_comments = database.get_comments(types)
 
     if len(type_comments) == 0:
         return html.Div(
@@ -20,7 +20,7 @@ def serve(types):
     # 新的 comment 會顯示在較上面
     for type_comment in type_comments[::-1]:
         comment_section, img = None, None
-        name, time, rate, comment, img_path = type_comment
+        name, output_img_path, display_output_img, publish_time, rate, comment = type_comment
 
         if comment != '':
             comment_section = html.Div(
@@ -39,8 +39,8 @@ def serve(types):
                 }
             )
 
-        if img_path != '':
-            img = comment_attach.serve(img_path, '306px')
+        if display_output_img == 1:
+            img = comment_attach.serve(output_img_path, '306px')
 
         single_comment = html.Div(
             [
@@ -58,7 +58,7 @@ def serve(types):
                     }
                 ),
                 fac.AntdText(
-                    time,
+                    publish_time,
                     type='secondary',
                     style={
                         'margin-left': '1rem',

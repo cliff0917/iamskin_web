@@ -8,7 +8,7 @@ from dash import dcc, html, callback
 from dash.dependencies import Input, Output, State, MATCH
 from datetime import datetime
 
-import globals, plot
+import globals, database, plot
 from components.modal import share
 from components.services import card, result
 from components import uploader
@@ -47,11 +47,12 @@ def serve_layout(types, tutorial_isOpen):
 )
 def show_upload_status(isCompleted, fileNames, upload_id):
     if isCompleted:
+        session["predict_time"] = globals.now()
         types = session["cur_path"][1:]
         session["type"] = types
         relative_path = os.path.join('assets/upload', upload_id, fileNames[0])
         absolute_path = os.path.join(os.getcwd(), relative_path)
-        # print(absolute_path)
+        session["input_path"] = relative_path
 
         ip_address = requests.get('https://api.ipify.org').text
         r = requests.post(
@@ -111,6 +112,12 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                     style={'fontSize': 25}
                 )
 
+            info = (
+                session["google_id"], session["type"], session["predict_time"],
+                session["input_path"], session['output_path'], -1, '', -1, ''
+            )
+            database.add_history(info)
+
             return [
                 '上傳的圖片：', relative_path, [output_text, output_img],
                 False, f'【{predict_class_chinese}】', [feature, html.Br(), maintain], True
@@ -140,6 +147,12 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             session['output_path'] = f'assets/{types}/img/{predict_class}.png'
         
         output_img = fac.AntdImage(src=session['output_path'], locale='en-us')
+
+        info = (
+            session["google_id"], session["type"], session["predict_time"],
+            session["input_path"], session['output_path'], -1, '', -1, ''
+        )
+        database.add_history(info)
 
     return [
         '上傳的圖片：', relative_path, [output_text, output_img],

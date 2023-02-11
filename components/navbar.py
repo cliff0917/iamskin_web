@@ -35,6 +35,7 @@ def serve():
                                 style={'textAlign': 'center'}
                             ),
                             navItem.serve("討論區", '/Discuss'),
+                            navItem.serve("歷史紀錄", '/History'),
                             logout.serve(),
                         ],
                         className='ml-auto', # navlink 向右對齊

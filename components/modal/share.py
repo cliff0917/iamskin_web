@@ -4,8 +4,7 @@ from dash import callback
 from flask import session
 from dash.dependencies import Input, Output, State, MATCH
 
-import globals
-import database
+import globals, database
 from components.tab import share
 
 def serve(types):
@@ -37,21 +36,15 @@ def serve(types):
     prevent_initial_call=True,
 )
 def insert_data(okCounts, rate, comment, checked):
-    # insert data 到 db
+    # 若要分享, 則更新 history 中的 display_output, publish_time, rate, comment
     if checked == True:
-        img_path = session["output_path"]
+        display_output_img = 1
     else:
-        img_path = ''
-        
-    database.insert(
-        session["google_id"],
-        session["name"],
-        session["email"],
-        session["locale"],
-        session["cur_path"][1:],
-        globals.now(),
-        rate,
-        comment,
-        img_path
+        display_output_img = 0
+
+    info = (
+        display_output_img, globals.now(), rate, comment, 
+        session["google_id"], session["cur_path"][1:], session["input_path"]
     )
+    database.update_history(info)
     return dash.no_update
