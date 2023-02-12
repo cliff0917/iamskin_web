@@ -2,8 +2,6 @@ import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
 from dash import html
 
-import globals
-
 def serve_layout():
     layout = html.Div(
         [
@@ -28,7 +26,7 @@ def serve_layout():
             ),
             html.H4('▪ QR Code：', style={'margin-left': '2rem'}),
             fac.AntdImage(
-                src=f"{globals.config['assets_path']}/common/img/qrcode.png",
+                src="./assets/common/img/qrcode.png",
                 style={
                     'height': "40%",
                     'padding': '0rem 1rem',

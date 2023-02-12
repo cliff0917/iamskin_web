@@ -75,6 +75,15 @@ def update_history(data):
     cursor.close()
 
 
+def get_history(uid):
+    conn, cursor = connect_db(globals.config["db"])
+    cmd = """SELECT TYPE, PREDICT_TIME, INPUT_PATH, OUTPUT_PATH FROM HISTORY
+        WHERE UID = ?"""
+    cursor.execute(cmd, (uid,))
+    data = cursor.fetchall()
+    return data
+
+
 def get_comments(types='Skin'):
     conn, cursor = connect_db(globals.config["db"])
     cmd = """SELECT USER.NAME, HISTORY.OUTPUT_PATH, HISTORY.DISPLAY_OUTPUT, 

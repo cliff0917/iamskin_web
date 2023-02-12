@@ -9,7 +9,7 @@ def serve():
         dbc.Row(
             [
                 single_service.serve(key, value["tutorial"])
-                for key, value in globals.config["chinese_mapping"].items() # 利用 config 初始化 tutorial
+                for key, value in globals.config["chinese"].items() # 利用 config 初始化 tutorial
             ]
         )
     )

@@ -14,7 +14,7 @@ from components.services import card, result
 from components import uploader
 
 def serve_layout(types, tutorial_isOpen):
-    with open(f"{globals.config['assets_path']}/{types}/text/card.txt", 'r') as f:
+    with open(f"./assets/{types}/text/card.txt", 'r') as f:
         lines = f.readlines()
 
     layout = html.Div(
@@ -70,7 +70,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             col_val = [float(value) for value in response['likelihood'].values()]
 
             predict_class = [c for c in response['prediction'].keys()][0]
-            predict_class_chinese = globals.read_json(f'{globals.config["assets_path"]}/{types}/json/classes.json')[predict_class]
+            predict_class_chinese = globals.read_json(f"./assets/{types}/json/classes.json")[predict_class]
 
             output_text = html.H3(
                 f'預測您的膚質為「{predict_class_chinese}」',
@@ -139,7 +139,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
 
         elif types == 'Acne':
             predict_class = response['prediction']
-            predict_class_chinese = globals.read_json(f'{globals.config["assets_path"]}/{types}/json/classes.json')[predict_class]
+            predict_class_chinese = globals.read_json(f"./assets/{types}/json/classes.json")[predict_class]
             output_text = html.H3(
                 f'預測您的痘痘嚴重程度為「{predict_class_chinese}」',
                 style={'font-weight': 'bold'},

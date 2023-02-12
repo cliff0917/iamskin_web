@@ -2,8 +2,6 @@ import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
 from dash import html
 
-import globals
-
 def serve(id, title, context, href=None, is_open=True):
     return fac.AntdModal(
         [
@@ -13,7 +11,7 @@ def serve(id, title, context, href=None, is_open=True):
                         fac.AntdButton(
                             [
                                 html.Img(
-                                    src=f"{globals.config['assets_path']}/common/img/google-login.svg",
+                                    src="./assets/common/img/google-login.svg",
                                     height="27px",
                                     style={
                                         'margin-bottom': '3px',

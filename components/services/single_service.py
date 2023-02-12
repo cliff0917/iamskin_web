@@ -2,14 +2,13 @@ import feffery_antd_components as fac
 import dash_bootstrap_components as dbc
 from dash import html
 
-import globals
 from components.services import paragraph
 
 def serve(types, chinese):
     return dbc.Col(
         [
             fac.AntdImage(
-                src=f"{globals.config['assets_path']}/{types}/img/icon.png",
+                src=f"./assets/{types}/img/icon.png",
                 preview=False,
                 style={
                     'height': '130px',

@@ -11,10 +11,8 @@ def serve(types):
     type_comments = database.get_comments(types)
 
     if len(type_comments) == 0:
-        return html.Div(
-            fac.AntdEmpty(
-                description=bold_text.serve('暫無評論'),
-            )
+        return fac.AntdEmpty(
+            description=bold_text.serve('暫無評論')
         )
     
     # 新的 comment 會顯示在較上面
@@ -66,7 +64,7 @@ def serve(types):
                 ),
                 html.Br(),
                 fac.AntdText(
-                    f'檢測類別：{globals.config["chinese_mapping"][types]["normal"]}',
+                    f'檢測類別：{globals.config["chinese"][types]["normal"]}',
                     style={
                         'margin-left': '1rem',
                         'font-weight': 'bold',

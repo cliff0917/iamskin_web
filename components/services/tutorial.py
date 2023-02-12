@@ -18,19 +18,19 @@ def serve(types):
         content=fac.AntdParagraph(
             [
                 fac.AntdText('照片要確實含有您的'),
-                fac.AntdText(f"{globals.config['chinese_mapping'][types]['tutorial']}", code=True),
+                fac.AntdText(f"{globals.config['chinese'][types]['tutorial']}", code=True),
                 fac.AntdText('且盡量有充足光源，並注意不要'),
                 fac.AntdText('失焦', code=True),
                 fac.AntdText('，否則判讀結果不具任何意義。'),
                 html.Br(),
                 html.Br(),
                 fac.AntdText('請參考下方範例圖片來上傳'),
-                fac.AntdText(f"{globals.config['chinese_mapping'][types]['tutorial']}", code=True),
+                fac.AntdText(f"{globals.config['chinese'][types]['tutorial']}", code=True),
                 fac.AntdText('圖片，即可得到結果。'),
                 html.Br(),
                 html.Br(),
                 fac.AntdImage(
-                    src=f"{globals.config['assets_path']}/{types}/img/example.png",
+                    src=f"./assets/{types}/img/example.png",
                     preview=False,
                 ),
             ]

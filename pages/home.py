@@ -1,15 +1,14 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-import globals
 from components.services import all_services
 from components.img import cover
 
 def serve_layout():
-    with open(f"{globals.config['assets_path']}/common/text/subject.txt", 'r') as f:
+    with open("./assets/common/text/subject.txt", 'r') as f:
         subject = f.read()
 
-    with open(f"{globals.config['assets_path']}/common/text/note.txt", 'r') as f:
+    with open("./assets/common/text/note.txt", 'r') as f:
         note = f.read()
 
     layout = html.Div(

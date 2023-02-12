@@ -15,7 +15,7 @@ from utils import login, upload
 from components import navbar, modal
 from components.common_style import navlink_active, navlink_not_active
 from components.modal import social_login
-from pages import home, about, services, discuss, policy, non_exist
+from pages import home, about, services, discuss, history, policy, non_exist
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
@@ -86,9 +86,8 @@ def display_page(pathname):
 
         # 如果未登入帳號, 則跳出 login first modal
         if session.get("google_id", None) == None:
-            
             return [dash.no_update, True, dropdown_navlink]
-
+            
         return [
             services.serve_layout(
                 pathname[1:], # 哪種 type
@@ -100,6 +99,13 @@ def display_page(pathname):
 
     elif pathname == '/Discuss':
         return [discuss.serve_layout(), False, dropdown_navlink]
+
+    elif pathname == '/History':
+        # 如果未登入帳號, 則跳出 login first modal
+        if session.get("google_id", None) == None:
+            return [dash.no_update, True, dropdown_navlink]
+            
+        return [history.serve_layout(), False, dropdown_navlink]
 
     elif pathname == '/terms':
         return [policy.serve_layout('服務條款'), False, dropdown_navlink]
