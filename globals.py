@@ -21,5 +21,5 @@ def mkdir(path):
         os.mkdir(path)
 
 def now():
-    time_format = "%Y-%m-%d %H:%M:%S"
+    time_format = "%Y-%m-%d@%H:%M:%S"
     return datetime.now().strftime(time_format)

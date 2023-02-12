@@ -47,7 +47,7 @@ def serve_layout(types, tutorial_isOpen):
 )
 def show_upload_status(isCompleted, fileNames, upload_id):
     if isCompleted:
-        session["predict_time"] = globals.now()
+        session["upload_time"] = upload_id.split('/')[-1]
         types = session["cur_path"][1:]
         session["type"] = types
         relative_path = os.path.join('assets/upload', upload_id, fileNames[0])
@@ -65,6 +65,15 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         response = json.loads(r.text)
         # print(response)
 
+        # 建立儲存預測結果的資料夾
+        save_path = 'assets/prediction'
+        for dir_name in upload_id.split('/'):
+            save_path = os.path.join(save_path, dir_name)
+            globals.mkdir(save_path)
+
+        output_path = os.path.join(save_path, fileNames[0])
+        session["output_path"] = output_path
+
         if types == 'Skin':
             col_name = [col for col in response['likelihood'].keys()]
             col_val = [float(value) for value in response['likelihood'].values()]
@@ -79,19 +88,10 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 },
             )
 
-            # 建立儲存預測結果的資料夾
-            save_path = 'assets/prediction'
-            for dir_name in upload_id.split('/'):
-                save_path = os.path.join(save_path, dir_name)
-                globals.mkdir(save_path)
-
-            filepath = os.path.join(save_path, fileNames[0])
-            session['output_path'] = filepath
-
             fig = plot.pie(col_name, col_val)
-            fig.write_image(filepath)
+            fig.write_image(output_path)
             output_img = fac.AntdImage(
-                src=filepath,
+                src=output_path,
                 locale='en-us'
             )
 
@@ -113,8 +113,8 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 )
 
             info = (
-                session["google_id"], session["type"], session["predict_time"],
-                session["input_path"], session['output_path'], -1, '', -1, ''
+                session["google_id"], session["type"], session["upload_time"],
+                fileNames[0], -1, '', -1, ''
             )
             database.add_history(info)
 
@@ -122,20 +122,20 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 '上傳的圖片：', relative_path, [output_text, output_img],
                 False, f'【{predict_class_chinese}】', [feature, html.Br(), maintain], True
             ]
-        
+
         elif types == 'Nail':
             if list(response['prediction'].keys())[0] == 'normalnail':
-                session['output_path'] = f'assets/{types}/img/low.png'
-                predict_class_chinese = '低'
+                predict_class = 'low'
             else:
-                session['output_path'] = f'assets/{types}/img/high.png'
-                predict_class_chinese = '高'
+                predict_class = 'high'
+
+            predict_class_chinese = globals.read_json(f"./assets/{types}/json/classes.json")[predict_class]
 
             output_text = html.H3(
                 f'預測您的指甲異常風險為「{predict_class_chinese}」',
                 style={'font-weight': 'bold'},
             )
-            
+
 
         elif types == 'Acne':
             predict_class = response['prediction']
@@ -144,13 +144,15 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 f'預測您的痘痘嚴重程度為「{predict_class_chinese}」',
                 style={'font-weight': 'bold'},
             )
-            session['output_path'] = f'assets/{types}/img/{predict_class}.png'
-        
-        output_img = fac.AntdImage(src=session['output_path'], locale='en-us')
+
+        # 建立 soft link
+        os.system(f'ln -s {os.getcwd()}/assets/{types}/img/{predict_class}.png {output_path}')
+
+        output_img = fac.AntdImage(src=output_path, locale='en-us')
 
         info = (
-            session["google_id"], session["type"], session["predict_time"],
-            session["input_path"], session['output_path'], -1, '', -1, ''
+            session["google_id"], session["type"], session["upload_time"],
+            fileNames[0], -1, '', -1, ''
         )
         database.add_history(info)
 

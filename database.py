@@ -24,9 +24,8 @@ def create_db():
         cmd = '''CREATE TABLE HISTORY(
             UID CHAR(21) NOT NULL,
             TYPE CHAR(10) NOT NULL,
-            PREDICT_TIME CHAR(19) NOT NULL,
-            INPUT_PATH CHAR(100) NOT NULL,
-            OUTPUT_PATH CHAR(100) NOT NULL,
+            UPLOAD_TIME CHAR(19) NOT NULL,
+            FILE_NAME CHAR(100) NOT NULL,
             DISPLAY_OUTPUT INT NOT NULL,
             PUBLISH_TIME CHAR(19),
             RATE INT,
@@ -58,8 +57,8 @@ def add_user(data):
 def add_history(data):
     conn, cursor = connect_db(globals.config["db"])
     cmd = '''INSERT INTO HISTORY
-        (UID, TYPE, PREDICT_TIME, INPUT_PATH, OUTPUT_PATH, DISPLAY_OUTPUT, PUBLISH_TIME, RATE, COMMENT)
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+        (UID, TYPE, UPLOAD_TIME, FILE_NAME, DISPLAY_OUTPUT, PUBLISH_TIME, RATE, COMMENT)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?);'''
     cursor.execute(cmd, data)
     conn.commit()
     conn.close()
@@ -69,7 +68,7 @@ def add_history(data):
 def update_history(data):
     conn, cursor = connect_db(globals.config["db"])
     cmd = """Update HISTORY set DISPLAY_OUTPUT = ?, PUBLISH_TIME = ?, RATE = ?, COMMENT = ?
-            where UID = ? AND TYPE = ? AND INPUT_PATH = ?"""
+            where UID = ? AND TYPE = ? AND UPLOAD_TIME = ?"""
     cursor.execute(cmd, data)
     conn.commit()
     cursor.close()
@@ -77,7 +76,7 @@ def update_history(data):
 
 def get_history(uid):
     conn, cursor = connect_db(globals.config["db"])
-    cmd = """SELECT TYPE, PREDICT_TIME, INPUT_PATH, OUTPUT_PATH FROM HISTORY
+    cmd = """SELECT TYPE, UPLOAD_TIME, FILE_NAME FROM HISTORY
         WHERE UID = ?"""
     cursor.execute(cmd, (uid,))
     data = cursor.fetchall()
@@ -86,8 +85,8 @@ def get_history(uid):
 
 def get_comments(types='Skin'):
     conn, cursor = connect_db(globals.config["db"])
-    cmd = """SELECT USER.NAME, HISTORY.OUTPUT_PATH, HISTORY.DISPLAY_OUTPUT, 
-        HISTORY.PUBLISH_TIME, HISTORY.RATE, HISTORY.COMMENT
+    cmd = """SELECT USER.UID, USER.NAME, HISTORY.UPLOAD_TIME, HISTORY.FILE_NAME,
+        HISTORY.DISPLAY_OUTPUT, HISTORY.PUBLISH_TIME, HISTORY.RATE, HISTORY.COMMENT
         FROM USER INNER JOIN HISTORY ON USER.UID = HISTORY.UID
         WHERE TYPE = ? AND PUBLISH_TIME != ?"""
     cursor.execute(cmd, (types, ''))

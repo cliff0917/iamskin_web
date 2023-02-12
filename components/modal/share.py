@@ -44,7 +44,7 @@ def insert_data(okCounts, rate, comment, checked):
 
     info = (
         display_output_img, globals.now(), rate, comment, 
-        session["google_id"], session["cur_path"][1:], session["input_path"]
+        session["google_id"], session["cur_path"][1:], session["upload_time"]
     )
     database.update_history(info)
     return dash.no_update

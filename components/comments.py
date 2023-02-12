@@ -18,7 +18,7 @@ def serve(types):
     # 新的 comment 會顯示在較上面
     for type_comment in type_comments[::-1]:
         comment_section, img = None, None
-        name, output_img_path, display_output_img, publish_time, rate, comment = type_comment
+        uid, name, upload_time, file_name, display_output_img, publish_time, rate, comment = type_comment
 
         if comment != '':
             comment_section = html.Div(
@@ -38,7 +38,7 @@ def serve(types):
             )
 
         if display_output_img == 1:
-            img = comment_attach.serve(output_img_path, '306px')
+            img = comment_attach.serve(f'assets/prediction/{types}/{uid}/{upload_time}/{file_name}', '306px')
 
         single_comment = html.Div(
             [

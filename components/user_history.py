@@ -42,18 +42,18 @@ def serve():
                 data=[
                     {
                         '編號': i + 1,
-                        '檢測類別': globals.config["chinese"][data[0]]["normal"],
-                        '上傳時間': data[1],
+                        '檢測類別': globals.config["chinese"][types]["normal"],
+                        '上傳時間': upload_time,
                         '上傳圖片': {
-                            'src': data[2],
+                            'src': f'assets/upload/{types}/{session["google_id"]}/{upload_time}/{file_name}',
                             'height': '75px'
                         },
                         '輸出': {
-                            'src': data[3],
+                            'src': f'assets/prediction/{types}/{session["google_id"]}/{upload_time}/{file_name}',
                             'height': '75px'
                         }
                     }
-                    for i, data in enumerate(history)
+                    for i, [types, upload_time, file_name] in enumerate(history)
                 ],
                 bordered=True,
                 locale='en-us',
