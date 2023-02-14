@@ -10,5 +10,3 @@ def serve_layout():
             user_history.serve()
         ]
     )
-
-    

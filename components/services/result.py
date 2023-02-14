@@ -42,14 +42,6 @@ def serve(types):
                     ),
                 ],
             ),
-            dbc.Collapse(
-                html.Hr(),
-                is_open=False,
-                id={
-                    'type': 'horizon-line',
-                    'index': types
-                }
-            ),
             html.H2(
                 id={
                     'type': 'predict-class',

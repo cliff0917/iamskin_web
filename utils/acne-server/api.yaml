@@ -1,0 +1,15 @@
+image-classifier: {
+  path: './models/image-classifier/checkpoint/best/model.pt',
+  url: "https://drive.google.com/uc?id=1aQX9wONIu_NrN87f_30K-cmU_wyN67_i"
+  # url: 'https://drive.google.com/uc?id=1T6gZjC20pMpMp5Y_y8nST5oRnT8TXoZ_' ASKiN not good for class
+}
+image-embedding: {
+  path: './models/image-embedding/checkpoint/best/model.pt',
+  # url: "https://drive.google.com/uc?id=1JeYwmLLndHjLgwQjRK1MRWt-lG_41_z1"
+  url: "https://drive.google.com/uc?id=10h9S1hKSCMpcQ9MQwYwgCioQefj-9_lH"
+}
+
+demo: {
+  higher: './demo/levle3_91.jpg',
+  lower: './demo/levle0_0.jpg'
+}

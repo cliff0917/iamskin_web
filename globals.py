@@ -16,10 +16,6 @@ def read_json(path):
         data = json.load(json_file)
     return data
 
-def mkdir(path):
-    if not os.path.exists(path):
-        os.mkdir(path)
-
 def now():
     time_format = "%Y-%m-%d@%H:%M:%S"
     return datetime.now().strftime(time_format)

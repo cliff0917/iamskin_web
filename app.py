@@ -6,16 +6,8 @@ import os
 import dash
 import webbrowser
 import dash_uploader as du
-from flask import session
-from dash import dcc, html, callback
-from dash.dependencies import Input, Output, State
 
-import globals
-from utils import login, upload
-from components import navbar, modal
-from components.common_style import navlink_active, navlink_not_active
-from components.modal import social_login
-from pages import home, about, services, discuss, history, policy, non_exist
+from utils import login, layout
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
@@ -26,105 +18,11 @@ app._favicon = ("common/img/logo.png")
 server = app.server
 server.secret_key = "iamskin.tk"
 server = login.serve(server)
-
-# components
-url = dcc.Location(id="url")
-
-content = html.Div(
-    id='content', 
-    style={
-        'padding': '2rem 2rem', 
-    }
-)
-
-def serve_layout():
-    # 得到最新狀態的 db
-    globals.initialize()
-
-    layout = html.Div(
-        [
-            url,
-            navbar.serve(),
-            content,
-            social_login.serve(
-                'login-first',
-                '請先登入帳號',
-                '使用 Google 繼續',
-                '/login'
-            ),
-        ],
-        style={'font-family': 'Microsoft YaHei UI', 'color': 'black'}
-    )
-    return layout
-
-# live update, 請注意這裡是要用 serve_layout 而非 serve_layout()
-app.layout = serve_layout
-
-# 透過 url 來決定顯示哪個 page
-@callback(
-    [
-        Output('content', 'children'),
-        Output('login-first-modal', 'visible'),
-        Output('nav-dropdown-title', 'toggle_style'), # 服務項目的顏色 
-    ],
-    Input('url', 'pathname'),
-    prevent_initial_call=True
-)
-def display_page(pathname):
-    session["cur_path"] = pathname
-    dropdown_navlink = navlink_not_active
-
-    # live update layout
-    if pathname == '/':
-        return [home.serve_layout(), False, dropdown_navlink]
-
-    elif pathname == '/About':
-        return [about.serve_layout(), False, dropdown_navlink]
-
-    elif pathname in globals.services:
-        dropdown_navlink = navlink_active
-
-        # 如果未登入帳號, 則跳出 login first modal
-        if session.get("google_id", None) == None:
-            return [dash.no_update, True, dropdown_navlink]
-            
-        return [
-            services.serve_layout(
-                pathname[1:], # 哪種 type
-                True,
-            ),
-            False,
-            dropdown_navlink
-        ]
-
-    elif pathname == '/Discuss':
-        return [discuss.serve_layout(), False, dropdown_navlink]
-
-    elif pathname == '/History':
-        # 如果未登入帳號, 則跳出 login first modal
-        if session.get("google_id", None) == None:
-            return [dash.no_update, True, dropdown_navlink]
-            
-        return [history.serve_layout(), False, dropdown_navlink]
-
-    elif pathname == '/terms':
-        return [policy.serve_layout('服務條款'), False, dropdown_navlink]
-
-    elif pathname == '/privacy-policy':
-        return [policy.serve_layout('隱私權政策'), False, dropdown_navlink]
-
-    return [non_exist.serve_layout(), False, dropdown_navlink]  # 若非以上路徑, 則顯示 404
-
+app.layout = layout.serve # live update, 請注意這裡是要用 serve 而非 serve()
 
 if __name__ == '__main__':
-    debug = 0
-
-    if debug == 1:
-        app.run(host='0.0.0.0', port=8080, debug=True, dev_tools_props_check=False)
+    pid = os.fork()
+    if pid != 0:
+        app.run(host='0.0.0.0', port=8080, dev_tools_props_check=False, ssl_context='adhoc')
     else:
-        pid = os.fork()
-        if pid != 0:
-            app.run(host='0.0.0.0', port=8080, dev_tools_props_check=False, ssl_context='adhoc')
-        else:
-            url = "https://iamskin.tk/"
-            # webbrowser.open(url)
+        url = "https://iamskin.tk/"

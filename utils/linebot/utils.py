@@ -103,13 +103,15 @@ def get_nail_result(url):
     return response
 
 
-def get_acne_result(url):
+def get_acne_result(file_path):
     r = requests.post(
         f"http://{ip_address}:{globals.config['port']['Acne']}/Acne-classifier",
-        data=json.dumps({
-            'image': url, 'format': "url"}),
+        data=json.dumps(
+            {'image': file_path, 'format': 'linebot'}, 
+        ),
         timeout=(2, 15),
-        headers={'Content-Type': 'application/json', 'Accept': 'text/plain'})
+        headers={'Content-Type': 'application/json', 'Accept': 'text/plain'}
+    )
 
     response = r.json()
     return response

@@ -1,6 +1,7 @@
 __pycache__/
 Image/
 Prediction/
+models/
 *.h5
 *.pt
 *.db

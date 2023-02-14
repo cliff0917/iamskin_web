@@ -81,8 +81,7 @@ def nail_classifier():
 
     classification = {'atypical': 0, 'etc': 0, 'melanonychia': 0, 'naildystrophy': 0,
                       'nodule': 0, 'normalnail': 0, 'onycholysis': 0, 'onychomycosis': 0}
-    score = [s for s in nail_model['function'].predict(
-        image).squeeze(0).round(3)]
+    score = [s for s in nail_model['function'].predict(image).squeeze(0).round(3)]
     likelihood = {k: str(v) for k, v in zip(classification, score)}
     key = max(likelihood, key=likelihood.get)
     prediction = {key: str(likelihood[key])}
@@ -90,7 +89,8 @@ def nail_classifier():
 
     # Json response format.
     response = json.jsonify(
-        {"likelihood": likelihood, "prediction": prediction})
+        {"likelihood": likelihood, "prediction": prediction}
+    )
 
     return(response)
 

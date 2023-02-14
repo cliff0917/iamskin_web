@@ -74,15 +74,15 @@ def skin_classfier():
 
     # Prediction summary.
     classification = {"dry": 0.0, "oily": 0.0, "sensitive": 0.0}
-    score = [s for s in skin_model['function'].predict(
-        image).squeeze(0).round(3)]
+    score = [s for s in skin_model['function'].predict(image).squeeze(0).round(3)]
     likelihood = {k: str(v) for k, v in zip(classification, score)}
     key = max(likelihood, key=likelihood.get)
     prediction = {key: str(likelihood[key])}
 
     # Json response format.
     response = json.jsonify(
-        {"likelihood": likelihood, "prediction": prediction})
+        {"likelihood": likelihood, "prediction": prediction}
+    )
     return response
 
 

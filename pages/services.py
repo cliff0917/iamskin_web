@@ -11,7 +11,7 @@ from datetime import datetime
 import globals, database, plot
 from components.modal import share
 from components.services import card, result
-from components import uploader
+from components import bold_text, uploader, li, explain_li
 
 def serve_layout(types, tutorial_isOpen):
     with open(f"./assets/{types}/text/card.txt", 'r') as f:
@@ -33,7 +33,6 @@ def serve_layout(types, tutorial_isOpen):
         Output({'type': 'upload-text', 'index': MATCH}, 'children'),
         Output({'type': 'upload-img', 'index': MATCH}, 'src'),
         Output({'type': 'output-info', 'index': MATCH}, 'children'),
-        Output({'type': 'horizon-line', 'index': MATCH}, 'is_open'),
         Output({'type': 'predict-class', 'index': MATCH}, 'children'),
         Output({'type': 'advice', 'index': MATCH}, 'children'),
         Output({'type': 'share-btn-collapse', 'index': MATCH}, 'is_open'),
@@ -54,6 +53,9 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         absolute_path = os.path.join(os.getcwd(), relative_path)
         session["input_path"] = relative_path
 
+        additional_title = dash.no_update
+        additional_content = dash.no_update
+
         ip_address = requests.get('https://api.ipify.org').text
         r = requests.post(
             f"http://{ip_address}:{globals.config['port'][types]}/{types}-classifier",
@@ -66,10 +68,8 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         # print(response)
 
         # 建立儲存預測結果的資料夾
-        save_path = 'assets/prediction'
-        for dir_name in upload_id.split('/'):
-            save_path = os.path.join(save_path, dir_name)
-            globals.mkdir(save_path)
+        save_path = f'assets/prediction/{upload_id}'
+        os.makedirs(save_path, exist_ok=True)
 
         output_path = os.path.join(save_path, fileNames[0])
         session["output_path"] = output_path
@@ -83,9 +83,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
 
             output_text = html.H3(
                 f'預測您的膚質為「{predict_class_chinese}」',
-                style={
-                    'font-weight': 'bold'
-                },
+                style={'font-weight': 'bold'}
             )
 
             fig = plot.pie(col_name, col_val)
@@ -95,22 +93,13 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 locale='en-us'
             )
 
+            additional_title = f'【{predict_class_chinese}】'
+
             with open(f'assets/{types}/text/{predict_class}.txt', 'r') as f:
                 lines = f.readlines()
-                feature = html.Li(
-                    [
-                        fac.AntdText('特徵：', style={'font-weight': 'bold'}),
-                        fac.AntdText(lines[0])
-                    ],
-                    style={'fontSize': 25}
-                )
-                maintain = html.Li(
-                    [
-                        fac.AntdText('護膚重點：', style={'font-weight': 'bold'}),
-                        fac.AntdText(lines[1])
-                    ],
-                    style={'fontSize': 25}
-                )
+                feature = li.serve('特徵：', lines[0])
+                maintain = li.serve('護膚重點：', lines[1])
+                additional_content = [feature, html.Br(), maintain]
 
             info = (
                 session["google_id"], session["type"], session["upload_time"],
@@ -120,7 +109,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
 
             return [
                 '上傳的圖片：', relative_path, [output_text, output_img],
-                False, f'【{predict_class_chinese}】', [feature, html.Br(), maintain], True
+                additional_title, additional_content, True
             ]
 
         elif types == 'Nail':
@@ -136,7 +125,6 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 style={'font-weight': 'bold'},
             )
 
-
         elif types == 'Acne':
             predict_class = response['prediction']
             predict_class_chinese = globals.read_json(f"./assets/{types}/json/classes.json")[predict_class]
@@ -144,6 +132,25 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 f'預測您的痘痘嚴重程度為「{predict_class_chinese}」',
                 style={'font-weight': 'bold'},
             )
+
+            with open('./assets/attributes.txt', 'r') as f:
+                text = f.read().splitlines()
+
+            additional_title = '【AI 針對預測結果所做出的解釋】（β測試）'
+            attr_prob = response['attr_prob']
+
+            with open('./assets/attributes.txt', 'r') as f:
+                text = f.read().splitlines()
+
+            additional_content = [
+                explain_li.serve(text, attr_prob, 21, 23),
+                explain_li.serve(text, attr_prob, 15, 20),
+                explain_li.serve(text, attr_prob, 0, 5),
+                explain_li.serve(text, attr_prob, 5, 7),
+                explain_li.serve(text, attr_prob, 7, 9),
+                explain_li.serve(text, attr_prob, 9, 13),
+                explain_li.serve(text, attr_prob, 13, 15),
+            ]
 
         # 建立 soft link
         os.system(f'ln -s {os.getcwd()}/assets/{types}/img/{predict_class}.png {output_path}')
@@ -156,10 +163,10 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         )
         database.add_history(info)
 
-    return [
-        '上傳的圖片：', relative_path, [output_text, output_img],
-        True, dash.no_update, dash.no_update, True
-    ]
+        return [
+            '上傳的圖片：', relative_path, [output_text, output_img],
+            additional_title, additional_content, True
+        ]
 
 
 @callback(
