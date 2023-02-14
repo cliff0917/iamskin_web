@@ -3,13 +3,13 @@ from dash import html
 
 from components import bold_text
 
-def serve(text, attr_prob, lower, upper):
+def serve(attributes, attr_prob, lower, upper):
     idx = attr_prob.index(max(attr_prob[lower:upper]))
 
     return html.Li(
         [
-            bold_text.serve(f"{text[idx].split('-')[0]}："),
-            fac.AntdText(text[idx].split('-')[-1])
+            bold_text.serve(f"{attributes[idx].split('-')[0]}："),
+            fac.AntdText(attributes[idx].split('-')[-1])
         ],
         style={'fontSize': 25}
     )

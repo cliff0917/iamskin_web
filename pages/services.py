@@ -133,23 +133,20 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 style={'font-weight': 'bold'},
             )
 
-            with open('./assets/attributes.txt', 'r') as f:
-                text = f.read().splitlines()
-
             additional_title = '【AI 針對預測結果所做出的解釋】（β測試）'
             attr_prob = response['attr_prob']
 
-            with open('./assets/attributes.txt', 'r') as f:
-                text = f.read().splitlines()
+            with open(f'./assets/{types}/text/attributes.txt', 'r') as f:
+                attributes = f.read().splitlines()
 
             additional_content = [
-                explain_li.serve(text, attr_prob, 21, 23),
-                explain_li.serve(text, attr_prob, 15, 20),
-                explain_li.serve(text, attr_prob, 0, 5),
-                explain_li.serve(text, attr_prob, 5, 7),
-                explain_li.serve(text, attr_prob, 7, 9),
-                explain_li.serve(text, attr_prob, 9, 13),
-                explain_li.serve(text, attr_prob, 13, 15),
+                explain_li.serve(attributes, attr_prob, 21, 23),
+                explain_li.serve(attributes, attr_prob, 15, 20),
+                explain_li.serve(attributes, attr_prob, 0, 5),
+                explain_li.serve(attributes, attr_prob, 5, 7),
+                explain_li.serve(attributes, attr_prob, 7, 9),
+                explain_li.serve(attributes, attr_prob, 9, 13),
+                explain_li.serve(attributes, attr_prob, 13, 15),
             ]
 
         # 建立 soft link
@@ -167,7 +164,8 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             '上傳的圖片：', relative_path, [output_text, output_img],
             additional_title, additional_content, True
         ]
-
+    
+    return [None, None, None, None, None, False]
 
 @callback(
     Output({'type': 'share-modal', 'index': MATCH}, 'visible'),
