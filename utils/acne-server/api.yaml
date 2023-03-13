@@ -1,12 +1,10 @@
 image-classifier: {
   path: './models/image-classifier/checkpoint/best/model.pt',
-  url: "https://drive.google.com/uc?id=1aQX9wONIu_NrN87f_30K-cmU_wyN67_i"
-  # url: 'https://drive.google.com/uc?id=1T6gZjC20pMpMp5Y_y8nST5oRnT8TXoZ_' ASKiN not good for class
+  url: "https://drive.google.com/uc?id=1nG6nZtwb-c7pETm4ZtMnKSM-0Rps7Gvi"
 }
 image-embedding: {
   path: './models/image-embedding/checkpoint/best/model.pt',
-  # url: "https://drive.google.com/uc?id=1JeYwmLLndHjLgwQjRK1MRWt-lG_41_z1"
-  url: "https://drive.google.com/uc?id=10h9S1hKSCMpcQ9MQwYwgCioQefj-9_lH"
+  url: "https://drive.google.com/uc?id=1kxKyobBGB0iF8xRNhv-F0b_7ketn8JWR"
 }
 
 demo: {

@@ -2,7 +2,7 @@
 import os
 import pprint
 
-import bucket, network
+import bucket, network, embedding
 
 ##  U should load the model in the first, then start infer the case.
 api_config = bucket.loadYaml(path='./api.yaml')
@@ -23,11 +23,11 @@ def createCase(path):
 def downloadModels():
     download('image-classifier')
     download('image-embedding')
-    
+
 
 def download(types):
 
-    import os 
+    import os
     import gdown
 
     config = api_config[types]
@@ -50,26 +50,26 @@ def loadModel():
 
     ##  Image classifier model.
     path = api_config['image-embedding']['path']
-    image_embedding = network.v2.Machine(model=None)
-    image_embedding.loadModel(path, device='cpu')
-    image_embedding.model.device = 'cpu'
+    image_embedding = embedding.Interface(device='cpu')
+    image_embedding.loadModel(path)
     image_embedding.model.eval()
     return (image_classifier, image_embedding)
 
 
-def inferCase(case, models):
-    
+def inferCase(case, models, path):
+
     import torch
-    classifier, embedding = models
-    
+    classifier, attr_cls = models
+
     with torch.no_grad():
-        
+
         class_score = classifier.model.getScore(batch=case)
         class_prediction = class_score.argmax(1).item()
         class_extraction = classifier.model.getExtraction(batch=case)
         case.extraction = class_extraction
 
-        class_attribute_prediction = embedding.model.getEncoding(batch=case)
-        class_attribute_prediction = class_attribute_prediction.detach().numpy()[0,:].tolist()
+        attr_cls.loadData(path)
+        attr_cls.processData()
+        prediction = attr_cls.getPrediction()
 
-    return (class_prediction, class_attribute_prediction)
+    return (class_prediction, prediction)

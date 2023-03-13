@@ -86,7 +86,7 @@ def display_page(pathname):
             
         return [history.serve_layout(), False, dropdown_navlink]
 
-    elif pathname == '/terms':
+    elif pathname == '/terms-of-use':
         return [policy.serve_layout('服務條款'), False, dropdown_navlink]
 
     elif pathname == '/privacy-policy':

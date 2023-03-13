@@ -23,5 +23,5 @@ def serve_layout(defaultActiveKey='服務條款'):
 def activate(activeKey):
     ctx = dash.callback_context
     if ctx.triggered[0]['value'] == '服務條款':
-        return '/terms'
+        return '/terms-of-use'
     return '/privacy-policy'

@@ -133,7 +133,18 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 style={'font-weight': 'bold'},
             )
 
-            additional_title = '【AI 針對預測結果所做出的解釋】（β測試）'
+            additional_title = [
+                '【AI 針對預測結果所做出的解釋】',
+                fac.AntdTag(
+                    content='β測試',
+                    color='blue',
+                    style={
+                        'fontSize': 20,
+                        'padding': '7px 7px',
+                    },
+                )
+            ]
+
             attr_prob = response['attr_prob']
 
             with open(f'./assets/{types}/text/attributes.txt', 'r') as f:

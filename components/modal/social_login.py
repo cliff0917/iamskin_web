@@ -47,7 +47,7 @@ def serve(id, title, context, href=None, is_open=True):
                                     '繼續代表您同意愛美膚',
                                     html.A(
                                         '「服務條款」',
-                                        href='/terms',
+                                        href='/terms-of-use',
                                     ),
                                     '與',
                                     html.A(

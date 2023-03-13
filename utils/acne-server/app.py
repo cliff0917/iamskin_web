@@ -52,7 +52,7 @@ def acne_classfier():
         img_path = f"../linebot/{data['image']}"
 
     case = api.createCase(path=img_path)
-    predict_class, attr_prob = api.inferCase(case, models)
+    predict_class, attr_prob = api.inferCase(case, models, img_path)
     prediction = 'low' if predict_class == 0 else 'high'
 
     # Json response format.
