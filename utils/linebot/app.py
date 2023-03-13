@@ -27,10 +27,10 @@ if channel_secret is None:
     sys.exit(1)
 if channel_access_token is None:
     print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
-    sys.exit(1)   
+    sys.exit(1)
 if imgur_client_id is None:
     print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
-    sys.exit(1) 
+    sys.exit(1)
 
 # linebot api setting
 line_bot_api = LineBotApi(channel_access_token)
@@ -48,7 +48,7 @@ def wakeup():
 def callback():
     # get X-Line-Signature header value
     signature = request.headers["X-Line-Signature"]
-    
+
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
@@ -69,7 +69,7 @@ def handel_follow(event):
     # user_name = profile.display_name #使用者名稱
     uid = profile.user_id # 發訊者ID
     FlexMessage = json.load(open('./flexMessage/greet_newFriend.json','r',encoding='utf-8'))
-    
+
     line_bot_api.push_message(uid, FlexSendMessage('歡迎訊息', FlexMessage))
 
 
@@ -157,31 +157,31 @@ def handle_message(event):
                                         items=[
                                             QuickReplyButton(
                                                 action=MessageAction(label="進行AI檢測", text="AI檢測")
-                                            )                                            
+                                            )
                                         ]
                                     ))
-        line_bot_api.reply_message(event.reply_token, img_message)  
+        line_bot_api.reply_message(event.reply_token, img_message)
     elif re.match("膚質資料", msg):
         skin_post_url = "https://linevoom.line.me/post/_dawMj6RwiZsC13Ntyg10eYiFwLfLVISc_jqctqA/1165210923527359525"
         text_message = TextSendMessage(text=skin_post_url,
                                quick_reply=QuickReply(items=[
                                    QuickReplyButton(action=MessageAction(label="進行AI檢測", text="AI檢測"))
                                ]))
-        line_bot_api.reply_message(event.reply_token, text_message)                                
+        line_bot_api.reply_message(event.reply_token, text_message)
     elif re.match("指甲資料", msg):
         nail_post_url = "https://linevoom.line.me/post/_dawMj6RwiZsC13Ntyg10eYiFwLfLVISc_jqctqA/1165211007627399630"
         text_message = TextSendMessage(text=nail_post_url,
                                quick_reply=QuickReply(items=[
                                    QuickReplyButton(action=MessageAction(label="進行AI檢測", text="AI檢測"))
                                ]))
-        line_bot_api.reply_message(event.reply_token, text_message)     
+        line_bot_api.reply_message(event.reply_token, text_message)
     elif re.match("痘痘資料", msg):
         acne_post_url = "https://linevoom.line.me/post/_dawMj6RwiZsC13Ntyg10eYiFwLfLVISc_jqctqA/1165211029027409298"
         text_message = TextSendMessage(text=acne_post_url,
                                quick_reply=QuickReply(items=[
                                    QuickReplyButton(action=MessageAction(label="進行AI檢測", text="AI檢測"))
                                ]))
-        line_bot_api.reply_message(event.reply_token, text_message)                                
+        line_bot_api.reply_message(event.reply_token, text_message)
     else:   # 錯誤指令，提供快速回覆
         text_message = TextSendMessage(
                                     text = "請入正確指令" ,
@@ -195,13 +195,13 @@ def handle_message(event):
                                             ),
                                             QuickReplyButton(
                                                 action=MessageAction(label="我要檢測 指甲", text="我要檢測 指甲")
-                                            ),  
+                                            ),
                                             QuickReplyButton(
                                                 action=MessageAction(label="我要檢測 痘痘", text="我要檢測 痘痘")
-                                            ),                                          
+                                            ),
                                             QuickReplyButton(
                                                 action=MessageAction(label="如何使用", text="如何使用")
-                                            )                                            
+                                            )
                                         ]
                                     ))
         line_bot_api.reply_message(event.reply_token, text_message)
@@ -233,14 +233,14 @@ def handle_img(event):
                                                 ),
                                                 QuickReplyButton(
                                                     action=MessageAction(label="進行AI檢測", text="AI檢測")
-                                                )                                          
+                                                )
                                             ]
                                         ))
         line_bot_api.reply_message(event.reply_token, img_message)
         os.remove(file_path) # 將照片刪除
         os.remove(result_path)
         user_state[uid] = 0
-        
+
     elif user_state.get(uid) == 2: # 指甲
         message_content = line_bot_api.get_message_content(message_id)
         file_path = f"./Image/nail/{reply_token}.jpg"
@@ -265,12 +265,12 @@ def handle_img(event):
         file_path = f"Image/acne/{reply_token}.jpg"
         save_img(message_content, file_path)
         res = get_acne_result(file_path)
-        
+
         if res['prediction'] == 'low': # low
             FlexMessage = json.load(open('./flexMessage/acne_result_low.json','r',encoding='utf-8'))
             line_bot_api.reply_message(event.reply_token, FlexSendMessage('痘痘異常風險-低', FlexMessage))
         else: # high
-            FlexMessage = json.load(open('./flexMessage/acne_result_m_high.json','r',encoding='utf-8'))
+            FlexMessage = json.load(open('./flexMessage/acne_result_high.json','r',encoding='utf-8'))
             line_bot_api.reply_message(event.reply_token, FlexSendMessage('痘痘異常風險-高', FlexMessage))
         # line_bot_api.reply_message(event.reply_token, TextSendMessage(text="已完成痘痘檢測"))
         user_state[uid] = 0
@@ -280,7 +280,7 @@ def handle_img(event):
 if __name__ == "__main__":
     create_folder()
     app.run(
-        host="0.0.0.0", 
-        port=globals.config["port"]["Linebot"], 
+        host="0.0.0.0",
+        port=globals.config["port"]["Linebot"],
         ssl_context='adhoc'
     )
