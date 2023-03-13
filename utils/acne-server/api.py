@@ -70,6 +70,6 @@ def inferCase(case, models, path):
 
         attr_cls.loadData(path)
         attr_cls.processData()
-        prediction = attr_cls.getPrediction()
+        class_attribute_prediction = attr_cls.getPrediction()
 
-    return (class_prediction, prediction)
+    return (class_prediction, class_attribute_prediction)

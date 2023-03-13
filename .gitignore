@@ -7,4 +7,3 @@ models/
 *.db
 test.py
 test.jpg
-log*
