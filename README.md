@@ -8,7 +8,8 @@
 ```
 sudo apt install tmux
 git clone https://github.com/cliff0917/iamskin.git
-source build.sh
+cd iamskin
+source scripts/build.shbuild.sh
 ```
 
 ## 背景執行
