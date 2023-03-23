@@ -5,5 +5,5 @@ models/
 *.h5
 *.pt
 *.db
-test.py
+test*.py
 test.jpg

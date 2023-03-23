@@ -4,11 +4,25 @@
         "Nail": {"tutorial": "指甲", "normal": "指甲"},
         "Acne": {"tutorial": "痘痘", "normal": "痘痘"}
     },
-    "port": {
-        "Skin": 8081,
-        "Nail": 8082,
-        "Acne": 8083,
-        "linebot": 9487
+    "model_path": "./models",
+    "model": {
+        "Skin": {
+            "cls_id": "1uIg6B514G-XsH8Dv5W90uf1fwjTpKZYm",
+            "cls_name": "Skin.h5"
+        },
+        "Nail": {
+            "cls_id": "1w1bH_Phco63Kjj09ue-ORtZSBaX49a15",
+            "cls_name": "Nail.h5"
+        },
+        "Acne": {
+            "cls_id": "1nG6nZtwb-c7pETm4ZtMnKSM-0Rps7Gvi",
+            "cls_name": "Acne_cls.pt",
+            "embedding_id": "1kxKyobBGB0iF8xRNhv-F0b_7ketn8JWR",
+            "embedding_name": "Acne_embedding.pt"
+        }
     },
-    "db": "iamskin.db"
+    "db": "iamskin.db",
+    "LINE_CHANNEL_SECRET": "af5b42bbb2e72b7359eda74195bdfe76",
+    "LINE_CHANNEL_ACCESS_TOKEN": "6W2AOKfE2bZ6XoEc9ZLcGp7IkeMwlKEc5tXxiCTEJNh5R6PI/QhTKGc/XC4qd80ZJ9vWOhpats+1Ih9/9MwIwldL874XneLxjdl8ewZEw19tt0SnYpnd2Tx3U3wDF9eT8UWi+CzBdAw3YHQNiEHEDgdB04t89/1O/w1cDnyilFU=",
+    "IMGUR_CLIENT_ID": "c810c9a32969fba"
 }

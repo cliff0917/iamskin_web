@@ -8,25 +8,12 @@ import pyimgur
 import requests
 import json
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-import globals
-
 matplotlib.use('Agg')
-
-globals.initialize()
-
-ip_address = requests.get('https://api.ipify.org').text
-channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", globals.config["LINE_CHANNEL_ACCESS_TOKEN"])
-
-if channel_access_token is None:
-    print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
-    sys.exit(1) 
-
 
 # create needed folder
 def create_folder():
-    folder_list = ["./Image", "./Image/skin", "Image/nail", "Image/acne", "./Prediction", "./Prediction/skin"]
+    folder_list = ["./utils/Image", "./utils/Image/skin", "./utils/Image/nail", "./utils/Image/acne", 
+                   "./utils/Prediction", "./utils/Prediction/skin"]
     for dir in folder_list:
         if not os.path.exists(dir):
             os.mkdir(dir)
@@ -47,9 +34,8 @@ def upload_img_to_imgur(client_id, imgpath):
 
 # skin type
 def get_skin_result(url):
-    skin_model_url = f"http://{ip_address}:{globals.config['port']['Skin']}/Skin-classifier"
     r = requests.post(
-        skin_model_url,
+        "https://iamskin.tk/Skin-classifier",
         data=json.dumps({
             'image': url, 'format': "url"}),
         timeout=(2, 15),
@@ -91,9 +77,8 @@ def skin_plot(likelihood, path):
 
 # nail type
 def get_nail_result(url):
-    nail_model_url = f"http://{ip_address}:{globals.config['port']['Nail']}/Nail-classifier"
     r = requests.post(
-        nail_model_url,
+        "https://iamskin.tk/Nail-classifier",
         data=json.dumps({
             'image': url, 'format': "url"}),
         timeout=(2, 15),
@@ -105,7 +90,7 @@ def get_nail_result(url):
 
 def get_acne_result(file_path):
     r = requests.post(
-        f"http://{ip_address}:{globals.config['port']['Acne']}/Acne-classifier",
+        "https://iamskin.tk/Acne-classifier",
         data=json.dumps(
             {'image': file_path, 'format': 'linebot'}, 
         ),

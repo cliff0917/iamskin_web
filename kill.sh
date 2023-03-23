@@ -1,11 +1,2 @@
 #!/bin/bash
-
-function kill(){
-    tmux kill-session -t $1 2> /dev/null
-}
-
-kill "web"
-kill "linebot"
-kill "skin"
-kill "nail"
-kill "acne"
+tmux kill-session -t web 2> /dev/null

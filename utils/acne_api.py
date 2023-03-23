@@ -2,10 +2,10 @@
 import os
 import pprint
 
-import bucket, network, embedding
+from utils import bucket, network, embedding
 
 ##  U should load the model in the first, then start infer the case.
-api_config = bucket.loadYaml(path='./api.yaml')
+api_config = bucket.loadYaml(path='./acne_api.yaml')
 
 def createCase(path):
 

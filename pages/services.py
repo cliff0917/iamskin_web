@@ -58,7 +58,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
 
         ip_address = requests.get('https://api.ipify.org').text
         r = requests.post(
-            f"http://{ip_address}:{globals.config['port'][types]}/{types}-classifier",
+            f"https://iamskin.tk/{types}-classifier",
             json={
                 'format': 'path',
                 'image': absolute_path
