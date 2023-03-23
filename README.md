@@ -7,8 +7,8 @@
 ## 環境安裝
 ```
 sudo apt install tmux
-git clone https://github.com/cliff0917/iamskin.git
-cd iamskin
+git clone https://github.com/cliff0917/iamskin_website.git
+cd iamskin_website
 source scripts/build.shbuild.sh
 ```
 
