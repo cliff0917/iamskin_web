@@ -50,8 +50,16 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         types = session["cur_path"][1:]
         session["type"] = types
         relative_path = os.path.join('assets/upload', upload_id, fileNames[0])
-        absolute_path = os.path.join(os.getcwd(), relative_path)
+
+        # 避免上傳的檔名中含有空白導致 Acne 的 output img 無法顯示
+        if ' ' in fileNames[0]:
+            fileNames[0] = fileNames[0].replace(' ', '-')
+            new_path = relative_path.replace(' ', '-')
+            os.system(f'mv "{relative_path}" {new_path}')
+            relative_path = new_path
+
         session["input_path"] = relative_path
+        absolute_path = os.path.join(os.getcwd(), relative_path)
 
         additional_title = dash.no_update
         additional_content = dash.no_update
