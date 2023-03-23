@@ -11,9 +11,10 @@ import json
 matplotlib.use('Agg')
 
 # create needed folder
-def create_folder():
-    folder_list = ["./utils/Image", "./utils/Image/skin", "./utils/Image/nail", "./utils/Image/acne", 
-                   "./utils/Prediction", "./utils/Prediction/skin"]
+def create_folder(path):
+    folder_list = [f"{path}/Image", f"{path}/Image/skin", f"{path}/Image/nail", f"{path}/Image/acne", 
+                   f"{path}/Prediction", f"{path}/Prediction/skin"]
+
     for dir in folder_list:
         if not os.path.exists(dir):
             os.mkdir(dir)

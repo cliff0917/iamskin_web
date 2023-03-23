@@ -2,9 +2,10 @@ from dash import html
 import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
 
-import globals, database
+import globals
 from components import bold_text
 from components.img import comment_attach
+from lib import database
 
 def serve(types):
     comments = []

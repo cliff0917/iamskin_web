@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sh kill.sh
-sh run.sh
+sh ./scripts/kill.sh
+sh ./scripts/run.sh

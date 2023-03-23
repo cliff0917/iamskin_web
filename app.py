@@ -7,8 +7,9 @@ import dash
 import webbrowser
 import dash_uploader as du
 
-import globals, download
-from utils import login, layout, service
+import globals
+from utils import service
+from lib import login, layout, download
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 

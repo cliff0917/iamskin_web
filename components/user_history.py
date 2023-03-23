@@ -2,7 +2,8 @@ from dash import html
 import feffery_antd_components as fac
 from flask import session
 
-import globals, database
+import globals
+from lib import database
 
 def serve():
     history = database.get_history(session["google_id"])

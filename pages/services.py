@@ -8,7 +8,8 @@ from dash import dcc, html, callback
 from dash.dependencies import Input, Output, State, MATCH
 from datetime import datetime
 
-import globals, database, plot
+import globals
+from lib import plot, database
 from components.modal import share
 from components.services import card, result
 from components import bold_text, uploader, li, explain_li

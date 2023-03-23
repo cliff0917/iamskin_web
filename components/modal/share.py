@@ -4,8 +4,9 @@ from dash import callback
 from flask import session
 from dash.dependencies import Input, Output, State, MATCH
 
-import globals, database
+import globals
 from components.tab import share
+from lib import database
 
 def serve(types):
     return fac.AntdModal(

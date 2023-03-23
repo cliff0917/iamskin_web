@@ -12,7 +12,9 @@ from liffpy import (LineFrontendFramework as LIFF, ErrorResponse)
 
 
 def get_post(server, config):
-    create_folder()
+    path = './utils'
+    create_folder(path)
+
     channel_secret = config["LINE_CHANNEL_SECRET"]
     channel_access_token = config["LINE_CHANNEL_ACCESS_TOKEN"]
     imgur_client_id = config["IMGUR_CLIENT_ID"]
@@ -41,7 +43,7 @@ def get_post(server, config):
         profile = line_bot_api.get_profile(event.source.user_id)
         # user_name = profile.display_name #使用者名稱
         uid = profile.user_id # 發訊者ID
-        FlexMessage = json.load(open('./utils/flexMessage/greet_newFriend.json','r',encoding='utf-8'))
+        FlexMessage = json.load(open(f'{path}/flexMessage/greet_newFriend.json','r',encoding='utf-8'))
 
         line_bot_api.push_message(uid, FlexSendMessage('歡迎訊息', FlexMessage))
 
@@ -55,7 +57,7 @@ def get_post(server, config):
         uid = profile.user_id # 發訊者ID
         # global user_state
         if re.match("AI檢測", msg):
-            FlexMessage = json.load(open('./utils/flexMessage/AI_detect_menu.json','r',encoding='utf-8'))
+            FlexMessage = json.load(open(f'{path}/flexMessage/AI_detect_menu.json','r',encoding='utf-8'))
             line_bot_api.reply_message(event.reply_token, FlexSendMessage('AI檢測選單', FlexMessage))
         elif re.match("我要檢測 膚質", msg):
             user_state[uid] = 1
@@ -191,11 +193,11 @@ def get_post(server, config):
 
         if user_state.get(uid) == 1: # 膚質
             message_content = line_bot_api.get_message_content(message_id)
-            file_path = f"./utils/Image/skin/{reply_token}.jpg"
+            file_path = f"{path}/Image/skin/{reply_token}.jpg"
             save_img(message_content, file_path) # 儲存使用者傳的照片
             img_url = upload_img_to_imgur(imgur_client_id, file_path) # 將存下來的照片上傳至imgur
             res = get_skin_result(img_url)
-            result_path = f"./utils/Prediction/skin/{reply_token}_prediction.jpg"
+            result_path = f"{path}/Prediction/skin/{reply_token}_prediction.jpg"
             skin_plot(res['likelihood'], result_path)
             result_url = upload_img_to_imgur(imgur_client_id, result_path)
             img_message = ImageSendMessage(original_content_url = result_url, preview_image_url = result_url,
@@ -216,17 +218,17 @@ def get_post(server, config):
 
         elif user_state.get(uid) == 2: # 指甲
             message_content = line_bot_api.get_message_content(message_id)
-            file_path = f"./utils/Image/nail/{reply_token}.jpg"
+            file_path = f"{path}/Image/nail/{reply_token}.jpg"
             save_img(message_content, file_path)
 
             img_url = upload_img_to_imgur(imgur_client_id, file_path)
             res = get_nail_result(img_url)
 
             if list(res['prediction'].keys())[0] == 'normalnail':
-                FlexMessage = json.load(open('./utils/flexMessage/nail_result_low.json','r',encoding='utf-8'))
+                FlexMessage = json.load(open(f'{path}/flexMessage/nail_result_low.json','r',encoding='utf-8'))
                 line_bot_api.reply_message(event.reply_token, FlexSendMessage('指甲異常風險-低', FlexMessage))
             else:
-                FlexMessage = json.load(open('./utils/flexMessage/nail_result_high.json','r',encoding='utf-8'))
+                FlexMessage = json.load(open(f'{path}/flexMessage/nail_result_high.json','r',encoding='utf-8'))
                 line_bot_api.reply_message(event.reply_token, FlexSendMessage('指甲異常風險-高', FlexMessage))
 
             # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=str(res)))
@@ -235,15 +237,15 @@ def get_post(server, config):
 
         elif user_state.get(uid) == 3: # 痘痘
             message_content = line_bot_api.get_message_content(message_id)
-            file_path = f"./utils/Image/acne/{reply_token}.jpg"
+            file_path = f"{path}/Image/acne/{reply_token}.jpg"
             save_img(message_content, file_path)
             res = get_acne_result(file_path)
 
             if res['prediction'] == 'low': # low
-                FlexMessage = json.load(open('./utils/flexMessage/acne_result_low.json','r',encoding='utf-8'))
+                FlexMessage = json.load(open(f'{path}/flexMessage/acne_result_low.json','r',encoding='utf-8'))
                 line_bot_api.reply_message(event.reply_token, FlexSendMessage('痘痘異常風險-低', FlexMessage))
             else: # high
-                FlexMessage = json.load(open('./utils/flexMessage/acne_result_high.json','r',encoding='utf-8'))
+                FlexMessage = json.load(open(f'{path}/flexMessage/acne_result_high.json','r',encoding='utf-8'))
                 line_bot_api.reply_message(event.reply_token, FlexSendMessage('痘痘異常風險-高', FlexMessage))
             # line_bot_api.reply_message(event.reply_token, TextSendMessage(text="已完成痘痘檢測"))
             user_state[uid] = 0

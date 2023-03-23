@@ -7,7 +7,8 @@ from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 
-import globals, database
+import globals
+from lib import database
 
 def serve(server):
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"

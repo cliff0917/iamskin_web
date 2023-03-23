@@ -12,7 +12,7 @@ sys.path.insert(0, root_path + "/utils")
 from utils import bucket, network, acne_api
 
 def get_post(server):
-    api_config = bucket.loadYaml(path='./acne_api.yaml')
+    api_config = bucket.loadYaml(path='./utils/acne_api.yaml')
     acne_api.downloadModels()
     models = acne_api.loadModel()
 

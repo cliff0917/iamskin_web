@@ -2,7 +2,7 @@ import os
 import json
 from datetime import datetime
 
-import database
+from lib import database
 
 def initialize():
     global config, services, rate_text
