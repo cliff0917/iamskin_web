@@ -224,7 +224,7 @@ def get_post(server, config):
             img_url = upload_img_to_imgur(imgur_client_id, file_path)
             res = get_nail_result(img_url)
 
-            if list(res['prediction'].keys())[0] == 'normalnail':
+            if res['prediction'] == 'low':
                 FlexMessage = json.load(open(f'{path}/flexMessage/nail_result_low.json','r',encoding='utf-8'))
                 line_bot_api.reply_message(event.reply_token, FlexSendMessage('指甲異常風險-低', FlexMessage))
             else:

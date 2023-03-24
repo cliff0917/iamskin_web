@@ -20,14 +20,7 @@ def get_post(server):
     def acne_classfier():
         # Receive request.
         data = flask.request.get_json(silent=True)
-
-        # website
-        if data['format'] == 'path':
-            img_path = data['image']
-
-        # linebot
-        else:
-            img_path = data['image']
+        img_path = data['image']
 
         case = acne_api.createCase(path=img_path)
         predict_class, attr_prob = acne_api.inferCase(case, models, img_path)

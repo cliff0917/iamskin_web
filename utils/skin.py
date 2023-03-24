@@ -37,13 +37,12 @@ def get_post(server):
         # Prediction summary.
         classification = {"dry": 0.0, "oily": 0.0, "sensitive": 0.0}
         score = [s for s in model.predict(image).squeeze(0).round(3)]
-        likelihood = {k: str(v) for k, v in zip(classification, score)}
-        key = max(likelihood, key=likelihood.get)
-        prediction = {key: str(likelihood[key])}
+        likelihood = {k: float(v) for k, v in zip(classification, score)}
+        predict_class = max(likelihood, key=likelihood.get)
 
         # Json response format.
         response = json.jsonify(
-            {"likelihood": likelihood, "prediction": prediction}
+            {"likelihood": likelihood, "prediction": predict_class}
         )
         return response
         

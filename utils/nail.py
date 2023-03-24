@@ -39,16 +39,15 @@ def get_post(server):
         # image = preprocess_input(image)
 
         classification = {'atypical': 0, 'etc': 0, 'melanonychia': 0, 'naildystrophy': 0,
-                        'nodule': 0, 'normalnail': 0, 'onycholysis': 0, 'onychomycosis': 0}
+                        'nodule': 0, 'normalNail': 0, 'onycholysis': 0, 'onychomycosis': 0}
         score = [s for s in model.predict(image).squeeze(0).round(3)]
         likelihood = {k: str(v) for k, v in zip(classification, score)}
-        key = max(likelihood, key=likelihood.get)
-        prediction = {key: str(likelihood[key])}
-        print(prediction)
+        predict_class = max(likelihood, key=likelihood.get)
+        prediction = 'low' if predict_class == 'normalNail' else 'high'
 
         # Json response format.
         response = json.jsonify(
-            {"likelihood": likelihood, "prediction": prediction}
+            {"prediction": prediction}
         )
 
         return response

@@ -83,19 +83,21 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         output_path = os.path.join(save_path, fileNames[0])
         session["output_path"] = output_path
 
+        predict_class = response['prediction']
+        predict_class_chinese = globals.read_json(f"./assets/{types}/json/classes.json")[predict_class]
+        output_text = html.H3(
+            f"預測您的{globals.config['chinese'][types]['normal']}{globals.config['chinese'][types]['predict_text']}為「{predict_class_chinese}」",
+            style={'font-weight': 'bold'},
+        )
+
         if types == 'Skin':
-            col_name = [col for col in response['likelihood'].keys()]
-            col_val = [float(value) for value in response['likelihood'].values()]
+            class_name, class_prob = [], []
 
-            predict_class = [c for c in response['prediction'].keys()][0]
-            predict_class_chinese = globals.read_json(f"./assets/{types}/json/classes.json")[predict_class]
+            for k, v in response['likelihood'].items():
+                class_name.append(k)
+                class_prob.append(v)
 
-            output_text = html.H3(
-                f'預測您的膚質為「{predict_class_chinese}」',
-                style={'font-weight': 'bold'}
-            )
-
-            fig = plot.pie(col_name, col_val)
+            fig = plot.pie(class_name, class_prob)
             fig.write_image(output_path)
             output_img = fac.AntdImage(
                 src=output_path,
@@ -121,27 +123,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 additional_title, additional_content, True
             ]
 
-        elif types == 'Nail':
-            if list(response['prediction'].keys())[0] == 'normalnail':
-                predict_class = 'low'
-            else:
-                predict_class = 'high'
-
-            predict_class_chinese = globals.read_json(f"./assets/{types}/json/classes.json")[predict_class]
-
-            output_text = html.H3(
-                f'預測您的指甲異常風險為「{predict_class_chinese}」',
-                style={'font-weight': 'bold'},
-            )
-
         elif types == 'Acne':
-            predict_class = response['prediction']
-            predict_class_chinese = globals.read_json(f"./assets/{types}/json/classes.json")[predict_class]
-            output_text = html.H3(
-                f'預測您的痘痘嚴重程度為「{predict_class_chinese}」',
-                style={'font-weight': 'bold'},
-            )
-
             additional_title = [
                 '【AI 針對預測結果所做出的解釋】',
                 fac.AntdTag(
@@ -185,7 +167,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             additional_title, additional_content, True
         ]
     
-    return [None, None, None, None, None, False]
+    return [None, None, None, None, None, False] # 網頁初始化時沒圖片的狀態
 
 @callback(
     Output({'type': 'share-modal', 'index': MATCH}, 'visible'),
