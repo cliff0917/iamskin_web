@@ -4,7 +4,6 @@ from linebot import LineBotApi, WebhookParser
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage, MessageTemplateAction, TemplateSendMessage, ButtonsTemplate
 import matplotlib
 import matplotlib.pyplot as plt
-import pyimgur
 import requests
 import json
 
@@ -12,8 +11,8 @@ matplotlib.use('Agg')
 
 # create needed folder
 def create_folder(path):
-    folder_list = [f"{path}/Image", f"{path}/Image/skin", f"{path}/Image/nail", f"{path}/Image/acne", 
-                   f"{path}/Prediction", f"{path}/Prediction/skin"]
+    folder_list = [f"{path}/linebot_upload", f"{path}/linebot_upload/Skin", f"{path}/linebot_upload/Nail", f"{path}/linebot_upload/Acne", 
+                   f"{path}/linebot_predict", f"{path}/linebot_predict/Skin"]
 
     for dir in folder_list:
         if not os.path.exists(dir):
@@ -26,19 +25,13 @@ def save_img(message_content, file_path):
         for chunk in message_content.iter_content():
             fd.write(chunk)
 
-# upload img to imgur, return url
-def upload_img_to_imgur(client_id, imgpath):
-	im = pyimgur.Imgur(client_id)
-	upload_image = im.upload_image(imgpath, title="Uploaded with PyImgur")
-	return upload_image.link
-
 
 # skin type
-def get_skin_result(url):
+def get_skin_result(path):
     r = requests.post(
         "https://iamskin.tk/Skin-classifier",
         data=json.dumps({
-            'image': url, 'format': "url"}),
+            'image': path, 'format': "path"}),
         timeout=(2, 15),
         headers={'Content-Type': 'application/json', 'Accept': 'text/plain'})
     response = r.json()
@@ -77,11 +70,11 @@ def skin_plot(likelihood, path):
 
 
 # nail type
-def get_nail_result(url):
+def get_nail_result(path):
     r = requests.post(
         "https://iamskin.tk/Nail-classifier",
         data=json.dumps({
-            'image': url, 'format': "url"}),
+            'image': path, 'format': "path"}),
         timeout=(2, 15),
         headers={'Content-Type': 'application/json', 'Accept': 'text/plain'})
 

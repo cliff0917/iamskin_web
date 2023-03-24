@@ -12,20 +12,17 @@ from liffpy import (LineFrontendFramework as LIFF, ErrorResponse)
 
 
 def get_post(server, config):
-    path = './utils'
+    path = './assets'
+    path_url = 'https://iamskin.tk/assets'
     create_folder(path)
 
     channel_secret = config["LINE_CHANNEL_SECRET"]
     channel_access_token = config["LINE_CHANNEL_ACCESS_TOKEN"]
-    imgur_client_id = config["IMGUR_CLIENT_ID"]
 
     if channel_secret is None:
         print("Specify LINE_CHANNEL_SECRET as environment variable.")
         sys.exit(1)
     if channel_access_token is None:
-        print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
-        sys.exit(1)
-    if imgur_client_id is None:
         print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
         sys.exit(1)
 
@@ -193,13 +190,12 @@ def get_post(server, config):
 
         if user_state.get(uid) == 1: # 膚質
             message_content = line_bot_api.get_message_content(message_id)
-            file_path = f"{path}/Image/skin/{reply_token}.jpg"
+            file_path = f"{path}/linebot_upload/Skin/{reply_token}.jpg"
             save_img(message_content, file_path) # 儲存使用者傳的照片
-            img_url = upload_img_to_imgur(imgur_client_id, file_path) # 將存下來的照片上傳至imgur
-            res = get_skin_result(img_url)
-            result_path = f"{path}/Prediction/skin/{reply_token}_prediction.jpg"
+            res = get_skin_result(file_path)
+            result_path = f"{path}/linebot_predict/Skin/{reply_token}_prediction.jpg"
+            result_url = f"{path_url}/linebot_predict/Skin/{reply_token}_prediction.jpg"
             skin_plot(res['likelihood'], result_path)
-            result_url = upload_img_to_imgur(imgur_client_id, result_path)
             img_message = ImageSendMessage(original_content_url = result_url, preview_image_url = result_url,
                                             quick_reply=QuickReply(
                                                 items=[
@@ -218,11 +214,10 @@ def get_post(server, config):
 
         elif user_state.get(uid) == 2: # 指甲
             message_content = line_bot_api.get_message_content(message_id)
-            file_path = f"{path}/Image/nail/{reply_token}.jpg"
+            file_path = f"{path}/linebot_upload/Nail/{reply_token}.jpg"
             save_img(message_content, file_path)
 
-            img_url = upload_img_to_imgur(imgur_client_id, file_path)
-            res = get_nail_result(img_url)
+            res = get_nail_result(file_path)
 
             if res['prediction'] == 'low':
                 FlexMessage = json.load(open(f'{path}/flexMessage/nail_result_low.json','r',encoding='utf-8'))
@@ -237,7 +232,7 @@ def get_post(server, config):
 
         elif user_state.get(uid) == 3: # 痘痘
             message_content = line_bot_api.get_message_content(message_id)
-            file_path = f"{path}/Image/acne/{reply_token}.jpg"
+            file_path = f"{path}/linebot_upload/Acne/{reply_token}.jpg"
             save_img(message_content, file_path)
             res = get_acne_result(file_path)
 

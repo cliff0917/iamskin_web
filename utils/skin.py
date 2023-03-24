@@ -15,16 +15,6 @@ def get_post(server):
         data = flask.request.get_json(silent=True)
         size = (224, 224)
 
-        if(data['format'] == 'url'):
-            response = requests.get(data['image'])
-            encoded_img = base64.b64encode(response.content)
-            decoded_img = encoded_img.decode()
-            image_uri = 'data:%s;base64,%s' % ('image/jpeg', decoded_img)
-            img = base2picture(image_uri)
-            image = PIL.Image.open(img)
-            image = image.resize(size)
-            image = np.expand_dims(np.array(image), axis=0) # / 255
-
         if(data['format'] == 'path'):
             image = cv2.imread(data['image'])
             image = cv2.resize(image, size)
