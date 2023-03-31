@@ -1,7 +1,5 @@
 import os
 import sys
-from linebot import LineBotApi, WebhookParser
-from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage, MessageTemplateAction, TemplateSendMessage, ButtonsTemplate
 import matplotlib
 import matplotlib.pyplot as plt
 import requests
@@ -11,8 +9,9 @@ matplotlib.use('Agg')
 
 # create needed folder
 def create_folder(path):
-    folder_list = [f"{path}/linebot_upload", f"{path}/linebot_upload/Skin", f"{path}/linebot_upload/Nail", f"{path}/linebot_upload/Acne", 
-                   f"{path}/linebot_predict", f"{path}/linebot_predict/Skin"]
+    folder_list = [f"{path}/linebot", f"{path}/linebot/upload", f"{path}/linebot/upload/Skin", f"{path}/linebot/upload/Nail", f"{path}/linebot/upload/Acne", 
+                   f"{path}/linebot/predict", f"{path}/linebot/predict/Skin",
+                   f"{path}/app", f"{path}/app/upload", f"{path}/app/upload/Skin", f"{path}/app/upload/Nail", f"{path}/app/upload/Acne"]
 
     for dir in folder_list:
         if not os.path.exists(dir):
@@ -25,17 +24,17 @@ def save_img(message_content, file_path):
         for chunk in message_content.iter_content():
             fd.write(chunk)
 
+def post_img(types, path):
+    url = f"https://iamskin.tk/{types}-classifier"
+    payload = {'format': 'path', 'path': path}
+    headers = {'Accept': 'application/json'}
+    r = requests.post(url, data=payload, headers=headers)
+    response = r.json()
+    return response
 
 # skin type
 def get_skin_result(path):
-    r = requests.post(
-        "https://iamskin.tk/Skin-classifier",
-        data=json.dumps({
-            'image': path, 'format': "path"}),
-        timeout=(2, 15),
-        headers={'Content-Type': 'application/json', 'Accept': 'text/plain'})
-    response = r.json()
-    return response
+    return post_img('Skin', path)
 
 
 def skin_plot(likelihood, path):
@@ -71,26 +70,8 @@ def skin_plot(likelihood, path):
 
 # nail type
 def get_nail_result(path):
-    r = requests.post(
-        "https://iamskin.tk/Nail-classifier",
-        data=json.dumps({
-            'image': path, 'format': "path"}),
-        timeout=(2, 15),
-        headers={'Content-Type': 'application/json', 'Accept': 'text/plain'})
-
-    response = r.json()
-    return response
+    return post_img('Nail', path)
 
 
-def get_acne_result(file_path):
-    r = requests.post(
-        "https://iamskin.tk/Acne-classifier",
-        data=json.dumps(
-            {'image': file_path, 'format': 'linebot'}, 
-        ),
-        timeout=(2, 15),
-        headers={'Content-Type': 'application/json', 'Accept': 'text/plain'}
-    )
-
-    response = r.json()
-    return response
+def get_acne_result(path):
+    return post_img('Acne', path)

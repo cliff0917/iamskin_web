@@ -1,7 +1,7 @@
 __pycache__/
 models/
-linebot_upload/
-linebot_predict/
+linebot/
+app/
 *.h5
 *.pt
 *.db

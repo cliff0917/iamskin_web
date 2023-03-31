@@ -190,11 +190,11 @@ def get_post(server, config):
 
         if user_state.get(uid) == 1: # 膚質
             message_content = line_bot_api.get_message_content(message_id)
-            file_path = f"{path}/linebot_upload/Skin/{reply_token}.jpg"
+            file_path = f"{path}/linebot/upload/Skin/{reply_token}.jpg"
             save_img(message_content, file_path) # 儲存使用者傳的照片
             res = get_skin_result(file_path)
-            result_path = f"{path}/linebot_predict/Skin/{reply_token}_prediction.jpg"
-            result_url = f"{path_url}/linebot_predict/Skin/{reply_token}_prediction.jpg"
+            result_path = f"{path}/linebot/predict/Skin/{reply_token}_prediction.jpg"
+            result_url = f"{path_url}/linebot/predict/Skin/{reply_token}_prediction.jpg"
             skin_plot(res['likelihood'], result_path)
             img_message = ImageSendMessage(original_content_url = result_url, preview_image_url = result_url,
                                             quick_reply=QuickReply(
@@ -214,7 +214,7 @@ def get_post(server, config):
 
         elif user_state.get(uid) == 2: # 指甲
             message_content = line_bot_api.get_message_content(message_id)
-            file_path = f"{path}/linebot_upload/Nail/{reply_token}.jpg"
+            file_path = f"{path}/linebot/upload/Nail/{reply_token}.jpg"
             save_img(message_content, file_path)
 
             res = get_nail_result(file_path)
@@ -232,7 +232,7 @@ def get_post(server, config):
 
         elif user_state.get(uid) == 3: # 痘痘
             message_content = line_bot_api.get_message_content(message_id)
-            file_path = f"{path}/linebot_upload/Acne/{reply_token}.jpg"
+            file_path = f"{path}/linebot/upload/Acne/{reply_token}.jpg"
             save_img(message_content, file_path)
             res = get_acne_result(file_path)
 

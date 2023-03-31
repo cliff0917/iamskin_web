@@ -1,10 +1,8 @@
 import PIL.Image
 import numpy as np
-import cv2, requests, base64, flask
-from flask import json
+import os, cv2
+from flask import request, json
 from tensorflow.keras.models import load_model
-
-from utils.transfer import decode, base2picture
 
 def get_post(server):
     model = load_model('./models/Nail.h5')
@@ -12,19 +10,20 @@ def get_post(server):
     @server.route("/Nail-classifier", methods=["POST"])
     def nail_classifier():
         # Receive request.
-        data = flask.request.get_json(silent=True)
+        format = request.form.get('format')
         size = (224, 224)
 
-        if(data['format'] == 'path'):
-            image = cv2.imread(data['image'])
-            image = cv2.resize(image, size)
-            image = np.expand_dims(np.array(image), axis=0)  # / 255
+        if format == 'upload':
+            file = request.files['image']
+            file_path = os.path.join('./assets/app/upload/Nail', file.filename)
+            file.save(file_path)
 
-        if(data['format'] == 'base64'):
-            image = decode(data['image']).resize(size)
-            image = np.expand_dims(np.array(image), axis=0)  # / 255
+        elif format == 'path':
+            file_path = request.form.get('path')
 
-        # image = preprocess_input(image)
+        image = cv2.imread(file_path)
+        image = cv2.resize(image, size)
+        image = np.expand_dims(np.array(image), axis=0) # / 255
 
         classification = {'atypical': 0, 'etc': 0, 'melanonychia': 0, 'naildystrophy': 0,
                         'nodule': 0, 'normalNail': 0, 'onycholysis': 0, 'onychomycosis': 0}

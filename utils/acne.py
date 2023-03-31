@@ -2,8 +2,8 @@ import warnings
 
 warnings.filterwarnings("ignore", category=Warning)
 
-import os, sys, requests, base64, torch, flask, PIL.Image
-from flask import json
+import os, sys, requests, torch, flask, PIL.Image
+from flask import request, json
 
 # 找到 network 位置
 root_path = os.getcwd()
@@ -19,11 +19,18 @@ def get_post(server):
     @server.route("/Acne-classifier", methods=["POST"])
     def acne_classfier():
         # Receive request.
-        data = flask.request.get_json(silent=True)
-        img_path = data['image']
+        format = request.form.get('format')
 
-        case = acne_api.createCase(path=img_path)
-        predict_class, attr_prob = acne_api.inferCase(case, models, img_path)
+        if format == 'upload':
+            file = request.files['image']
+            file_path = os.path.join('./assets/app/upload/Acne', file.filename)
+            file.save(file_path)
+
+        elif format == 'path':
+            file_path = request.form.get('path')
+
+        case = acne_api.createCase(path=file_path)
+        predict_class, attr_prob = acne_api.inferCase(case, models, file_path)
         prediction = 'low' if predict_class == 0 else 'high'
 
         # Json response format.

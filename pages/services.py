@@ -65,14 +65,11 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         additional_title = dash.no_update
         additional_content = dash.no_update
 
-        ip_address = requests.get('https://api.ipify.org').text
-        r = requests.post(
-            f"https://iamskin.tk/{types}-classifier",
-            json={
-                'format': 'path',
-                'image': absolute_path
-            }
-        )
+        url = f"https://iamskin.tk/{types}-classifier"
+        payload = {'format': 'path', 'path': absolute_path}
+        headers = {'Accept': 'application/json'}
+
+        r = requests.post(url, data=payload, headers=headers)
         response = json.loads(r.text)
         # print(response)
 
