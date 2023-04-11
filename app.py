@@ -13,7 +13,7 @@ from lib import login, layout, download, history
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
-du.configure_upload(app, folder='assets/upload') # uploader 的儲存路徑
+du.configure_upload(app, folder='assets/web/upload') # uploader 的儲存路徑
 
 config = globals.read_json('config.json')
 

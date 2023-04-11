@@ -15,7 +15,7 @@ def get_post(server):
 
         if format == 'upload':
             file = request.files['image']
-            file_path = os.path.join('./assets/app/upload/Skin', file.filename)
+            file_path = os.path.join('./assets/web/upload/Skin', file.filename)
             file.save(file_path)
 
         elif format == 'path':

@@ -50,7 +50,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         session["upload_time"] = upload_id.split('/')[-1]
         types = session["cur_path"][1:]
         session["type"] = types
-        relative_path = os.path.join('assets/upload', upload_id, fileNames[0])
+        relative_path = os.path.join('assets/web/upload', upload_id, fileNames[0])
 
         # 避免上傳的檔名中含有空白導致 Acne 的 output img 無法顯示
         if ' ' in fileNames[0]:
@@ -74,7 +74,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         # print(response)
 
         # 建立儲存預測結果的資料夾
-        save_path = f'assets/prediction/{upload_id}'
+        save_path = f'assets/web/predict/{upload_id}'
         os.makedirs(save_path, exist_ok=True)
 
         output_path = os.path.join(save_path, fileNames[0])

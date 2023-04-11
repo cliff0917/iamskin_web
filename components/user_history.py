@@ -46,11 +46,11 @@ def serve():
                         '檢測類別': globals.config["chinese"][types]["normal"],
                         '上傳時間': upload_time,
                         '上傳圖片': {
-                            'src': f'assets/upload/{types}/{session["google_id"]}/{upload_time}/{file_name}',
+                            'src': f'assets/web/upload/{types}/{session["google_id"]}/{upload_time}/{file_name}',
                             'height': '75px'
                         },
                         '輸出': {
-                            'src': f'assets/prediction/{types}/{session["google_id"]}/{upload_time}/{file_name}',
+                            'src': f'assets/web/predict/{types}/{session["google_id"]}/{upload_time}/{file_name}',
                             'height': '75px'
                         }
                     }

@@ -11,7 +11,8 @@ matplotlib.use('Agg')
 def create_folder(path):
     folder_list = [f"{path}/linebot", f"{path}/linebot/upload", f"{path}/linebot/upload/Skin", f"{path}/linebot/upload/Nail", f"{path}/linebot/upload/Acne", 
                    f"{path}/linebot/predict", f"{path}/linebot/predict/Skin",
-                   f"{path}/app", f"{path}/app/upload", f"{path}/app/upload/Skin", f"{path}/app/upload/Nail", f"{path}/app/upload/Acne"]
+                   f"{path}/web", f"{path}/web/upload", f"{path}/web/upload/Skin", f"{path}/web/upload/Nail", f"{path}/web/upload/Acne",
+                   f"{path}/web/prediction", f"{path}/web/prediction/Skin", f"{path}/web/prediction/Nail", f"{path}/web/prediction/Acne"]
 
     for dir in folder_list:
         if not os.path.exists(dir):

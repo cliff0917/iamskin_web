@@ -1,7 +1,7 @@
 __pycache__/
+assets/linebot/
+assets/web/
 models/
-linebot/
-app/
 *.h5
 *.pt
 *.db
