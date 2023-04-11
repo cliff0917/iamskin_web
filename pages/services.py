@@ -65,7 +65,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         additional_title = dash.no_update
         additional_content = dash.no_update
 
-        url = f"https://iamskin.tk/{types}-classifier"
+        url = f"https://{globals.config['domain_name']}/{types}-classifier"
         payload = {'format': 'path', 'path': absolute_path}
         headers = {'Accept': 'application/json'}
 

@@ -2,13 +2,15 @@ import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
 from dash import dcc, html
 
+import globals
+
 def serve():
     return fac.AntdTabPane(
         [
             html.Div(
                 [
                     html.P(
-                        '愛美膚 iamskin.tk（以下稱「本服務」）尊重且重視用戶的隱私權，盡可能在本服務中保護用戶的個人資料，\
+                        f'愛美膚 {globals.config["domain_name"]}（以下稱「本服務」）尊重且重視用戶的隱私權，盡可能在本服務中保護用戶的個人資料，\
                         本服務將以中華民國「個人資料保護法」之規範，訂定隱私權政策，\
                         當您註冊或使用本服務時，即表示您同意我們收集、使用、移轉、揭露及儲存，以及按照本隱私權政策所述方式處理您的個人資料及其他資訊。'
                     ),
@@ -16,7 +18,7 @@ def serve():
                     html.Br(),
                     fac.AntdTitle('1. 適用範圍', level=4),
                     html.P('1.1｜ 本政策適用於您在本網站活動時，所涉及的個人資料蒐集方法、處理程序與利用範圍。'),
-                    html.P('1.2｜ 本政策適用於本服務於 https://iamskin.tk/ 網站域名及次級網域名與各項服務（包括但不限於行動裝置、桌上型電腦等）所提供的服務。'),
+                    html.P(f'1.2｜ 本政策適用於本服務於 https://{globals.config["domain_name"]}/ 網站域名及次級網域名與各項服務（包括但不限於行動裝置、桌上型電腦等）所提供的服務。'),
                     html.P('1.3｜ 本政策不適用於本服務以外的相關連結網站，及非本網站所委託或參與管理的人員。'),
                     html.P('1.4｜本服務對於個人資料之蒐集、處理及利用，以誠實及信用方法在目的範圍內運用，不會損害到您的權益。\
                             本服務保存您的個人資料，在您主張取消時，本服務即進行您個人資料的移除作業。'),
