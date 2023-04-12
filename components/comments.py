@@ -39,7 +39,7 @@ def serve(types):
             )
 
         if display_output_img == 1:
-            img = comment_attach.serve(f'assets/prediction/{types}/{uid}/{upload_time}/{file_name}', '306px')
+            img = comment_attach.serve(f'assets/web/predict/{types}/{uid}/{upload_time}/{file_name}', '306px')
 
         single_comment = html.Div(
             [
