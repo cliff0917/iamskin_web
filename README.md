@@ -9,7 +9,7 @@
 sudo apt install tmux
 git clone https://github.com/cliff0917/iamskin_website.git
 cd iamskin_website
-source scripts/build.shbuild.sh
+source scripts/build.sh
 ```
 
 ## 背景執行
