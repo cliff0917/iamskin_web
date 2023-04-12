@@ -6,17 +6,17 @@ from lib import database
 def serve(server):
     @server.route("/Comments", methods=["POST"])
     def get_comments():
-        types = request.form.get('types')
-        comments = database.get_comments(types)
+        service_type = request.form.get('service_type')
+        comments = database.get_comments(service_type)
 
         response = json.jsonify(
             [
                 {
                     "name": f'{name[0]}*****{name[-1]}',
                     "publish_time": publish_time,
-                    "type_chinese": globals.config['chinese'][types]['normal'],
+                    "service_type_chinese": globals.config['chinese'][service_type]['normal'],
                     "display_output": display_output,
-                    "output_url":  f"https://{globals.config['domain_name']}/assets/web/predict/{types}/{uid}/{upload_time}/{file_name}",
+                    "output_url":  f"https://{globals.config['domain_name']}/assets/web/predict/{service_type}/{uid}/{upload_time}/{file_name}",
                     "rate": rate,
                     "comment": comment
                 }

@@ -3,9 +3,9 @@ from dash import html
 
 import globals
 
-def serve(types):
-    type_chinese = globals.config['chinese'][types]['normal']
-    predict_text = globals.config['chinese'][types]['predict_text']
+def serve(service_type):
+    type_chinese = globals.config['chinese'][service_type]['normal']
+    predict_text = globals.config['chinese'][service_type]['predict_text']
     type_text = type_chinese + predict_text
 
     lines = [

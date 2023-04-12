@@ -14,16 +14,16 @@ from components.modal import share
 from components.services import card, result
 from components import bold_text, uploader, li, explain_li
 
-def serve_layout(types, tutorial_isOpen):
-    with open(f"./assets/{types}/text/card.txt", 'r') as f:
+def serve_layout(service_type, tutorial_isOpen):
+    with open(f"./assets/{service_type}/text/card.txt", 'r') as f:
         lines = f.readlines()
 
     layout = html.Div(
         [
-            share.serve(types),
-            card.serve(lines[0], lines[1], types),
-            uploader.serve(types),
-            result.serve(types),
+            share.serve(service_type),
+            card.serve(lines[0], lines[1], service_type),
+            uploader.serve(service_type),
+            result.serve(service_type),
         ],
     )
     return layout
@@ -48,8 +48,8 @@ def serve_layout(types, tutorial_isOpen):
 def show_upload_status(isCompleted, fileNames, upload_id):
     if isCompleted:
         session["upload_time"] = upload_id.split('/')[-1]
-        types = session["cur_path"][1:]
-        session["type"] = types
+        service_type = session["cur_path"][1:]
+        session["type"] = service_type
         relative_path = os.path.join('assets/web/upload', upload_id, fileNames[0])
 
         # 避免上傳的檔名中含有空白導致 Acne 的 output img 無法顯示
@@ -65,7 +65,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         additional_title = dash.no_update
         additional_content = dash.no_update
 
-        url = f"https://{globals.config['domain_name']}/{types}-classifier"
+        url = f"https://{globals.config['domain_name']}/{service_type}-classifier"
         payload = {'format': 'path', 'path': absolute_path}
         headers = {'Accept': 'application/json'}
 
@@ -83,11 +83,11 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         predict_class = response['prediction']
         predict_class_chinese = response['prediction_chinese']
         output_text = html.H3(
-            f"預測您的{globals.config['chinese'][types]['normal']}{globals.config['chinese'][types]['predict_text']}為「{predict_class_chinese}」",
+            f"預測您的{globals.config['chinese'][service_type]['normal']}{globals.config['chinese'][service_type]['predict_text']}為「{predict_class_chinese}」",
             style={'font-weight': 'bold'},
         )
 
-        if types == 'Skin':
+        if service_type == 'Skin':
             plot.pie(response['likelihood'], output_path) # 畫圖並將其存在 output_path
             output_img = fac.AntdImage(
                 src=output_path,
@@ -111,7 +111,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 additional_title, additional_content, True
             ]
 
-        elif types == 'Acne':
+        elif service_type == 'Acne':
             additional_title = [
                 '【AI 針對預測結果所做出的解釋】',
                 fac.AntdTag(
@@ -126,7 +126,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
 
             attr_prob = response['attr_prob']
 
-            with open(f'./assets/{types}/text/attributes.txt', 'r') as f:
+            with open(f'./assets/{service_type}/text/attributes.txt', 'r') as f:
                 attributes = f.read().splitlines()
 
             additional_content = [
@@ -140,7 +140,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             ]
 
         # 建立 soft link
-        os.system(f'ln -s {os.getcwd()}/assets/{types}/img/{predict_class}.png {output_path}')
+        os.system(f'ln -s {os.getcwd()}/assets/{service_type}/img/{predict_class}.png {output_path}')
 
         output_img = fac.AntdImage(src=output_path, locale='en-us')
 

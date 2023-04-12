@@ -25,12 +25,12 @@ def downloadModels():
     download('image-embedding')
 
 
-def download(types):
+def download(model_name):
 
     import os
     import gdown
 
-    config = api_config[types]
+    config = api_config[model_name]
     path = config['path']
     url = config['url']
 

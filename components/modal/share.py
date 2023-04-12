@@ -8,10 +8,10 @@ import globals
 from components.tab import share
 from lib import database
 
-def serve(types):
+def serve(service_type):
     return fac.AntdModal(
         visible=False,
-        title=share.serve(types),
+        title=share.serve(service_type),
         renderFooter=True,
         okText='送出',
         okCounts=0,
@@ -21,7 +21,7 @@ def serve(types):
         },
         id={
             'type': 'share-modal',
-            'index': types
+            'index': service_type
         },
     )
 

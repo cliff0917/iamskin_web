@@ -3,13 +3,13 @@ from dash import html
 
 from components.services import tutorial
 
-def serve(title, content, types):
+def serve(title, content, service_type):
     card = fac.AntdCard(
         fac.AntdParagraph(
             [
                 fac.AntdText(content),
                 html.Br(),
-                tutorial.serve(types),
+                tutorial.serve(service_type),
             ]
         ),
         title=title,

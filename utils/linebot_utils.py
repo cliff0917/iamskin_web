@@ -10,11 +10,11 @@ matplotlib.use('Agg')
 # create needed folder
 def create_folder(path):
     folder_list = [f"{path}/linebot/upload", f"{path}/linebot/predict"]
-    all_types = ['Skin', 'Nail', 'Acne']
+    service_types = ['Skin', 'Nail', 'Acne']
 
     for dir_path in folder_list:
-        for types in all_types:
-            os.makedirs(f'{dir_path}/{types}', exist_ok=True)
+        for service_type in service_types:
+            os.makedirs(f'{dir_path}/{service_type}', exist_ok=True)
 
 
 # save line image
@@ -23,8 +23,8 @@ def save_img(message_content, file_path):
         for chunk in message_content.iter_content():
             fd.write(chunk)
 
-def post_img(types, path):
-    url = f"https://iamskin.tk/{types}-classifier"
+def post_img(service_type, path):
+    url = f"https://iamskin.tk/{service_type}-classifier"
     payload = {'format': 'path', 'path': path}
     headers = {'Accept': 'application/json'}
     r = requests.post(url, data=payload, headers=headers)

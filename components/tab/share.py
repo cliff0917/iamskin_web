@@ -9,11 +9,11 @@ import globals
 from components.tab import comment, preview
 from components.img import comment_attach
 
-def serve(types):
+def serve(service_type):
     return fac.AntdTabs(
         [
-            comment.serve(types),
-            preview.serve(types),
+            comment.serve(service_type),
+            preview.serve(service_type),
         ]
     )
 

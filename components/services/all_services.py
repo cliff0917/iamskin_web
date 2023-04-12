@@ -8,7 +8,7 @@ def serve():
     services = html.Div(
         dbc.Row(
             [
-                single_service.serve(key, value["tutorial"])
+                single_service.serve(key, value["normal"])
                 for key, value in globals.config["chinese"].items() # 利用 config 初始化 tutorial
             ]
         )

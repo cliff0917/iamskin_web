@@ -3,7 +3,7 @@ from flask import session
 
 import globals
 
-def serve(types):
+def serve(service_type):
     uploader = du.Upload(
         text='點擊或拖曳圖片',
         text_completed='成功上傳 ',
@@ -18,8 +18,8 @@ def serve(types):
         },
         id={
             'type': 'upload',
-            'index': types
+            'index': service_type
         },
-        upload_id=f'{types}/{session["google_id"]}/{globals.now()}',
+        upload_id=f'{service_type}/{session["google_id"]}/{globals.now()}',
     )
     return uploader

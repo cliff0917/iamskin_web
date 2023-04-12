@@ -23,7 +23,7 @@ def create_db():
 
         cmd = '''CREATE TABLE HISTORY(
             UID CHAR(21) NOT NULL,
-            TYPE CHAR(10) NOT NULL,
+            SERVICE_TYPE CHAR(10) NOT NULL,
             UPLOAD_TIME CHAR(19) NOT NULL,
             FILE_NAME CHAR(100) NOT NULL,
             DISPLAY_OUTPUT INT NOT NULL,
@@ -57,7 +57,7 @@ def add_user(data):
 def add_history(data):
     conn, cursor = connect_db(globals.config["db"])
     cmd = '''INSERT INTO HISTORY
-        (UID, TYPE, UPLOAD_TIME, FILE_NAME, DISPLAY_OUTPUT, PUBLISH_TIME, RATE, COMMENT)
+        (UID, SERVICE_TYPE, UPLOAD_TIME, FILE_NAME, DISPLAY_OUTPUT, PUBLISH_TIME, RATE, COMMENT)
         VALUES(?, ?, ?, ?, ?, ?, ?, ?);'''
     cursor.execute(cmd, data)
     conn.commit()
@@ -68,7 +68,7 @@ def add_history(data):
 def update_history(data):
     conn, cursor = connect_db(globals.config["db"])
     cmd = """Update HISTORY set DISPLAY_OUTPUT = ?, PUBLISH_TIME = ?, RATE = ?, COMMENT = ?
-            where UID = ? AND TYPE = ? AND UPLOAD_TIME = ?"""
+            where UID = ? AND SERVICE_TYPE = ? AND UPLOAD_TIME = ?"""
     cursor.execute(cmd, data)
     conn.commit()
     cursor.close()
@@ -76,19 +76,19 @@ def update_history(data):
 
 def get_history(uid):
     conn, cursor = connect_db(globals.config["db"])
-    cmd = """SELECT TYPE, UPLOAD_TIME, FILE_NAME FROM HISTORY
+    cmd = """SELECT SERVICE_TYPE, UPLOAD_TIME, FILE_NAME FROM HISTORY
         WHERE UID = ?"""
     cursor.execute(cmd, (uid,))
     data = cursor.fetchall()
     return data
 
 
-def get_comments(types='Skin'):
+def get_comments(service_type='Skin'):
     conn, cursor = connect_db(globals.config["db"])
     cmd = """SELECT USER.UID, USER.NAME, HISTORY.UPLOAD_TIME, HISTORY.FILE_NAME,
         HISTORY.DISPLAY_OUTPUT, HISTORY.PUBLISH_TIME, HISTORY.RATE, HISTORY.COMMENT
         FROM USER INNER JOIN HISTORY ON USER.UID = HISTORY.UID
-        WHERE TYPE = ? AND PUBLISH_TIME != ?"""
-    cursor.execute(cmd, (types, ''))
+        WHERE SERVICE_TYPE = ? AND PUBLISH_TIME != ?"""
+    cursor.execute(cmd, (service_type, ''))
     data = cursor.fetchall()
     return data

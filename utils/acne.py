@@ -26,9 +26,6 @@ def get_post(server):
 
         if format == 'upload':
             uid, upload_time, file_name, file_path = save_img('Acne')
-            # file = request.files['image']
-            # file_path = os.path.join('./assets/app/upload/Acne', file.filename)
-            # file.save(file_path)
 
         elif format == 'path':
             file_path = request.form.get('path')

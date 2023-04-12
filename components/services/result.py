@@ -2,7 +2,7 @@ import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
 from dash import dcc, html
 
-def serve(types):
+def serve(service_type):
     col_style = {
         'width': 6,
         'margin-top': '2rem',
@@ -20,13 +20,13 @@ def serve(types):
                                 },
                                 id={
                                     'type': 'upload-text',
-                                    'index': types
+                                    'index': service_type
                                 },
                             ),
                             fac.AntdImage(
                                 id={
                                     'type': 'upload-img',
-                                    'index': types
+                                    'index': service_type
                                 },
                                 locale='en-us'
                             ),
@@ -36,7 +36,7 @@ def serve(types):
                     dbc.Col(
                         id={
                             'type':'output-info',
-                            'index': types
+                            'index': service_type
                         },
                         style=col_style,
                     ),
@@ -45,14 +45,14 @@ def serve(types):
             html.H2(
                 id={
                     'type': 'predict-class',
-                    'index': types
+                    'index': service_type
                 },
                 style={'font-weight': 'bold', 'margin-top': '2rem'},
             ),
             html.Ul(
                 id={
                     'type': 'advice',
-                    'index': types
+                    'index': service_type
                 },
             ),
             dbc.Collapse(
@@ -70,7 +70,7 @@ def serve(types):
                             nClicks=0,
                             id={
                                 'type': 'share-btn',
-                                'index': types
+                                'index': service_type
                             }
                         ),
                     ),
@@ -79,7 +79,7 @@ def serve(types):
                 is_open=False,
                 id={
                     'type': 'share-btn-collapse',
-                    'index': types
+                    'index': service_type
                 }
             ),
         ]

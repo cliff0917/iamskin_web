@@ -7,9 +7,9 @@ from components import bold_text
 from components.img import comment_attach
 from lib import database
 
-def serve(types):
+def serve(service_type):
     comments = []
-    type_comments = database.get_comments(types)
+    type_comments = database.get_comments(service_type)
 
     if len(type_comments) == 0:
         return fac.AntdEmpty(
@@ -39,7 +39,7 @@ def serve(types):
             )
 
         if display_output_img == 1:
-            img = comment_attach.serve(f'assets/web/predict/{types}/{uid}/{upload_time}/{file_name}', '306px')
+            img = comment_attach.serve(f'assets/web/predict/{service_type}/{uid}/{upload_time}/{file_name}', '306px')
 
         single_comment = html.Div(
             [
@@ -65,7 +65,7 @@ def serve(types):
                 ),
                 html.Br(),
                 fac.AntdText(
-                    f'檢測類別：{globals.config["chinese"][types]["normal"]}',
+                    f'檢測類別：{globals.config["chinese"][service_type]["normal"]}',
                     style={
                         'margin-left': '1rem',
                         'font-weight': 'bold',

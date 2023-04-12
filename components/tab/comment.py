@@ -4,11 +4,11 @@ import feffery_antd_components as fac
 import globals
 from components import bold_text
 
-def serve(types):
+def serve(service_type):
     return fac.AntdTabPane(
         [
             bold_text.serve(
-                f'檢測類別：{globals.config["chinese"][types]["normal"]}',
+                f'檢測類別：{globals.config["chinese"][service_type]["normal"]}',
             ),
             html.Br(),
             bold_text.serve('評分：'),
@@ -18,7 +18,7 @@ def serve(types):
                 defaultValue=3,
                 id={
                     'type': 'rate',
-                    'index': types
+                    'index': service_type
                 },
             ),
             html.Div(
@@ -30,7 +30,7 @@ def serve(types):
                         checked=False,
                         id={
                             'type': 'img-switch',
-                            'index': types
+                            'index': service_type
                         },
                     ),
                 ],
@@ -49,7 +49,7 @@ def serve(types):
                 },
                 id={
                     'type': 'comment',
-                    'index': types
+                    'index': service_type
                 },
             ),
         ],

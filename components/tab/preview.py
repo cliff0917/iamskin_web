@@ -6,7 +6,7 @@ from flask import session
 import globals
 from components import bold_text
 
-def serve(types):
+def serve(service_type):
     return fac.AntdTabPane(
         html.Div(
             [
@@ -31,12 +31,12 @@ def serve(types):
                     },
                     id={
                         'type': 'preview-time',
-                        'index': types
+                        'index': service_type
                     }
                 ),
                 html.Br(),
                 fac.AntdText(
-                    f'檢測類別：{globals.config["chinese"][types]["normal"]}',
+                    f'檢測類別：{globals.config["chinese"][service_type]["normal"]}',
                     style={
                         'margin-left': '1rem',
                         'font-weight': 'bold',
@@ -56,7 +56,7 @@ def serve(types):
                     disabled=True,
                     id={
                         'type': 'preview-rate',
-                        'index': types
+                        'index': service_type
                     }
                 ),
                 html.Br(),
@@ -68,13 +68,13 @@ def serve(types):
                             },
                             id={
                                 'type': 'preview-comment-title',
-                                'index': types
+                                'index': service_type
                             }
                         ),
                         fac.AntdText(
                             id={
                                 'type': 'preview-comment',
-                                'index': types
+                                'index': service_type
                             }
                         )
                     ],
@@ -86,7 +86,7 @@ def serve(types):
                 dbc.Collapse(
                     id={
                         'type': 'preview-img-collapse',
-                        'index': types
+                        'index': service_type
                     },
                     is_open=True,
                 )
