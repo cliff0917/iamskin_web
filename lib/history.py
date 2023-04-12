@@ -25,3 +25,24 @@ def serve(server):
         return response
     
     return server
+
+
+def update(server):
+    @server.route("/Update-History", methods=["POST"])
+    def update_history():
+        now = globals.now()
+        display_output_img = request.form.get('display_output_img')
+        rate = request.form.get('rate')
+        comment = request.form.get('comment')
+        uid = request.form.get('uid')
+        service_type = request.form.get('service_type')
+        upload_time = request.form.get('upload_time')
+
+        database.update_history(display_output_img, now, rate, comment, uid, service_type, upload_time)
+
+        response = json.jsonify(
+            {'status': 'success'}
+        )
+        return response
+    
+    return server

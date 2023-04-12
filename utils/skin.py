@@ -15,6 +15,7 @@ def get_post(server):
         # Receive request.
         format = request.form.get('format')
         size = (224, 224)
+        upload_time = ''
 
         # 從手機上傳
         if format == 'upload':
@@ -48,7 +49,8 @@ def get_post(server):
                 "prediction": predict_class,
                 "prediction_chinese": globals.read_json("./assets/Skin/json/classes.json")[predict_class],
                 "feature": feature,
-                "maintain": maintain
+                "maintain": maintain,
+                "upload_time": upload_time
             }
         )
         return response

@@ -15,6 +15,7 @@ def get_post(server):
         # Receive request.
         format = request.form.get('format')
         size = (224, 224)
+        upload_time = ''
 
         if format == 'upload':
             uid, upload_time, file_name, file_path = save_img('Nail')
@@ -40,7 +41,8 @@ def get_post(server):
         response = json.jsonify(
             {
                 "prediction": predict_class, 
-                "prediction_chinese": globals.read_json("./assets/Nail/json/classes.json")[predict_class]
+                "prediction_chinese": globals.read_json("./assets/Nail/json/classes.json")[predict_class],
+                "upload_time": upload_time
             }
         )
 
