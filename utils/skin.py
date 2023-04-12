@@ -4,6 +4,9 @@ import os, cv2
 from flask import request, json
 from tensorflow.keras.models import load_model
 
+import globals
+from mobile.process import save_img, plot_img
+
 def get_post(server):
     model = load_model('./models/Skin.h5')
 
@@ -13,10 +16,9 @@ def get_post(server):
         format = request.form.get('format')
         size = (224, 224)
 
+        # 從手機上傳
         if format == 'upload':
-            file = request.files['image']
-            file_path = os.path.join('./assets/web/upload/Skin', file.filename)
-            file.save(file_path)
+            uid, upload_time, file_name, file_path = save_img('Skin')
 
         elif format == 'path':
             file_path = request.form.get('path')
@@ -31,9 +33,23 @@ def get_post(server):
         likelihood = {k: float(v) for k, v in zip(classification, score)}
         predict_class = max(likelihood, key=likelihood.get)
 
+        with open(f'assets/Skin/text/{predict_class}.txt', 'r') as f:
+            lines = f.readlines()
+            feature = lines[0]
+            maintain = lines[1]
+
+        if format == 'upload':
+            plot_img('Skin', uid, upload_time, file_name, likelihood)
+
         # Json response format.
         response = json.jsonify(
-            {"likelihood": likelihood, "prediction": predict_class}
+            {
+                "likelihood": likelihood, 
+                "prediction": predict_class,
+                "prediction_chinese": globals.read_json("./assets/Skin/json/classes.json")[predict_class],
+                "feature": feature,
+                "maintain": maintain
+            }
         )
         return response
         

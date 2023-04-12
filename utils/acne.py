@@ -5,6 +5,9 @@ warnings.filterwarnings("ignore", category=Warning)
 import os, sys, requests, torch, flask, PIL.Image
 from flask import request, json
 
+import globals
+from mobile.process import save_img, build_link
+
 # 找到 network 位置
 root_path = os.getcwd()
 sys.path.insert(0, root_path + "/utils")
@@ -22,20 +25,28 @@ def get_post(server):
         format = request.form.get('format')
 
         if format == 'upload':
-            file = request.files['image']
-            file_path = os.path.join('./assets/app/upload/Acne', file.filename)
-            file.save(file_path)
+            uid, upload_time, file_name, file_path = save_img('Acne')
+            # file = request.files['image']
+            # file_path = os.path.join('./assets/app/upload/Acne', file.filename)
+            # file.save(file_path)
 
         elif format == 'path':
             file_path = request.form.get('path')
 
         case = acne_api.createCase(path=file_path)
         predict_class, attr_prob = acne_api.inferCase(case, models, file_path)
-        prediction = 'low' if predict_class == 0 else 'high'
+        predict_class = 'low' if predict_class == 0 else 'high'
+
+        if format == 'upload':
+            build_link('Acne', uid, upload_time, file_name, predict_class)
 
         # Json response format.
         response = json.jsonify(
-            {"prediction": prediction, "attr_prob": attr_prob}
+            {
+                "prediction": predict_class, 
+                "prediction_chinese": globals.read_json("./assets/Acne/json/classes.json")[predict_class],
+                "attr_prob": attr_prob
+            }
         )
         return response
 

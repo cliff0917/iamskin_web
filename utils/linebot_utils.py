@@ -9,14 +9,12 @@ matplotlib.use('Agg')
 
 # create needed folder
 def create_folder(path):
-    folder_list = [f"{path}/linebot", f"{path}/linebot/upload", f"{path}/linebot/upload/Skin", f"{path}/linebot/upload/Nail", f"{path}/linebot/upload/Acne", 
-                   f"{path}/linebot/predict", f"{path}/linebot/predict/Skin",
-                   f"{path}/web", f"{path}/web/upload", f"{path}/web/upload/Skin", f"{path}/web/upload/Nail", f"{path}/web/upload/Acne",
-                   f"{path}/web/prediction", f"{path}/web/prediction/Skin", f"{path}/web/prediction/Nail", f"{path}/web/prediction/Acne"]
+    folder_list = [f"{path}/linebot/upload", f"{path}/linebot/predict"]
+    all_types = ['Skin', 'Nail', 'Acne']
 
-    for dir in folder_list:
-        if not os.path.exists(dir):
-            os.mkdir(dir)
+    for dir_path in folder_list:
+        for types in all_types:
+            os.makedirs(f'{dir_path}/{types}', exist_ok=True)
 
 
 # save line image

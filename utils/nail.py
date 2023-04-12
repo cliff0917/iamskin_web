@@ -4,6 +4,9 @@ import os, cv2
 from flask import request, json
 from tensorflow.keras.models import load_model
 
+import globals
+from mobile.process import save_img, build_link
+
 def get_post(server):
     model = load_model('./models/Nail.h5')
 
@@ -14,9 +17,7 @@ def get_post(server):
         size = (224, 224)
 
         if format == 'upload':
-            file = request.files['image']
-            file_path = os.path.join('./assets/app/upload/Nail', file.filename)
-            file.save(file_path)
+            uid, upload_time, file_name, file_path = save_img('Nail')
 
         elif format == 'path':
             file_path = request.form.get('path')
@@ -30,11 +31,17 @@ def get_post(server):
         score = [s for s in model.predict(image).squeeze(0).round(3)]
         likelihood = {k: str(v) for k, v in zip(classification, score)}
         predict_class = max(likelihood, key=likelihood.get)
-        prediction = 'low' if predict_class == 'normalNail' else 'high'
+        predict_class = 'low' if predict_class == 'normalNail' else 'high'
+
+        if format == 'upload':
+            build_link('Nail', uid, upload_time, file_name, predict_class)
 
         # Json response format.
         response = json.jsonify(
-            {"prediction": prediction}
+            {
+                "prediction": predict_class, 
+                "prediction_chinese": globals.read_json("./assets/Nail/json/classes.json")[predict_class]
+            }
         )
 
         return response

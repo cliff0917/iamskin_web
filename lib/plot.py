@@ -1,11 +1,17 @@
 import plotly.graph_objects as go
 
-def pie(col_name, col_val):
+def pie(likelihood, output_path):
+    class_name, class_prob = [], []
+
+    for k, v in likelihood.items():
+        class_name.append(k)
+        class_prob.append(v)
+
     fig = go.Figure(go.Pie(
         name='',
-        labels = col_name,
-        values = col_val,
-        text = col_name,
-        hovertemplate = "%{label} <br>預測機率: %{percent}",
+        labels=class_name,
+        values=class_prob,
+        text=class_name
     ))
+    fig.write_image(output_path) # save
     return fig

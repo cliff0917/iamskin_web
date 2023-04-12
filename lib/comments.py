@@ -8,7 +8,6 @@ def serve(server):
     def get_comments():
         types = request.form.get('types')
         comments = database.get_comments(types)
-        print(comments)
 
         response = json.jsonify(
             [

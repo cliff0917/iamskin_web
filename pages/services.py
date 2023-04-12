@@ -81,21 +81,14 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         session["output_path"] = output_path
 
         predict_class = response['prediction']
-        predict_class_chinese = globals.read_json(f"./assets/{types}/json/classes.json")[predict_class]
+        predict_class_chinese = response['prediction_chinese']
         output_text = html.H3(
             f"預測您的{globals.config['chinese'][types]['normal']}{globals.config['chinese'][types]['predict_text']}為「{predict_class_chinese}」",
             style={'font-weight': 'bold'},
         )
 
         if types == 'Skin':
-            class_name, class_prob = [], []
-
-            for k, v in response['likelihood'].items():
-                class_name.append(k)
-                class_prob.append(v)
-
-            fig = plot.pie(class_name, class_prob)
-            fig.write_image(output_path)
+            plot.pie(response['likelihood'], output_path) # 畫圖並將其存在 output_path
             output_img = fac.AntdImage(
                 src=output_path,
                 locale='en-us'
@@ -103,11 +96,9 @@ def show_upload_status(isCompleted, fileNames, upload_id):
 
             additional_title = f'【{predict_class_chinese}】'
 
-            with open(f'assets/{types}/text/{predict_class}.txt', 'r') as f:
-                lines = f.readlines()
-                feature = li.serve('特徵：', lines[0])
-                maintain = li.serve('護膚重點：', lines[1])
-                additional_content = [feature, html.Br(), maintain]
+            feature = li.serve('特徵：', response['feature'])
+            maintain = li.serve('護膚重點：', response['maintain'])
+            additional_content = [feature, html.Br(), maintain]
 
             info = (
                 session["google_id"], session["type"], session["upload_time"],
