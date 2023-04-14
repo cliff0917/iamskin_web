@@ -8,9 +8,10 @@ import globals
 from mobile.process import save_img, build_link
 
 def get_post(server):
-    model = load_model('./models/Nail.h5')
+    service_type = 'Nail' 
+    model = load_model(f'./models/{service_type}.h5')
 
-    @server.route("/Nail-classifier", methods=["POST"])
+    @server.route(f"/{service_type}-classifier", methods=["POST"])
     def nail_classifier():
         # Receive request.
         format = request.form.get('format')
@@ -18,7 +19,7 @@ def get_post(server):
         upload_time = ''
 
         if format == 'upload':
-            uid, upload_time, file_name, file_path = save_img('Nail')
+            uid, upload_time, file_name, file_path = save_img(service_type)
 
         elif format == 'path':
             file_path = request.form.get('path')
@@ -35,14 +36,15 @@ def get_post(server):
         predict_class = 'low' if predict_class == 'normalNail' else 'high'
 
         if format == 'upload':
-            build_link('Nail', uid, upload_time, file_name, predict_class)
+            build_link(service_type, uid, upload_time, file_name, predict_class)
 
         # Json response format.
         response = json.jsonify(
             {
                 "prediction": predict_class, 
-                "prediction_chinese": globals.read_json("./assets/Nail/json/classes.json")[predict_class],
-                "upload_time": upload_time
+                "prediction_chinese": globals.read_json(f"./assets/{service_type}/json/classes.json")[predict_class],
+                "upload_time": upload_time,
+                "output_url": f"https://{globals.config['domain_name']}/assets/web/predict/{service_type}/{uid}/{upload_time}/{file_name}" if upload_time != '' else ''
             }
         )
 

@@ -8,9 +8,10 @@ import globals
 from mobile.process import save_img, plot_img
 
 def get_post(server):
-    model = load_model('./models/Skin.h5')
+    service_type = 'Skin'
+    model = load_model(f'./models/{service_type}.h5')
 
-    @server.route("/Skin-classifier", methods=["POST"])
+    @server.route(f"/{service_type}-classifier", methods=["POST"])
     def skin_classfier():
         # Receive request.
         format = request.form.get('format')
@@ -19,7 +20,7 @@ def get_post(server):
 
         # 從手機上傳
         if format == 'upload':
-            uid, upload_time, file_name, file_path = save_img('Skin')
+            uid, upload_time, file_name, file_path = save_img(service_type)
 
         elif format == 'path':
             file_path = request.form.get('path')
@@ -34,23 +35,24 @@ def get_post(server):
         likelihood = {k: float(v) for k, v in zip(classification, score)}
         predict_class = max(likelihood, key=likelihood.get)
 
-        with open(f'assets/Skin/text/{predict_class}.txt', 'r') as f:
+        with open(f'assets/{service_type}/text/{predict_class}.txt', 'r') as f:
             lines = f.readlines()
             feature = lines[0]
             maintain = lines[1]
 
         if format == 'upload':
-            plot_img('Skin', uid, upload_time, file_name, likelihood)
+            plot_img(service_type, uid, upload_time, file_name, likelihood)
 
         # Json response format.
         response = json.jsonify(
             {
                 "likelihood": likelihood, 
                 "prediction": predict_class,
-                "prediction_chinese": globals.read_json("./assets/Skin/json/classes.json")[predict_class],
+                "prediction_chinese": globals.read_json(f"./assets/{service_type}/json/classes.json")[predict_class],
                 "feature": feature,
                 "maintain": maintain,
-                "upload_time": upload_time
+                "upload_time": upload_time,
+                "output_url": f"https://{globals.config['domain_name']}/assets/web/predict/{service_type}/{uid}/{upload_time}/{file_name}" if upload_time != '' else ''
             }
         )
         return response
