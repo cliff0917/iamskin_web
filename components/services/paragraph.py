@@ -9,9 +9,8 @@ def serve(service_type):
     type_text = type_chinese + predict_text
 
     lines = [
-        f'運用 AI 評估{type_text}，',
-        f'取得{type_text}結果圖，',
-        f'以及{type_chinese}照護衛教資訊。'
+        f'AI 評估{type_text}，',
+        f'獲取相關照護衛教資訊。'
     ]
 
     paragraph = html.Div(

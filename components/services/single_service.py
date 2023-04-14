@@ -15,7 +15,7 @@ def serve(service_type, chinese):
                 }
             ),
             html.H3(
-                f'{chinese}檢測 - {service_type} Care',
+                f'{chinese}檢測',
                 style={
                     'color': '#7891AA',
                     'font-weight': 'bold',
