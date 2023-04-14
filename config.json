@@ -4,7 +4,7 @@
         "Skin": {"tutorial": "肌膚", "normal": "膚質", "predict_text": "類型"},
         "Nail": {"tutorial": "指甲", "normal": "指甲", "predict_text": "異常風險"},
         "Acne": {"tutorial": "痘痘", "normal": "痘痘", "predict_text": "嚴重程度"},
-        "Tongue": {"tutorial": "舌頭", "normal": "舌頭", "predict_text": "嚴重程度"}
+        "Tongue": {"tutorial": "舌頭", "normal": "舌頭", "predict_text": "外觀"}
     },
     "model_path": "./models",
     "model": {

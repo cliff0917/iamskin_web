@@ -13,7 +13,7 @@ def serve():
             [
                 logo.serve(),
                 dbc.NavbarToggler(
-                    id="navbar-toggler", 
+                    id="navbar-toggler",
                     n_clicks=0,
                 ),
                 dbc.Collapse(
@@ -23,9 +23,8 @@ def serve():
                             navItem.serve("關於我們", '/About'),
                             dbc.DropdownMenu(
                                 children=[
-                                    dropdownLink.serve("膚質檢測", "/Skin"),
-                                    dropdownLink.serve("指甲檢測", "/Nail"),
-                                    dropdownLink.serve("痘痘檢測", "/Acne"),
+                                    dropdownLink.serve(f"{value['normal']}檢測", f"/{key}")
+                                    for key, value in globals.config["chinese"].items() # 用 config 初始化服務項目種類
                                 ],
                                 nav=True,
                                 in_navbar=True,
