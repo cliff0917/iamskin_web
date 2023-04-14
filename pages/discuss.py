@@ -20,20 +20,11 @@ def serve_layout():
                 fac.AntdTabs(
                     [
                         fac.AntdTabPane(
-                            comments.serve('Skin'),
-                            tab='膚質 Skin',
-                            key='Skin'
-                        ),
-                        fac.AntdTabPane(    
-                            comments.serve('Nail'),
-                            tab='指甲 Nail',
-                            key='Nail'
-                        ),
-                        fac.AntdTabPane(    
-                            comments.serve('Acne'),
-                            tab='痘痘 Acne',
-                            key='Acne'
-                        ),
+                            comments.serve(key),
+                            tab=f'{value["normal"]} {key}',
+                            key=key
+                        )
+                        for key, value in globals.config["chinese"].items() # 用 config 初始化討論區種類
                     ],
                     type='card',
                     tabPaneAnimated=True,

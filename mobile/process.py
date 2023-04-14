@@ -30,6 +30,7 @@ def plot_img(service_type, uid, upload_time, file_name, likelihood):
     add_record(service_type, uid, upload_time, file_name) # 將 app 的資訊加入到 DB 中
 
 
+# 建立 soft link
 def build_link(service_type, uid, upload_time, file_name, predict_class):
     dir_path = build_dir('predict', service_type, uid, upload_time)
     output_path = f'{dir_path}/{file_name}'
