@@ -4,6 +4,9 @@
 - Ubuntu
 - Anaconda
 
+## 建立網域
+- [Linux 如何建立網域](https://cliff0917.github.io/post/Linux-%E5%BB%BA%E7%AB%8B%E7%B6%B2%E5%9F%9F/)
+
 ## 環境安裝
 ```
 sudo apt install tmux
