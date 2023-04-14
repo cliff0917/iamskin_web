@@ -17,7 +17,7 @@ def serve(service_type):
         okCounts=0,
         cancelText='取消',
         okButtonProps={
-            'href': '/Discuss'
+            'href': '/Comments'
         },
         id={
             'type': 'share-modal',

@@ -6,7 +6,7 @@ from dash.dependencies import Input, Output
 import globals
 from components.modal import social_login
 from components import navbar, modal
-from pages import home, about, services, discuss, history, policy, non_exist
+from pages import home, about, services, comments, history, policy, non_exist
 from components.common_style import navlink_active, navlink_not_active
 
 url = dcc.Location(id="url")
@@ -76,8 +76,8 @@ def display_page(pathname):
             dropdown_navlink
         ]
 
-    elif pathname == '/Discuss':
-        return [discuss.serve_layout(), False, dropdown_navlink]
+    elif pathname == '/Comments':
+        return [comments.serve_layout(), False, dropdown_navlink]
 
     elif pathname == '/History':
         # 如果未登入帳號, 則跳出 login first modal

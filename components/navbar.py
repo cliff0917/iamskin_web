@@ -33,7 +33,7 @@ def serve():
                                 id='nav-dropdown-title',
                                 style={'textAlign': 'center'}
                             ),
-                            navItem.serve("討論區", '/Discuss'),
+                            navItem.serve("評論區", '/Comments'),
                             navItem.serve("歷史紀錄", '/History'),
                             logout.serve(),
                         ],
