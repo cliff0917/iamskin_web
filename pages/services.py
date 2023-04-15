@@ -61,7 +61,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
 
         # service 頁面在沒刷新頁面的情況下, uploader 之 uid 不會變
         # 此時若上傳兩張名稱相同, 但實際內容不同的照片, 會導致較先上傳的被較晚上傳的給 overwrite 掉
-        # 因此將當前檔案重新命名, 改成前面再加真正的上傳時間（同個 uploader_id 中不可能重複）
+        # 因此將當前檔案重新命名, 改成原先名稱前面再加真正的上傳時間（同個 uploader_id 中不可能重複）
         fileNames[0] = f'{globals.now()}-{fileNames[0]}'
         new_path = os.path.join('assets/web/upload', upload_id, fileNames[0])
         os.system(f'mv "{relative_path}" {new_path}')
