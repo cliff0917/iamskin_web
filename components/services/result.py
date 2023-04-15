@@ -60,7 +60,7 @@ def serve(service_type):
                     fac.AntdCol(
                         fac.AntdButton(
                             html.P(
-                                '分享預測結果至討論區',
+                                '分享預測結果至評論區',
                                 style={
                                     'font-weight': 'bold',
                                 }

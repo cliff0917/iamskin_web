@@ -15,7 +15,7 @@ def serve_layout():
 
     return html.Div(
         [
-            fac.AntdTitle('討論區', level=1),
+            fac.AntdTitle('評論區', level=1),
             dcc.Loading(
                 fac.AntdTabs(
                     [
@@ -24,7 +24,7 @@ def serve_layout():
                             tab=f'{value["normal"]} {key}',
                             key=key
                         )
-                        for key, value in globals.config["chinese"].items() # 用 config 初始化討論區種類
+                        for key, value in globals.config["chinese"].items() # 用 config 初始化評論區種類
                     ],
                     type='card',
                     tabPaneAnimated=True,

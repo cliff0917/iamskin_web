@@ -1,5 +1,4 @@
 import os, requests, json
-from linebot.models import *
 
 # save line image
 def save_img(message_content, dir_path, file_name):
@@ -37,4 +36,3 @@ def get_content(config, service_type):
 麻煩您拍照或上傳想要分析的照片。\n\n \
 照片要確實含有您的{config['chinese'][service_type]['tutorial']}且盡量再充足光源下拍攝，並注意不要「失焦」，否則判讀結果不具任何意義。"
     return text
-
