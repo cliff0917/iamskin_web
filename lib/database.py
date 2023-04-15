@@ -26,6 +26,7 @@ def create_db():
             SERVICE_TYPE CHAR(10) NOT NULL,
             UPLOAD_TIME CHAR(19) NOT NULL,
             FILE_NAME CHAR(100) NOT NULL,
+            PREDICT_CLASS CHAR(10) NOT NULL,
             DISPLAY_OUTPUT INT NOT NULL,
             PUBLISH_TIME CHAR(19),
             RATE INT,
@@ -57,8 +58,8 @@ def add_user(data):
 def add_history(data):
     conn, cursor = connect_db(globals.config["db"])
     cmd = '''INSERT INTO HISTORY
-        (UID, SERVICE_TYPE, UPLOAD_TIME, FILE_NAME, DISPLAY_OUTPUT, PUBLISH_TIME, RATE, COMMENT)
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?);'''
+        (UID, SERVICE_TYPE, UPLOAD_TIME, FILE_NAME, PREDICT_CLASS, DISPLAY_OUTPUT, PUBLISH_TIME, RATE, COMMENT)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);'''
     cursor.execute(cmd, data)
     conn.commit()
     conn.close()
@@ -77,7 +78,7 @@ def update_history(display_output_img, publish_time, rate, comment, uid, service
 
 def get_history(uid):
     conn, cursor = connect_db(globals.config["db"])
-    cmd = """SELECT SERVICE_TYPE, UPLOAD_TIME, FILE_NAME FROM HISTORY
+    cmd = """SELECT SERVICE_TYPE, UPLOAD_TIME, FILE_NAME, PREDICT_CLASS FROM HISTORY
         WHERE UID = ?"""
     cursor.execute(cmd, (uid,))
     data = cursor.fetchall()
@@ -86,7 +87,7 @@ def get_history(uid):
 
 def get_comments(service_type='Skin'):
     conn, cursor = connect_db(globals.config["db"])
-    cmd = """SELECT USER.UID, USER.NAME, HISTORY.UPLOAD_TIME, HISTORY.FILE_NAME,
+    cmd = """SELECT USER.UID, USER.NAME, HISTORY.UPLOAD_TIME, HISTORY.FILE_NAME, HISTORY.PREDICT_CLASS,
         HISTORY.DISPLAY_OUTPUT, HISTORY.PUBLISH_TIME, HISTORY.RATE, HISTORY.COMMENT
         FROM USER INNER JOIN HISTORY ON USER.UID = HISTORY.UID
         WHERE SERVICE_TYPE = ? AND PUBLISH_TIME != ?"""

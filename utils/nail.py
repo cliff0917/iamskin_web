@@ -5,7 +5,7 @@ from flask import request, json
 from tensorflow.keras.models import load_model
 
 import globals
-from mobile.process import save_img, build_link
+from mobile.process import save_img
 
 def get_post(server):
     service_type = 'Nail' 
@@ -35,6 +35,11 @@ def get_post(server):
         predict_class = max(likelihood, key=likelihood.get)
         predict_class = 'low' if predict_class == 'normalNail' else 'high'
         output_url = f"https://{globals.config['domain_name']}/assets/{service_type}/img/{predict_class}.png"
+        
+        # Insert record to database
+        if format == 'upload':
+            info = (uid, service_type, upload_time, file_name, predict_class, -1, '', -1, '')
+            database.add_history(info)
 
         # Json response format.
         response = json.jsonify(

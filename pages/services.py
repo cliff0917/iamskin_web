@@ -9,7 +9,7 @@ from dash.dependencies import Input, Output, State, MATCH
 from datetime import datetime
 
 import globals
-from lib import plot, database
+from lib import database
 from components.modal import share
 from components.services import card, result
 from components import bold_text, uploader, li, explain_li
@@ -73,12 +73,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         response = json.loads(r.text)
         # print(response)
 
-        # 建立儲存預測結果的資料夾
-        # save_path = f'assets/web/predict/{upload_id}'
-        # os.makedirs(save_path, exist_ok=True)
-
-        # output_path = os.path.join(save_path, fileNames[0])
-        output_path = os.path.join(save_path, fileNames[0])
+        output_path = response['output_url']
         session["output_path"] = output_path
 
         predict_class = response['prediction']
@@ -88,13 +83,11 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             style={'font-weight': 'bold'},
         )
 
-        # 建立 soft link
-        # os.system(f'ln -s {os.getcwd()}/assets/{service_type}/img/{predict_class}.png {output_path}')
         output_img = fac.AntdImage(src=output_path, locale='en-us')
 
         info = (
             session["google_id"], session["type"], session["upload_time"],
-            fileNames[0], -1, '', -1, ''
+            fileNames[0], predict_class, -1, '', -1, ''
         )
         database.add_history(info)
 

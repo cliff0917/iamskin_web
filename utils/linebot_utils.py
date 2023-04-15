@@ -3,7 +3,7 @@ from linebot.models import *
 
 # save line image
 def save_img(message_content, dir_path, file_name):
-    os.makedirs(dir_path, exist_ok=True) # 建立儲存預測結果的資料夾
+    os.makedirs(dir_path, exist_ok=True) # 建立儲存 input image 的資料夾
 
     file_path = f'{dir_path}/{file_name}'
 

@@ -50,11 +50,11 @@ def serve():
                             'height': '75px'
                         },
                         '輸出': {
-                            'src': f'assets/web/predict/{service_type}/{session["google_id"]}/{upload_time}/{file_name}',
+                            'src': f'assets/{service_type}/img/{predict_class}.png',
                             'height': '75px'
                         }
                     }
-                    for i, [service_type, upload_time, file_name] in enumerate(history)
+                    for i, [service_type, upload_time, file_name, predict_class] in enumerate(history)
                 ],
                 bordered=True,
                 locale='en-us',
