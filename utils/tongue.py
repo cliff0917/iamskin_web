@@ -28,17 +28,15 @@ def get_post(server):
 
         seg_img = segmentation.predict(seg_model, file_path) # 獲得舌頭切割後的圖片
         predict_class = classifier.predict(cls_model, classes, seg_img)
-
-        if format == 'upload':
-            build_link(service_type, uid, upload_time, file_name, predict_class)
-
+        output_url = f"https://{globals.config['domain_name']}/assets/{service_type}/img/{predict_class}.png"
+        
         # Json response format.
         response = json.jsonify(
             {
                 "prediction": predict_class,
                 "prediction_chinese": globals.read_json(f"./assets/{service_type}/json/classes.json")[predict_class],
                 "upload_time": upload_time,
-                "output_url": f"https://{globals.config['domain_name']}/assets/web/predict/{service_type}/{uid}/{upload_time}/{file_name}" if upload_time != '' else ''
+                "output_url": output_url
             }
         )
         return response

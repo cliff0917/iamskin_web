@@ -1,76 +1,40 @@
-import os
-import sys
-import matplotlib
-import matplotlib.pyplot as plt
-import requests
-import json
-
-matplotlib.use('Agg')
-
-# create needed folder
-def create_folder(path):
-    folder_list = [f"{path}/linebot/upload", f"{path}/linebot/predict"]
-    service_types = ['Skin', 'Nail', 'Acne']
-
-    for dir_path in folder_list:
-        for service_type in service_types:
-            os.makedirs(f'{dir_path}/{service_type}', exist_ok=True)
-
+import os, requests, json
+from linebot.models import *
 
 # save line image
-def save_img(message_content, file_path):
+def save_img(message_content, dir_path, file_name):
+    os.makedirs(dir_path, exist_ok=True) # 建立儲存預測結果的資料夾
+
+    file_path = f'{dir_path}/{file_name}'
+
     with open(file_path, 'wb') as fd:
         for chunk in message_content.iter_content():
             fd.write(chunk)
 
-def post_img(service_type, path):
-    url = f"https://iamskin.tk/{service_type}-classifier"
+    return file_path
+
+
+# 調用 API
+def get_result(domain_name, service_type, path):
+    url = f"https://{domain_name}/{service_type}-classifier"
     payload = {'format': 'path', 'path': path}
     headers = {'Accept': 'application/json'}
     r = requests.post(url, data=payload, headers=headers)
     response = r.json()
-    return response
-
-# skin type
-def get_skin_result(path):
-    return post_img('Skin', path)
+    return response['output_url']
 
 
-def skin_plot(likelihood, path):
-    labels = []  # 製作圓餅圖的類別標籤
-    size = []  # 製作圓餅圖的數值來源
-    for key in likelihood.keys():
-        labels.append(key)
-        size.append(likelihood.get(key))
-
-    separeted = [0, 0, 0]  # 依據類別數量，分別設定要突出的區塊
-    max_val = size.index(max(size))
-    separeted[max_val] = 0.1
-
-    colors = ['tomato', 'lightskyblue', 'goldenrod']  # 圓餅圖顏色
-
-    plt.figure(figsize=(9, 6))  # 顯示圖框架大小
-    plt.pie(size,  # 數值
-            labels=labels,  # 標籤
-            autopct="%1.1f%%",  # 將數值百分比並留到小數點一位
-            explode=separeted,  # 突出的區塊
-            pctdistance=0.6,  # 數字距圓心的距離
-            colors=colors,  # 顏色
-            textprops={"fontsize": 12},  # 文字大小
-            shadow=True)  # 設定陰影
-    plt.axis('equal')  # 使圓餅圖比例相等
-    plt.title("Pie chart of skin type", {"fontsize": 18})  # 設定標題及其文字大小
-    plt.legend(loc="best")  # 設定圖例及其位置為最佳
-    plt.savefig(path,  # 儲存圖檔
-                bbox_inches='tight',  # 去除座標軸占用的空間
-                pad_inches=0.5)  # 去除所有白邊
-    plt.close()      # 關閉圖表    
+# 取得 target 是否在 service_types 中的 key
+def get_key(target, service_types):
+    for key, values in service_types.items():
+        if target == values['cn']:
+            return key, values['en']
+    return -1, '' # 若不存在, 則返回 -1
 
 
-# nail type
-def get_nail_result(path):
-    return post_img('Nail', path)
+def get_content(config, service_type):
+    text = f"歡迎使用{config['chinese'][service_type]['normal']}檢測功能\n\n \
+麻煩您拍照或上傳想要分析的照片。\n\n \
+照片要確實含有您的{config['chinese'][service_type]['tutorial']}且盡量再充足光源下拍攝，並注意不要「失焦」，否則判讀結果不具任何意義。"
+    return text
 
-
-def get_acne_result(path):
-    return post_img('Acne', path)

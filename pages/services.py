@@ -74,9 +74,10 @@ def show_upload_status(isCompleted, fileNames, upload_id):
         # print(response)
 
         # 建立儲存預測結果的資料夾
-        save_path = f'assets/web/predict/{upload_id}'
-        os.makedirs(save_path, exist_ok=True)
+        # save_path = f'assets/web/predict/{upload_id}'
+        # os.makedirs(save_path, exist_ok=True)
 
+        # output_path = os.path.join(save_path, fileNames[0])
         output_path = os.path.join(save_path, fileNames[0])
         session["output_path"] = output_path
 
@@ -87,31 +88,24 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             style={'font-weight': 'bold'},
         )
 
-        if service_type == 'Skin':
-            plot.pie(response['likelihood'], output_path) # 畫圖並將其存在 output_path
-            output_img = fac.AntdImage(
-                src=output_path,
-                locale='en-us'
-            )
+        # 建立 soft link
+        # os.system(f'ln -s {os.getcwd()}/assets/{service_type}/img/{predict_class}.png {output_path}')
+        output_img = fac.AntdImage(src=output_path, locale='en-us')
 
-            additional_title = f'【{predict_class_chinese}】'
+        info = (
+            session["google_id"], session["type"], session["upload_time"],
+            fileNames[0], -1, '', -1, ''
+        )
+        database.add_history(info)
 
-            feature = li.serve('特徵：', response['feature'])
-            maintain = li.serve('護膚重點：', response['maintain'])
-            additional_content = [feature, html.Br(), maintain]
 
-            info = (
-                session["google_id"], session["type"], session["upload_time"],
-                fileNames[0], -1, '', -1, ''
-            )
-            database.add_history(info)
-
+        if service_type != 'Acne':
             return [
                 '上傳的圖片：', relative_path, [output_text, output_img],
                 additional_title, additional_content, True
             ]
 
-        elif service_type == 'Acne':
+        else:
             additional_title = [
                 '【AI 針對預測結果所做出的解釋】',
                 fac.AntdTag(
@@ -138,17 +132,6 @@ def show_upload_status(isCompleted, fileNames, upload_id):
                 explain_li.serve(attributes, attr_prob, 9, 13),
                 explain_li.serve(attributes, attr_prob, 13, 15),
             ]
-
-        # 建立 soft link
-        os.system(f'ln -s {os.getcwd()}/assets/{service_type}/img/{predict_class}.png {output_path}')
-
-        output_img = fac.AntdImage(src=output_path, locale='en-us')
-
-        info = (
-            session["google_id"], session["type"], session["upload_time"],
-            fileNames[0], -1, '', -1, ''
-        )
-        database.add_history(info)
 
         return [
             '上傳的圖片：', relative_path, [output_text, output_img],

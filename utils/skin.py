@@ -5,7 +5,7 @@ from flask import request, json
 from tensorflow.keras.models import load_model
 
 import globals
-from mobile.process import save_img, plot_img
+from mobile.process import save_img, build_link
 
 def get_post(server):
     service_type = 'Skin'
@@ -34,25 +34,15 @@ def get_post(server):
         score = [s for s in model.predict(image).squeeze(0).round(3)]
         likelihood = {k: float(v) for k, v in zip(classification, score)}
         predict_class = max(likelihood, key=likelihood.get)
-
-        with open(f'assets/{service_type}/text/{predict_class}.txt', 'r') as f:
-            lines = f.readlines()
-            feature = lines[0]
-            maintain = lines[1]
-
-        if format == 'upload':
-            plot_img(service_type, uid, upload_time, file_name, likelihood)
+        output_url = f"https://{globals.config['domain_name']}/assets/{service_type}/img/{predict_class}.png"
 
         # Json response format.
         response = json.jsonify(
             {
-                "likelihood": likelihood, 
                 "prediction": predict_class,
                 "prediction_chinese": globals.read_json(f"./assets/{service_type}/json/classes.json")[predict_class],
-                "feature": feature,
-                "maintain": maintain,
                 "upload_time": upload_time,
-                "output_url": f"https://{globals.config['domain_name']}/assets/web/predict/{service_type}/{uid}/{upload_time}/{file_name}" if upload_time != '' else ''
+                "output_url": output_url
             }
         )
         return response

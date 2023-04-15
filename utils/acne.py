@@ -35,9 +35,7 @@ def get_post(server):
         case = acne_api.createCase(path=file_path)
         predict_class, attr_prob = acne_api.inferCase(case, models, file_path)
         predict_class = 'low' if predict_class == 0 else 'high'
-
-        if format == 'upload':
-            build_link(service_type, uid, upload_time, file_name, predict_class)
+        output_url = f"https://{globals.config['domain_name']}/assets/{service_type}/img/{predict_class}.png"
 
         # Json response format.
         response = json.jsonify(
@@ -46,7 +44,7 @@ def get_post(server):
                 "prediction_chinese": globals.read_json(f"./assets/{service_type}/json/classes.json")[predict_class],
                 "attr_prob": attr_prob,
                 "upload_time": upload_time,
-                "output_url": f"https://{globals.config['domain_name']}/assets/web/predict/{service_type}/{uid}/{upload_time}/{file_name}" if upload_time != '' else ''
+                "output_url": output_url
             }
         )
         return response

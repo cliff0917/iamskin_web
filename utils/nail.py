@@ -34,9 +34,7 @@ def get_post(server):
         likelihood = {k: str(v) for k, v in zip(classification, score)}
         predict_class = max(likelihood, key=likelihood.get)
         predict_class = 'low' if predict_class == 'normalNail' else 'high'
-
-        if format == 'upload':
-            build_link(service_type, uid, upload_time, file_name, predict_class)
+        output_url = f"https://{globals.config['domain_name']}/assets/{service_type}/img/{predict_class}.png"
 
         # Json response format.
         response = json.jsonify(
@@ -44,7 +42,7 @@ def get_post(server):
                 "prediction": predict_class, 
                 "prediction_chinese": globals.read_json(f"./assets/{service_type}/json/classes.json")[predict_class],
                 "upload_time": upload_time,
-                "output_url": f"https://{globals.config['domain_name']}/assets/web/predict/{service_type}/{uid}/{upload_time}/{file_name}" if upload_time != '' else ''
+                "output_url": output_url
             }
         )
 

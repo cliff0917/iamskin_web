@@ -24,6 +24,11 @@
         }
     },
     "db": "iamskin.db",
+    "line_post": {
+        "Skin": "1165210923527359525",
+        "Nail": "1165211007627399630",
+        "Acne": "1165211029027409298"
+    },
     "LINE_CHANNEL_SECRET": "af5b42bbb2e72b7359eda74195bdfe76",
     "LINE_CHANNEL_ACCESS_TOKEN": "6W2AOKfE2bZ6XoEc9ZLcGp7IkeMwlKEc5tXxiCTEJNh5R6PI/QhTKGc/XC4qd80ZJ9vWOhpats+1Ih9/9MwIwldL874XneLxjdl8ewZEw19tt0SnYpnd2Tx3U3wDF9eT8UWi+CzBdAw3YHQNiEHEDgdB04t89/1O/w1cDnyilFU="
 }
