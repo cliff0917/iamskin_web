@@ -16,11 +16,11 @@ def serve(server):
                     "publish_time": publish_time,
                     "service_type_chinese": globals.config['chinese'][service_type]['normal'],
                     "display_output": display_output,
-                    "output_url":  f"https://{globals.config['domain_name']}/assets/web/predict/{service_type}/{uid}/{upload_time}/{file_name}",
+                    "output_url":  f"https://{globals.config['domain_name']}/assets/{service_type}/img/{predict_class}.png",
                     "rate": rate,
                     "comment": comment
                 }
-                for uid, name, upload_time, file_name, display_output, publish_time, rate, comment in comments[::-1]
+                for uid, name, upload_time, file_name, predict_class, display_output, publish_time, rate, comment in comments[::-1]
             ]
         )
         return response

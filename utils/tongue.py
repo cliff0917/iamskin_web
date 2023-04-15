@@ -19,7 +19,7 @@ def get_post(server):
     def tongue_classfier():
         # Receive request.
         format = request.form.get('format')
-        upload_time = ''
+        upload_time, file_name = '', ''
 
         if format == 'upload':
             uid, upload_time, file_name, file_path = save_img(service_type)
@@ -42,7 +42,8 @@ def get_post(server):
                 "prediction": predict_class,
                 "prediction_chinese": globals.read_json(f"./assets/{service_type}/json/classes.json")[predict_class],
                 "upload_time": upload_time,
-                "output_url": output_url
+                "output_url": output_url,
+                "file_name": file_name
             }
         )
         return response
