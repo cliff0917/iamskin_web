@@ -24,3 +24,7 @@ sh restart.sh
 ```
 tmux a -t web
 ```
+
+## 更新 linebot 的 richmenu
+- 用新的 richmenu png 覆蓋掉 `rich_menu/richmenu.png`（檔名一樣要叫 `richmenu.png`）
+- 執行 `python rich_menu/richmenu.py`

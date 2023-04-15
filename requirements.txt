@@ -28,3 +28,4 @@ seaborn==0.12.1
 dash_uploader==0.6.0
 scikit_learn==1.0.2
 kaleido==0.2.1
+python-dotenv==0.21.1
