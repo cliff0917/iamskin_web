@@ -91,6 +91,16 @@
         "type": "button",
         "action": {
           "type": "message",
+          "label": "我要檢測 舌頭",
+          "text": "我要檢測 舌頭"
+        },
+        "height": "sm",
+        "style": "primary"
+      },
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
           "label": "查看使用教學",
           "text": "如何使用"
         },

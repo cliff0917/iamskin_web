@@ -118,6 +118,7 @@ def get_post(server, config):
                         QuickReplyButton(action=MessageAction(label="我要檢測 膚質", text="我要檢測 膚質")),
                         QuickReplyButton(action=MessageAction(label="我要檢測 指甲", text="我要檢測 指甲")),
                         QuickReplyButton(action=MessageAction(label="我要檢測 痘痘", text="我要檢測 痘痘")),
+                        QuickReplyButton(action=MessageAction(label="我要檢測 舌頭", text="我要檢測 舌頭")),
                         QuickReplyButton(action=MessageAction(label="如何使用", text="如何使用"))
                     ]
                 )
