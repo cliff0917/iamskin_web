@@ -59,6 +59,7 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             os.system(f'mv "{relative_path}" {new_path}')
             relative_path = new_path
 
+        session["file_name"] = fileNames[0]
         session["input_path"] = relative_path
         absolute_path = os.path.join(os.getcwd(), relative_path)
 

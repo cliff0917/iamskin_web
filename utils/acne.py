@@ -7,6 +7,7 @@ from flask import request, json
 
 import globals
 from mobile.process import save_img
+from lib import database
 
 # 找到 network 位置
 root_path = os.getcwd()

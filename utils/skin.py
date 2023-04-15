@@ -6,6 +6,7 @@ from tensorflow.keras.models import load_model
 
 import globals
 from mobile.process import save_img
+from lib import database
 
 def get_post(server):
     service_type = 'Skin'

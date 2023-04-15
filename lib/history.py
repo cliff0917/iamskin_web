@@ -17,9 +17,9 @@ def serve(server):
                     "service_type": globals.config['chinese'][service_type]['normal'],
                     "upload_time": upload_time,
                     "upload_url": f"https://{globals.config['domain_name']}/assets/web/upload/{service_type}/{uid}/{upload_time}/{file_name}",
-                    "output_url": f"https://{globals.config['domain_name']}/assets/web/predict/{service_type}/{uid}/{upload_time}/{file_name}"
+                    "output_url": f"https://{globals.config['domain_name']}/assets/{service_type}/img/{predict_class}.png"
                 }
-                for service_type, upload_time, file_name in rows
+                for service_type, upload_time, file_name, predict_class in rows
             ]
         )
         return response
@@ -37,8 +37,9 @@ def update(server):
         uid = request.form.get('uid')
         service_type = request.form.get('service_type')
         upload_time = request.form.get('upload_time')
+        file_name = request.form.get('file_name')
 
-        database.update_history(display_output_img, now, rate, comment, uid, service_type, upload_time)
+        database.update_history(display_output_img, now, rate, comment, uid, service_type, upload_time, file_name)
 
         response = json.jsonify(
             {'status': 'success'}

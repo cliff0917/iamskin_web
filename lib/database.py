@@ -66,11 +66,11 @@ def add_history(data):
 
 
 # 在 share 的時候更新 history 中的 PUBLISH_TIME, RATE, COMMENT
-def update_history(display_output_img, publish_time, rate, comment, uid, service_type, upload_time):
-    data = (display_output_img, publish_time, rate, comment, uid, service_type, upload_time)
+def update_history(display_output_img, publish_time, rate, comment, uid, service_type, upload_time, file_name):
+    data = (display_output_img, publish_time, rate, comment, uid, service_type, upload_time, file_name)
     conn, cursor = connect_db(globals.config["db"])
     cmd = """Update HISTORY set DISPLAY_OUTPUT = ?, PUBLISH_TIME = ?, RATE = ?, COMMENT = ?
-            where UID = ? AND SERVICE_TYPE = ? AND UPLOAD_TIME = ?"""
+            where UID = ? AND SERVICE_TYPE = ? AND UPLOAD_TIME = ? AND FILE_NAME = ?"""
     cursor.execute(cmd, data)
     conn.commit()
     cursor.close()
