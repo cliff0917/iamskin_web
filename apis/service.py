@@ -1,4 +1,4 @@
-from apis import skin, nail, acne, tongue, lineBot, history, comments, external_login
+from apis import skin, nail, acne, tongue, history, comments, external_login
 
 def serve(server, config):
     server = history.serve(server)
@@ -8,5 +8,4 @@ def serve(server, config):
     server = nail.get_post(server)
     server = acne.get_post(server)
     server = tongue.get_post(server)
-    server = lineBot.get_post(server, config)
     return server

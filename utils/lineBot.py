@@ -11,7 +11,7 @@ from liffpy import (LineFrontendFramework as LIFF, ErrorResponse)
 
 from modules.Linebot.utils import *
 
-def get_post(server, config):
+def serve(server, config):
     domain_name = config['domain_name']
     path_url = f"https://{domain_name}/assets"
 
