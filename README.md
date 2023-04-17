@@ -10,8 +10,8 @@
 ## 環境安裝
 ```
 sudo apt install tmux
-git clone https://github.com/cliff0917/iamskin_website.git
-cd iamskin_website
+git clone https://github.com/cliff0917/iamskin_web.git
+cd iamskin_web
 source scripts/build.sh
 ```
 
@@ -26,5 +26,5 @@ tmux a -t web
 ```
 
 ## 更新 linebot 的 richmenu
-- 用新的 richmenu png 覆蓋掉 `rich_menu/richmenu.png`（檔名一樣要叫 `richmenu.png`）
+- 用新的 richmenu png 覆蓋掉 `rich_menu/richmenu.png`
 - 執行 `python rich_menu/richmenu.py`
