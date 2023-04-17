@@ -5,7 +5,7 @@ import feffery_antd_components as fac
 import globals
 from components import bold_text
 from components.img import comment_attach
-from lib import database
+from utils import database
 
 def serve(service_type):
     comments = []

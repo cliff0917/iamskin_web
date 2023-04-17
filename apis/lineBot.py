@@ -7,8 +7,9 @@ from flask import Flask, jsonify, request, abort, send_file
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
-from linebot_utils import *
 from liffpy import (LineFrontendFramework as LIFF, ErrorResponse)
+
+from modules.Linebot.utils import *
 
 def get_post(server, config):
     domain_name = config['domain_name']

@@ -2,7 +2,7 @@ import os
 from flask import request, json
 
 import globals
-from lib import database
+from utils import database
 
 def serve(server):
     @server.route("/History", methods=["POST"])
@@ -23,11 +23,7 @@ def serve(server):
             ]
         )
         return response
-    
-    return server
 
-
-def update(server):
     @server.route("/Update-History", methods=["POST"])
     def update_history():
         now = globals.now()

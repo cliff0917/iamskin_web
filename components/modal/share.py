@@ -6,7 +6,7 @@ from dash.dependencies import Input, Output, State, MATCH
 
 import globals
 from components.tab import share
-from lib import database
+from utils import database
 
 def serve(service_type):
     return fac.AntdModal(

@@ -6,8 +6,8 @@ from flask import request, json
 
 import globals
 from mobile.process import save_img
-from utils.tongue_preprocess import segmentation, classifier
-from lib import database
+from modules.Tongue import segmentation, classifier
+from utils import database
 
 def get_post(server):
     service_type = 'Tongue'

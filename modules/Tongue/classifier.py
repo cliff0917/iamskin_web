@@ -8,7 +8,7 @@ import torchvision
 from torchvision import transforms
 from torchvision.transforms import ToTensor
 
-from network.tongue_classifier import CnnModel
+from modules.Tongue.network import CnnModel
 
 def predict(model, classes, img):
     img = process(img)
@@ -33,11 +33,3 @@ def load_model(path):
     model = CnnModel()
     model.load_state_dict(torch.load(path, map_location=torch.device('cpu')))
     return model
-
-
-if __name__ == '__main__':
-    classes = ['black', 'normal', 'white', 'yellow']
-    img = cv2.imread("./test.jpg")
-    model = load_model('./tongue/classifier/cnn.pth')
-    predict_class = predict(model, img, classes)
-    print(f'Predicted: {predict_class}')

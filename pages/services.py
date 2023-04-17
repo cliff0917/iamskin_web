@@ -9,7 +9,7 @@ from dash.dependencies import Input, Output, State, MATCH
 from datetime import datetime
 
 import globals
-from lib import database
+from utils import database
 from components.modal import share
 from components.services import card, result
 from components import bold_text, uploader, li, explain_li

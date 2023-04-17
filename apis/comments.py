@@ -1,7 +1,7 @@
 from flask import request, json
 
 import globals
-from lib import database
+from utils import database
 
 def serve(server):
     @server.route("/Comments", methods=["POST"])

@@ -1,6 +1,6 @@
 from flask import request, json
 
-from lib import database
+from utils import database
 
 def serve(server):
     @server.route("/External-Login", methods=["POST"])

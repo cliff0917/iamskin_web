@@ -2,7 +2,7 @@ import os
 from flask import request
 
 import globals
-from lib import database
+from utils import database
 
 # 儲存 app 上傳的圖片
 def save_img(service_type):

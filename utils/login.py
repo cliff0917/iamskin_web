@@ -8,7 +8,7 @@ from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 
 import globals
-from lib import database
+from utils import database
 
 def serve(server):
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
