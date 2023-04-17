@@ -3,7 +3,7 @@ import feffery_antd_components as fac
 from dash import html
 
 def serve_layout():
-    layout = html.Div(
+    return html.Div(
         [
             fac.AntdTitle('關於我們', level=1),
             html.Hr(),
@@ -51,4 +51,3 @@ def serve_layout():
             )
         ],
     )
-    return layout

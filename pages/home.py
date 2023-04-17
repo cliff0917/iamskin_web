@@ -11,7 +11,7 @@ def serve_layout():
     with open("./assets/common/text/note.txt", 'r') as f:
         note = f.read()
 
-    layout = html.Div(
+    return html.Div(
         [
             cover.serve(),
             html.H3('【愛美膚 iamSkin】', style={'textAlign': 'center', 'margin-top': '2rem', 'font-weight': 'bold'}),
@@ -21,4 +21,3 @@ def serve_layout():
             all_services.serve(),
         ],
     )
-    return layout

@@ -18,7 +18,7 @@ def serve_layout(service_type, tutorial_isOpen):
     with open(f"./assets/{service_type}/text/card.txt", 'r') as f:
         lines = f.readlines()
 
-    layout = html.Div(
+    return html.Div(
         [
             share.serve(service_type),
             card.serve(lines[0], lines[1], service_type),
@@ -26,7 +26,6 @@ def serve_layout(service_type, tutorial_isOpen):
             result.serve(service_type),
         ],
     )
-    return layout
 
 
 @callback(
@@ -99,7 +98,6 @@ def show_upload_status(isCompleted, fileNames, upload_id):
             fileNames[0], predict_class, -1, '', -1, ''
         )
         database.add_history(info)
-
 
         if service_type != 'Acne':
             return [

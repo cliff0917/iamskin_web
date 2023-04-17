@@ -13,7 +13,7 @@ def serve(service_type):
         f'獲取相關照護衛教資訊。'
     ]
 
-    paragraph = html.Div(
+    return html.Div(
         [
             html.H4(
                 line,
@@ -25,4 +25,3 @@ def serve(service_type):
             for line in lines
         ]
     )
-    return paragraph

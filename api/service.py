@@ -1,6 +1,6 @@
-from apis import skin, nail, acne, tongue, history, comments, external_login
+from api import skin, nail, acne, tongue, history, comments, external_login
 
-def serve(server, config):
+def serve(server):
     server = history.serve(server)
     server = comments.serve(server)
     server = external_login.serve(server)

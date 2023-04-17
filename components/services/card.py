@@ -4,7 +4,7 @@ from dash import html
 from components.services import tutorial
 
 def serve(title, content, service_type):
-    card = fac.AntdCard(
+    return fac.AntdCard(
         fac.AntdParagraph(
             [
                 fac.AntdText(content),
@@ -25,4 +25,3 @@ def serve(title, content, service_type):
             "background-color": 'white',
         },
     )
-    return card

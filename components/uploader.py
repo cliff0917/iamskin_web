@@ -4,7 +4,7 @@ from flask import session
 import globals
 
 def serve(service_type):
-    uploader = du.Upload(
+    return du.Upload(
         text='點擊或拖曳圖片',
         text_completed='成功上傳 ',
         cancel_button=True,
@@ -22,4 +22,3 @@ def serve(service_type):
         },
         upload_id=f'{service_type}/{session["google_id"]}/{globals.now()}',
     )
-    return uploader

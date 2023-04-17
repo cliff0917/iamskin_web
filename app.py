@@ -8,7 +8,7 @@ import webbrowser
 import dash_uploader as du
 
 import globals
-from apis import service
+from api import service
 from utils import login, layout, download, lineBot
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
@@ -27,7 +27,9 @@ app.layout = layout.serve # live update, 請注意這裡是要用 serve 而非 s
 
 # 將下載的 model 放在 model_path 中
 download.all(config)
-server = service.serve(server, config)
+
+# 提供 API
+server = service.serve(server)
 
 # 提供 linebot 服務
 server = lineBot.serve(server, config)

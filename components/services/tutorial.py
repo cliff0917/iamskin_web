@@ -5,7 +5,7 @@ from dash import html
 import globals
 
 def serve(service_type):
-    tutorial = fac.AntdPopover(
+    return fac.AntdPopover(
         dbc.Button(
             '使用說明',
             color="primary",
@@ -37,4 +37,3 @@ def serve(service_type):
         ),
         placement='left',
     )
-    return tutorial

@@ -8,7 +8,7 @@ from components.navlink import navItem, logout, dropdownLink
 from components.img import logo
 
 def serve():
-    navbar = dbc.Navbar(
+    return dbc.Navbar(
         dbc.Container(
             [
                 logo.serve(),
@@ -53,7 +53,6 @@ def serve():
         sticky='top',
         style={'border-bottom': '1px #E3E3E4 solid'}
     )
-    return navbar
 
 
 @callback(

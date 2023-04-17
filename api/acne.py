@@ -1,40 +1,40 @@
-import PIL.Image
-import numpy as np
-import os, cv2
+import warnings
+
+warnings.filterwarnings("ignore", category=Warning)
+
+import os, sys, requests, torch, flask, PIL.Image
 from flask import request, json
-from tensorflow.keras.models import load_model
 
 import globals
-from utils.mobile import save_img
-from utils import database
+from utils import mobile, database
+
+# 找到 network 位置
+root_path = os.getcwd()
+sys.path.insert(0, root_path + "/modules/Acne")
+
+from modules.Acne import bucket, network, acne_api
 
 def get_post(server):
-    service_type = 'Nail' 
-    model = load_model(f'./models/{service_type}.h5')
+    service_type = 'Acne'
+    api_config = bucket.loadYaml(path='./modules/Acne/acne_api.yaml')
+    acne_api.downloadModels()
+    models = acne_api.loadModel()
 
     @server.route(f"/{service_type}-classifier", methods=["POST"])
-    def nail_classifier():
+    def acne_classfier():
         # Receive request.
         format = request.form.get('format')
-        size = (224, 224)
         upload_time, file_name = '', ''
 
         if format == 'upload':
-            uid, upload_time, file_name, file_path = save_img(service_type)
+            uid, upload_time, file_name, file_path = mobile.save_img(service_type)
 
         elif format == 'path':
             file_path = request.form.get('path')
 
-        image = cv2.imread(file_path)
-        image = cv2.resize(image, size)
-        image = np.expand_dims(np.array(image), axis=0) # / 255
-
-        classification = {'atypical': 0, 'etc': 0, 'melanonychia': 0, 'naildystrophy': 0,
-                        'nodule': 0, 'normalNail': 0, 'onycholysis': 0, 'onychomycosis': 0}
-        score = [s for s in model.predict(image).squeeze(0).round(3)]
-        likelihood = {k: str(v) for k, v in zip(classification, score)}
-        predict_class = max(likelihood, key=likelihood.get)
-        predict_class = 'low' if predict_class == 'normalNail' else 'high'
+        case = acne_api.createCase(path=file_path)
+        predict_class, attr_prob = acne_api.inferCase(case, models, file_path)
+        predict_class = 'low' if predict_class == 0 else 'high'
         output_url = f"https://{globals.config['domain_name']}/assets/{service_type}/img/{predict_class}.png"
         
         # Insert record to database
@@ -47,12 +47,12 @@ def get_post(server):
             {
                 "prediction": predict_class, 
                 "prediction_chinese": globals.read_json(f"./assets/{service_type}/json/classes.json")[predict_class],
+                "attr_prob": attr_prob,
                 "upload_time": upload_time,
                 "output_url": output_url,
                 "file_name": file_name
             }
         )
-
         return response
-    
+
     return server

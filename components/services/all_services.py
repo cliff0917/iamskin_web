@@ -5,7 +5,7 @@ import globals
 from components.services import single_service
 
 def serve():
-    services = html.Div(
+    return html.Div(
         dbc.Row(
             [
                 single_service.serve(key, value["normal"])
@@ -13,4 +13,3 @@ def serve():
             ]
         )
     )
-    return services

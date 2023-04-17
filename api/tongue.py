@@ -5,9 +5,8 @@ warnings.filterwarnings("ignore", category=Warning)
 from flask import request, json
 
 import globals
-from utils.mobile import save_img
 from modules.Tongue import segmentation, classifier
-from utils import database
+from utils import mobile, database
 
 def get_post(server):
     service_type = 'Tongue'
@@ -22,7 +21,7 @@ def get_post(server):
         upload_time, file_name = '', ''
 
         if format == 'upload':
-            uid, upload_time, file_name, file_path = save_img(service_type)
+            uid, upload_time, file_name, file_path = mobile.save_img(service_type)
 
         elif format == 'path':
             file_path = request.form.get('path')
