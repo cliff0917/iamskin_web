@@ -5,7 +5,7 @@ warnings.filterwarnings("ignore", category=Warning)
 from flask import request, json
 
 import globals
-from mobile.process import save_img
+from utils.mobile import save_img
 from modules.Tongue import segmentation, classifier
 from utils import database
 

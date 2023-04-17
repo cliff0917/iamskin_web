@@ -6,7 +6,7 @@ import os, sys, requests, torch, flask, PIL.Image
 from flask import request, json
 
 import globals
-from mobile.process import save_img
+from utils.mobile import save_img
 from utils import database
 
 # 找到 network 位置

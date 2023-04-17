@@ -5,7 +5,7 @@ from flask import request, json
 from tensorflow.keras.models import load_model
 
 import globals
-from mobile.process import save_img
+from utils.mobile import save_img
 from utils import database
 
 def get_post(server):
