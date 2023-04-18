@@ -9,7 +9,7 @@ from utils import mobile, database
 
 def get_post(server):
     service_type = 'Skin'
-    model = load_model(f'./models/{service_type}.h5')
+    model = load_model(f'./models/{service_type}/classifier.h5')
 
     @server.route(f"/{service_type}-classifier", methods=["POST"])
     def skin_classfier():

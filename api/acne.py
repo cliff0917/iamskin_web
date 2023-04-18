@@ -16,8 +16,7 @@ from modules.Acne import bucket, network, acne_api
 
 def get_post(server):
     service_type = 'Acne'
-    api_config = bucket.loadYaml(path='./modules/Acne/acne_api.yaml')
-    acne_api.downloadModels()
+    api_config = bucket.loadYaml(path=f"./modules/{service_type}/acne_api.yaml")
     models = acne_api.loadModel()
 
     @server.route(f"/{service_type}-classifier", methods=["POST"])

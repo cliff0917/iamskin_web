@@ -11,8 +11,8 @@ from utils import mobile, database
 def get_post(server):
     service_type = 'Tongue'
     classes = ['black', 'normal', 'white', 'yellow']
-    seg_model = segmentation.load_model('./models/tongue/segmentation')
-    cls_model = classifier.load_model('./models/tongue/classifier/cnn.pth')
+    seg_model = segmentation.load_model(f"./models/{service_type}/segmentation")
+    cls_model = classifier.load_model(f"./models/{service_type}/classifier/cnn.pth")
 
     @server.route(f"/{service_type}-classifier", methods=["POST"])
     def tongue_classfier():

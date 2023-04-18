@@ -20,26 +20,6 @@ def createCase(path):
     return case
 
 
-def downloadModels():
-    download('image-classifier')
-    download('image-embedding')
-
-
-def download(model_name):
-
-    import os
-    import gdown
-
-    config = api_config[model_name]
-    path = config['path']
-    url = config['url']
-
-    if not os.path.exists(path):
-        folder = os.path.dirname(path)
-        os.makedirs(folder)
-        gdown.download(url, path, quiet=False)
-
-
 def loadModel():
 
     ##  Image classifier model.

@@ -26,7 +26,7 @@ server = login.serve(server)
 app.layout = layout.serve # live update, 請注意這裡是要用 serve 而非 serve()
 
 # 將下載的 model 放在 model_path 中
-download.all(config)
+download.all_models(config)
 
 # 提供 API
 server = service.serve(server)

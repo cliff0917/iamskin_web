@@ -8,20 +8,8 @@
     },
     "model_path": "./models",
     "model": {
-        "Skin": {
-            "cls_id": "1uIg6B514G-XsH8Dv5W90uf1fwjTpKZYm",
-            "cls_name": "Skin.h5"
-        },
-        "Nail": {
-            "cls_id": "1w1bH_Phco63Kjj09ue-ORtZSBaX49a15",
-            "cls_name": "Nail.h5"
-        },
-        "Acne": {
-            "cls_id": "1nG6nZtwb-c7pETm4ZtMnKSM-0Rps7Gvi",
-            "cls_name": "Acne_cls.pt",
-            "embedding_id": "1kxKyobBGB0iF8xRNhv-F0b_7ketn8JWR",
-            "embedding_name": "Acne_embedding.pt"
-        }
+        "url": "1FnzxqRKI-Eu8_XW4uV1NyDPFNn6l3oXP",
+        "file_path": "models.zip"
     },
     "db": "iamskin.db",
     "line_post": {

@@ -1,11 +1,9 @@
 image-classifier: {
-  path: './models/image-classifier/checkpoint/best/model.pt',
-  url: "https://drive.google.com/uc?id=1nG6nZtwb-c7pETm4ZtMnKSM-0Rps7Gvi"
+  path: './models/Acne/classifier.pt',
 }
 
 image-embedding: {
-  path: './models/image-embedding/checkpoint/best/model.pt',
-  url: "https://drive.google.com/uc?id=1kxKyobBGB0iF8xRNhv-F0b_7ketn8JWR"
+  path: './models/Acne/explainer.pt',
 }
 
 demo: {
