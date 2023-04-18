@@ -10,16 +10,14 @@ from pip._vendor import cachecontrol
 import globals
 from utils import database
 
-def serve(server):
+def serve(server, secret_config, client_secrets_file):
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-    client_secrets_file = 'assets/client_secret.json'
-    client_secrets = globals.read_json(client_secrets_file)
-    GOOGLE_CLIENT_ID = client_secrets["web"]["client_id"]
+    GOOGLE_CLIENT_ID = secret_config["web"]["client_id"]
 
     flow = Flow.from_client_secrets_file(
         client_secrets_file=client_secrets_file,
         scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-        redirect_uri=client_secrets["web"]["redirect_uris"][0]
+        redirect_uri=secret_config["web"]["redirect_uris"][0]
     )
 
     @server.route("/login")

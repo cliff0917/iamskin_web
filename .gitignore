@@ -7,3 +7,4 @@ models/
 *.db
 test*.py
 test.jpg
+client_secret.json

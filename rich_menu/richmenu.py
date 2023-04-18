@@ -6,7 +6,10 @@ import globals
 
 load_dotenv()
 globals.initialize()
-channel_access_token = globals.config['LINE_CHANNEL_ACCESS_TOKEN']
+
+client_secrets_file = config["google_drive"]["client_secret"]["file_path"]
+secret_config = globals.read_json(client_secrets_file)
+channel_access_token = secret_config["linebot"]['LINE_CHANNEL_ACCESS_TOKEN']
 
 # 設定圖片與按鈕位置，產生圖文選單 id
 headers = {'Authorization': f'Bearer {channel_access_token}', 'Content-Type': 'application/json'}

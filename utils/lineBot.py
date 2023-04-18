@@ -11,19 +11,12 @@ from liffpy import (LineFrontendFramework as LIFF, ErrorResponse)
 
 from modules.Linebot.utils import *
 
-def serve(server, config):
+def serve(server, config, secret_config):
     domain_name = config['domain_name']
     path_url = f"https://{domain_name}/assets"
 
-    channel_secret = config["LINE_CHANNEL_SECRET"]
-    channel_access_token = config["LINE_CHANNEL_ACCESS_TOKEN"]
-
-    if channel_secret is None:
-        print("Specify LINE_CHANNEL_SECRET as environment variable.")
-        sys.exit(1)
-    if channel_access_token is None:
-        print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
-        sys.exit(1)
+    channel_secret = secret_config["linebot"]["LINE_CHANNEL_SECRET"]
+    channel_access_token = secret_config["linebot"]["LINE_CHANNEL_ACCESS_TOKEN"]
 
     # linebot api setting
     line_bot_api = LineBotApi(channel_access_token)

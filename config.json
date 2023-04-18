@@ -1,22 +1,27 @@
 {
     "domain_name": "iamskin.tk",
+    "db": "iamskin.db",
     "chinese": {
         "Skin": {"tutorial": "肌膚", "normal": "膚質", "predict_text": "類型"},
         "Nail": {"tutorial": "指甲", "normal": "指甲", "predict_text": "異常風險"},
         "Acne": {"tutorial": "痘痘", "normal": "痘痘", "predict_text": "嚴重程度"},
         "Tongue": {"tutorial": "舌頭", "normal": "舌頭", "predict_text": "外觀"}
     },
-    "model_path": "./models",
-    "model": {
-        "url": "1FnzxqRKI-Eu8_XW4uV1NyDPFNn6l3oXP",
-        "file_path": "models.zip"
-    },
-    "db": "iamskin.db",
     "line_post": {
         "Skin": "1165210923527359525",
         "Nail": "1165211007627399630",
-        "Acne": "1165211029027409298"
+        "Acne": "1165211029027409298",
+        "Tongue": "1168184473540371814"
     },
-    "LINE_CHANNEL_SECRET": "af5b42bbb2e72b7359eda74195bdfe76",
-    "LINE_CHANNEL_ACCESS_TOKEN": "6W2AOKfE2bZ6XoEc9ZLcGp7IkeMwlKEc5tXxiCTEJNh5R6PI/QhTKGc/XC4qd80ZJ9vWOhpats+1Ih9/9MwIwldL874XneLxjdl8ewZEw19tt0SnYpnd2Tx3U3wDF9eT8UWi+CzBdAw3YHQNiEHEDgdB04t89/1O/w1cDnyilFU="
+    "model_path": "./models",
+    "google_drive": {
+        "model": {
+            "id": "1FnzxqRKI-Eu8_XW4uV1NyDPFNn6l3oXP",
+            "file_path": "models.zip"
+        },
+        "client_secret": {
+            "id": "1c_lOh_BT7JNbAR17in1UftwL1HvS9Cje",
+            "file_path": "client_secret.json"
+        }
+    }
 }
