@@ -2,6 +2,8 @@ import dash_bootstrap_components as dbc
 import feffery_antd_components as fac
 from dash import dcc, html
 
+import globals
+
 def serve():
     return fac.AntdTabPane(
         [
