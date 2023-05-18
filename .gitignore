@@ -2,10 +2,8 @@ __pycache__/
 assets/linebot/
 assets/web/
 models/
-test/
 *.h5
 *.pt
 *.db
-test*.py
-test.jpg
+test*
 client_secret.json
