@@ -2,17 +2,18 @@ import warnings
 
 warnings.filterwarnings("ignore", category=Warning)
 
+import numpy as np
 from flask import request, json
+from keras.models import load_model
+from PIL import Image
 
 import globals
-from modules.Tongue import segmentation, classifier
 from utils import mobile, database
 
 def get_post(server):
     service_type = 'Tongue'
     classes = ['black', 'normal', 'white', 'yellow']
-    seg_model = segmentation.load_model(f"./models/{service_type}/segmentation")
-    cls_model = classifier.load_model(f"./models/{service_type}/classifier/cnn.pth")
+    model = load_model(f"./models/{service_type}/classifier.h5")
 
     @server.route(f"/{service_type}-classifier", methods=["POST"])
     def tongue_classfier():
@@ -26,8 +27,14 @@ def get_post(server):
         elif format == 'path':
             file_path = request.form.get('path')
 
-        seg_img = segmentation.predict(seg_model, file_path) # 獲得舌頭切割後的圖片
-        predict_class = classifier.predict(cls_model, classes, seg_img)
+        img = Image.open(file_path) 
+        img = img.resize((128, 128))
+        img = np.array(img) / 255.0
+        img = np.expand_dims(img, axis=0)
+
+        predictions = model.predict(img)
+        prediction_label = np.argmax(predictions[0])
+        predict_class = classes[prediction_label]
         output_url = f"https://{globals.config['domain_name']}/assets/{service_type}/img/{predict_class}.png"
         
         # Insert record to database
