@@ -1,5 +1,5 @@
-import PIL.Image
 import numpy as np
+from PIL import Image
 from flask import request, json
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.resnet import preprocess_input
@@ -25,7 +25,7 @@ def get_post(server):
         elif format == 'path':
             file_path = request.form.get('path')
 
-        image = PIL.Image.open(file_path).convert("RGB")
+        image = Image.open(file_path).convert("RGB")
         image = image.resize(size)
         image = np.expand_dims(np.array(image), axis=0) # / 255
         image = preprocess_input(image)

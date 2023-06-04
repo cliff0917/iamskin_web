@@ -34,8 +34,8 @@ def get_post(server):
         img = np.expand_dims(img, axis=0)
 
         predictions = model.predict(img)
-        prediction_label = np.argmax(predictions[0])
-        predict_class = classes[prediction_label]
+        predict_label = np.argmax(predictions[0])
+        predict_class = classes[predict_label]
         output_url = f"https://{globals.config['domain_name']}/assets/{service_type}/img/{predict_class}.png"
         
         # Insert record to database
