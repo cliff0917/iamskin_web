@@ -2,3 +2,4 @@
 rm iamskin.db 2> /dev/null
 rm -rf assets/web/*/ 2> /dev/null
 rm -rf assets/linebot/*/ 2> /dev/null
+sh restart.sh
