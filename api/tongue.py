@@ -19,6 +19,7 @@ def get_post(server):
     def tongue_classfier():
         # Receive request.
         format = request.form.get('format')
+        size = (128, 128)
         upload_time, file_name = '', ''
 
         if format == 'upload':
@@ -28,7 +29,7 @@ def get_post(server):
             file_path = request.form.get('path')
 
         img = Image.open(file_path) 
-        img = img.resize((128, 128))
+        img = img.resize(size)
         img = np.array(img) / 255.0
         img = np.expand_dims(img, axis=0)
 

@@ -1,8 +1,8 @@
 import PIL.Image
 import numpy as np
-import os, cv2
 from flask import request, json
 from tensorflow.keras.models import load_model
+from tensorflow.keras.applications.resnet import preprocess_input
 
 import globals
 from utils import mobile, database
@@ -25,9 +25,10 @@ def get_post(server):
         elif format == 'path':
             file_path = request.form.get('path')
 
-        image = cv2.imread(file_path)
-        image = cv2.resize(image, size)
+        image = PIL.Image.open(file_path).convert("RGB")
+        image = image.resize(size)
         image = np.expand_dims(np.array(image), axis=0) # / 255
+        image = preprocess_input(image)
 
         # Prediction summary.
         classification = {"dry": 0.0, "oily": 0.0, "sensitive": 0.0}
