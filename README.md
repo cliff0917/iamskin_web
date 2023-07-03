@@ -28,3 +28,6 @@ tmux a -t web
 ## 更新 linebot 的 richmenu
 - 用新的 richmenu png 覆蓋掉 `rich_menu/richmenu.png`
 - 執行 `python rich_menu/richmenu.py`
+
+## 如果 server 有在運作卻收不到 request
+- 更新 openssl `sudo apt-get update && sudo apt-get install openssl`
