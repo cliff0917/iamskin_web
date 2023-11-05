@@ -1,5 +1,5 @@
 {
-    "domain_name": "iamskin.tk",
+    "domain_name": "iamskin-linebot.tk",
     "db": "iamskin.db",
     "chinese": {
         "Skin": {"tutorial": "肌膚", "normal": "膚質", "predict_text": "類型"},
@@ -20,7 +20,7 @@
             "file_path": "models.zip"
         },
         "client_secret": {
-            "id": "1c_lOh_BT7JNbAR17in1UftwL1HvS9Cje",
+            "id": "19Rd7SOeVDr-a3hpl3Hs9sNXy4uGkmb4I",
             "file_path": "client_secret.json"
         }
     }
